@@ -1,0 +1,116 @@
+		  CHANGES IN R2SWF VERSION 0.5
+
+NEW FEATURES
+
+    o A SWF device for R through swf()
+
+
+BUG FIXES
+
+    o Take care of absolute and relative paths of files
+    o Remove "outdir" argument from dev2swf()
+
+
+
+
+
+		  CHANGES IN R2SWF VERSION 0.4-1
+
+BUG FIXES
+
+    o Update zlib to 1.2.8
+    o Update libpng to 1.6.2
+    o Add freetype 2.5.0
+    o Update libming to 0.4.5
+    o Fix several memory leak problems
+    o Use absolute paths for dev2swf(), swf2html() etc.
+    o HTML file created by swf2html() will have a copy of the SWF file
+      in the same directory
+
+
+
+
+
+		  CHANGES IN R2SWF VERSION 0.4
+
+NEW FEATURES
+
+    o A new function file2swf() as a wrapper of image2swf() and
+      svg2swf()
+
+    o swf2html() uses a simple <embed> tag instead of the long ugly old
+      <object> tag to write the Flash file in HTML; it also gained a new
+      argument 'fragment' to decide whether to return an HTML fragment or
+      a complete HTML document
+
+
+
+
+
+		  CHANGES IN R2SWF VERSION 0.3-1
+
+NEW FEATURES
+
+    o Windows version of R supports svg() since 2.14.0.
+      Now svg2swf() also accepts SVG files created by svg().
+    
+    o dev2swf() now supports svg() device
+
+
+
+
+
+		  CHANGES IN R2SWF VERSION 0.3-0
+
+NEW FEATURES
+
+    o Allow users to set the background color of the output SWF file
+
+    o Re-design the arguments list of image2swf() and svg2swf()
+      for ease of use
+
+BUG FIXES
+
+    o (Internal) Use a more appropriate way to insert frames in a SWF file
+
+
+
+
+
+		  CHANGES IN R2SWF VERSION 0.2-2
+
+BUG FIXES
+
+    o Fix Makefile errors
+
+
+
+
+
+		  CHANGES IN R2SWF VERSION 0.2-1
+
+BUG FIXES
+
+    o Fix compilation errors in Windows
+
+
+
+
+
+		  CHANGES IN R2SWF VERSION 0.2-0
+
+NEW FEATURES
+
+    o svg2swf() to convert SVG files to a Flash animation
+
+
+
+
+
+		  CHANGES IN R2SWF VERSION 0.1-0
+
+NEW FEATURES
+
+    o image2swf() and dev2swf() to convert png/jpeg files to a Flash animation
+
+    o swf2html() to embed a Flash file into an HTML page
