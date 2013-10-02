@@ -1,10 +1,8 @@
-ZLIBINC = ../../zlib
-ZLIBLIB = ../../zlib
-ZLIB = $(ZLIBLIB)/libz.a
+ZLIBINC = ../../include
 
-LIBPNGINC = ../../libpng
-LIBPNGLIB = ../../libpng
-LIBPNG = $(LIBPNGLIB)/libpng.a
+LIBPNGINC = ../../include
+
+FTINC = ../../include
 
 CP = cp -fp
 RM = rm -f

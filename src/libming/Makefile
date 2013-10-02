@@ -1,15 +1,8 @@
-ZLIBINC = ../zlib
-ZLIBLIB = ../zlib
-ZLIB = $(ZLIBLIB)/libz.a
+ZLIBINC = ../include
 
-LIBPNGINC = ../libpng
-LIBPNGLIB = ../libpng
-LIBPNG = $(LIBPNGLIB)/libpng.a
+LIBPNGINC = ../include
 
-FTCONFINC = ../freetype/config
-FTINC = ../freetype/include
-FTLIB = ../freetype
-FT = $(FTLIB)/libfreetype.a
+FTINC = ../include
 
 CP = cp -fp
 RM = rm -f

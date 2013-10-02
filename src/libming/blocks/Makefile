@@ -1,15 +1,8 @@
-ZLIBINC = ../../zlib
-ZLIBLIB = ../../zlib
-ZLIB = $(ZLIBLIB)/libz.a
+ZLIBINC = ../../include
 
-LIBPNGINC = ../../libpng
-LIBPNGLIB = ../../libpng
-LIBPNG = $(LIBPNGLIB)/libpng.a
+LIBPNGINC = ../../include
 
-FTCONFINC = ../../freetype/config
-FTINC = ../../freetype/include
-FTLIB = ../../freetype
-FT = $(FTLIB)/libfreetype.a
+FTINC = ../../include
 
 CP = cp -fp
 RM = rm -f
@@ -31,7 +24,7 @@ OBJS = action.o binary.o bitmap.o block.o browserfont.o \
 all: $(OBJS)
 
 .c.o:
-	$(CC) $(CFLAGS) -I$(ZLIBINC) -I$(LIBPNGINC) -I$(FTCONFINC) -I$(FTINC) $(CPPFLAGS) -I. -I.. -c $< -o $@
+	$(CC) $(CFLAGS) -I$(ZLIBINC) -I$(LIBPNGINC) -I$(FTINC) $(CPPFLAGS) -I. -I.. -c $< -o $@
 
 clean:
 	$(RM) *.o
