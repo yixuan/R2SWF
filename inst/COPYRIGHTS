@@ -1,0 +1,42 @@
+R2SWF is built upon several other projects, and part of the code is copied
+or derived from these projects.
+
+
+The source files in "src/libming" directory are derived and modified from
+the Ming project (http://www.libming.org/). Ming is released under LGPL,
+and the command-line actionscript compiler is released under GPL. See
+src/libming/AUTHORS for more information about the original authors of Ming.
+See src/libming/LICENSE and libming/LICENSE_GPL2 for details of the
+licenses. See src/libming/README to get general information about the
+Ming library.
+Ming is under Copyright (C) 2001 Opaque Industries - http://www.opaque.net/
+
+
+The four files in src/ subdirectory,
+
+rsvg-bpath-util.h
+rsvg-bpath-util.c
+rsvg-path.h
+rsvg-path.c
+
+are derived and modified from librsvg (https://wiki.gnome.org/LibRsvg),
+which is licensed under GPL.
+
+rsvg-bpath-util.h and rsvg-path.h are under
+Copyright (C) 2000 Eazel, Inc. and
+Copyright (C) 2002 Dom Lachowicz <cinamod@hotmail.com>.
+rsvg-bpath-util.c and rsvg-path.c are under
+Copyright (C) 2000 Eazel, Inc.
+
+
+The Bitstream Vera fonts included in the font/ subdirectory are under
+Copyright (c) 2003 by Bitstream, Inc.
+
+The Droid fonts included in the font/ subdirectory are designed by
+Steve Matteson and Ascender Corp., and licensed under Apache License.
+
+The Lato fonts included in the font/ subdirectory are under
+Copyright (c) 2010-2013 by tyPoland Lukasz Dziedzic and licensed under
+the SIL Open Font License, Version 1.1.
+
+See the license files under font/ subdirectory for details.
