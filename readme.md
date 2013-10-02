@@ -21,7 +21,24 @@ SWF file.
 - freetype     [http://www.freetype.org/](http://www.freetype.org/)
 - libming      [http://www.libming.org/](http://www.libming.org/)
 
-However, the source code of the dependent libraries (with minor modifications) are included in the package, so you don't need to install them by yourself.
+<del>However, the source code of the dependent libraries (with minor modifications) are included in the package, so you don't need to install them by yourself.</del>
+
+CRAN does not allow the package to include source code of `zlib` and
+`libpng` for security issues, and suggests to use `freetype` in the
+system if possible. So in the current version of `R2SWF`, I removed those
+source code and you may need to install them by yourself.
+
+For Debian/Ubuntu users, the command to install dependent libraries is
+
+```
+sudo apt-get install zlib1g-dev libpng12-dev libfreetype6-dev
+```
+
+For rpm based systems (e.g. Fedora), try to run
+
+```
+sudo yum install zlib-devel libpng-devel freetype-devel
+```
 
 To install the package here:
 

@@ -1,8 +1,8 @@
 Package: R2SWF
-Version: 0.5
+Version: 0.6
 Title: Convert R Graphics to Flash Animations
-Date: 2013-09-11
-Author: Yixuan Qiu, Yihui Xie and Cameron Bracken
+Date: 2013-10-01
+Author: Yixuan Qiu, Yihui Xie, Cameron Bracken and authors of included softwares. See file COPYRIGHTS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
 Suggests:
     XML,
@@ -13,6 +13,7 @@ Description: This package uses the Ming library
     directly through familiar plotting functions like plot(),
     or convert images of other formats (SVG, PNG, JPEG) into SWF.
 License: GPL
+SystemRequirements: zlib, libpng, FreeType
 URL: http://github.com/yixuan/R2SWF
 BugReports: https://github.com/yixuan/R2SWF/issues
 Collate:
