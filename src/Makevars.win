@@ -1,0 +1,19 @@
+PKG_CPPFLAGS = -I./include -I./libming
+PKG_LIBS = -L./libming -lming -L.${R_ARCH} -lfreetype -lpng -lz
+
+
+.PHONY: all clean
+
+all: $(SHLIB)
+
+$(SHLIB): libming/libming.a
+
+libming/libming.a:
+	cd libming && $(MAKE) all CC="$(CC)" AR="$(AR)" CPPFLAGS="$(R_XTRA_CPPFLAGS)" CFLAGS="$(ALL_CFLAGS)"
+
+clean:
+	$(RM) *.o
+	$(RM) *.dll
+	$(RM) *.so
+	cd libming && $(MAKE) clean
+
