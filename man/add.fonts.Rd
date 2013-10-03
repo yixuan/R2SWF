@@ -62,38 +62,44 @@
 }
 \examples{
 \dontrun{
-# Example: download the font file of WenQuanYi Micro Hei,
-#          add it to SWF device, and use it to draw text in swf()
-# WenQuanYi Micro Hei is an open source and high quality Chinese (and CJKV) font
-wd = setwd(tempdir());
-ft.url = "http://sourceforge.net/projects/wqy/files/wqy-microhei";
+## Example: download the font file of WenQuanYi Micro Hei,
+##          add it to SWF device, and use it to draw text in swf().
+##          WenQuanYi Micro Hei is an open source and high quality
+##          Chinese (and CJKV) font.
+
+wd = setwd(tempdir())
+ft.url = "http://sourceforge.net/projects/wqy/files/wqy-microhei"
 ft.url = paste(ft.url, "0.2.0-beta/wqy-microhei-0.2.0-beta.tar.gz",
-               sep = "/");
-download.file(ft.url, basename(ft.url));
-# Extract it into R2SWF/fonts and add the directory to search path
-ft.dir = system.file("fonts", package = "R2SWF");
-untar(basename(ft.url), exdir = ft.dir, compressed = "gzip");
-font.paths(file.path(ft.dir, "wqy-microhei"));
-# Register this font file and assign the family name "wqy".
-# Other font faces will be the same with regular by default
-add.fonts("wqy", regular = "wqy-microhei.ttc");
+               sep = "/")
+download.file(ft.url, basename(ft.url))
 
-# A more concise way to add font is using absolute path,
-# without calling font.paths()
-# add.fonts("wqy", file.path(ft.dir, "wqy-microhei/wqy-microhei.ttc"));
+## Extract and add the directory to search path
+untar(basename(ft.url), compressed = "gzip")
+font.paths("wqy-microhei")
 
-# List available font families
-list.fonts();
-# Now it shows that we can use the family "wqy" in swf()
-swf("testfont.swf");
-# Select font family globally
-op = par(family = "serif", font.lab = 2);
-# Inline selecting font
-plot(1, type = "n");
-text(1, 1, intToUtf8(c(20013, 25991)), family = "wqy", font = 1, cex = 2);
-dev.off();
-swf2html("testfont.swf");
-setwd(wd);
+## Register this font file and assign the family name "wqy"
+## Other font faces will be the same with regular by default
+add.fonts("wqy", regular = "wqy-microhei.ttc")
+
+## A more concise way to add font is using absolute path,
+## without calling font.paths()
+# add.fonts("wqy", "wqy-microhei/wqy-microhei.ttc")
+
+## List available font families
+list.fonts()
+
+## Now it shows that we can use the family "wqy" in swf()
+swf("testfont.swf")
+
+## Select font family globally
+op = par(family = "serif", font.lab = 2)
+## Inline selecting font
+plot(1, type = "n")
+text(1, 1, intToUtf8(c(20013, 25991)), family = "wqy", font = 1, cex = 2)
+
+dev.off()
+swf2html("testfont.swf")
+setwd(wd)
 }
 }
 \author{
