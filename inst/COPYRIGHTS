@@ -32,11 +32,11 @@ Copyright (C) 2000 Eazel, Inc.
 The Bitstream Vera fonts included in the font/ subdirectory are under
 Copyright (c) 2003 by Bitstream, Inc.
 
-The Droid fonts included in the font/ subdirectory are designed by
+The Droid fonts included in the fonts/ subdirectory are designed by
 Steve Matteson and Ascender Corp., and licensed under Apache License.
 
 The Lato fonts included in the font/ subdirectory are under
 Copyright (c) 2010-2013 by tyPoland Lukasz Dziedzic and licensed under
 the SIL Open Font License, Version 1.1.
 
-See the license files under font/ subdirectory for details.
+See the license files under fonts/ subdirectory for details.
