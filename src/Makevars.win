@@ -15,5 +15,6 @@ clean:
 	$(RM) *.o
 	$(RM) *.dll
 	$(RM) *.so
+	$(RM) *.dylib
 	cd libming && $(MAKE) clean
 
