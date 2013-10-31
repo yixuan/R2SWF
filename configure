@@ -2631,6 +2631,9 @@ $as_echo_n "checking whether pkg-config could find zlib... " >&6; }
 $as_echo "yes" >&6; }
         ZLIB_CPPFLAGS=`"${PKGCONF}" --cflags zlib`
         ZLIB_LIBS=`"${PKGCONF}" --libs zlib`
+    else
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
     fi
     # Check libpng
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether pkg-config could find libpng" >&5
@@ -2640,6 +2643,9 @@ $as_echo_n "checking whether pkg-config could find libpng... " >&6; }
 $as_echo "yes" >&6; }
         LIBPNG_CPPFLAGS=`"${PKGCONF}" --cflags libpng`
         LIBPNG_LIBS=`"${PKGCONF}" --libs libpng`
+    else
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
     fi
     # Check freetype2
     { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether pkg-config could find freetype2" >&5
@@ -2649,6 +2655,9 @@ $as_echo_n "checking whether pkg-config could find freetype2... " >&6; }
 $as_echo "yes" >&6; }
         FT_CPPFLAGS=`"${PKGCONF}" --cflags freetype2`
         FT_LIBS=`"${PKGCONF}" --libs freetype2`
+    else
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
     fi
 fi
 

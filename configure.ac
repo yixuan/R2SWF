@@ -24,6 +24,8 @@ if test -n "${PKGCONF}"; then
         AC_MSG_RESULT([yes])
         ZLIB_CPPFLAGS=`"${PKGCONF}" --cflags zlib`
         ZLIB_LIBS=`"${PKGCONF}" --libs zlib`
+    else
+        AC_MSG_RESULT([no])
     fi
     # Check libpng
     AC_MSG_CHECKING([whether pkg-config could find libpng])
@@ -31,6 +33,8 @@ if test -n "${PKGCONF}"; then
         AC_MSG_RESULT([yes])
         LIBPNG_CPPFLAGS=`"${PKGCONF}" --cflags libpng`
         LIBPNG_LIBS=`"${PKGCONF}" --libs libpng`
+    else
+        AC_MSG_RESULT([no])
     fi
     # Check freetype2
     AC_MSG_CHECKING([whether pkg-config could find freetype2])
@@ -38,6 +42,8 @@ if test -n "${PKGCONF}"; then
         AC_MSG_RESULT([yes])
         FT_CPPFLAGS=`"${PKGCONF}" --cflags freetype2`
         FT_LIBS=`"${PKGCONF}" --libs freetype2`
+    else
+        AC_MSG_RESULT([no])
     fi
 fi
 
