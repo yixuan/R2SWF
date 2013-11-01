@@ -35,14 +35,13 @@ was originally written by the authors listed below:
   Albrecht Kleine
 and modified by Yixuan Qiu.
 
-The author of the Bitstream Vera fonts included in the fonts/
-subdirectory is Bitstream, Inc.
-
-The Droid fonts included in the fonts/ subdirectory are designed by
-Steve Matteson and Ascender Corp.
-
-The Lato fonts included in the fonts/ subdirectory are designed by
-tyPoland Lukasz Dziedzic.
+The Liberation Fonts included in the fonts/ subdirectory are developed by
+  Caius Chance
+  Denis Jacquerye
+  Herbert Duerr
+  Pravin Satpute
+  Steve Matteson
+  Mark Webbink
 
 Other part of this package is written by Yixuan Qiu, Yihui Xie and
 Cameron Bracken.

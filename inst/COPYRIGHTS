@@ -26,10 +26,6 @@ rsvg-bpath-util.c and rsvg-path.c are under
 Copyright (C) 2000 Eazel, Inc.
 
 
-The Bitstream Vera fonts included in the fonts/ subdirectory are under
-Copyright (c) 2003 by Bitstream, Inc.
-
-
-The Lato fonts included in the fonts/ subdirectory are under
-Copyright (c) 2010-2013 by tyPoland Lukasz Dziedzic
+The Liberation Fonts included in the fonts/ subdirectory are under
+Copyright © 2007-2011 Red Hat, Inc.
 
