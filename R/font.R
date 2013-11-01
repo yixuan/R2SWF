@@ -252,20 +252,20 @@ add.fonts = function(family,
 {
     packageStartupMessage("Loading fonts...");
 
-    sans.r = system.file("fonts", "Lato-Reg.ttf", package = "R2SWF");
-    sans.b = system.file("fonts", "Lato-Bol.ttf", package = "R2SWF");
-    sans.i = system.file("fonts", "Lato-RegIta.ttf", package = "R2SWF");
-    sans.bi = system.file("fonts", "Lato-BolIta.ttf", package = "R2SWF");
+    sans.r = system.file("fonts", "LiberationSans-Regular.ttf", package = "R2SWF");
+    sans.b = system.file("fonts", "LiberationSans-Bold.ttf", package = "R2SWF");
+    sans.i = system.file("fonts", "LiberationSans-Italic.ttf", package = "R2SWF");
+    sans.bi = system.file("fonts", "LiberationSans-BoldItalic.ttf", package = "R2SWF");
     
-    serif.r = system.file("fonts", "VeraSerif.ttf", package = "R2SWF");
-    serif.b = system.file("fonts", "VeraSerif-Bold.ttf", package = "R2SWF");
-    serif.i = system.file("fonts", "DroidSerif-Italic.ttf", package = "R2SWF");
-    serif.bi = system.file("fonts", "DroidSerif-BoldItalic.ttf", package = "R2SWF");
+    serif.r = system.file("fonts", "LiberationSerif-Regular.ttf", package = "R2SWF");
+    serif.b = system.file("fonts", "LiberationSerif-Bold.ttf", package = "R2SWF");
+    serif.i = system.file("fonts", "LiberationSerif-Italic.ttf", package = "R2SWF");
+    serif.bi = system.file("fonts", "LiberationSerif-BoldItalic.ttf", package = "R2SWF");
     
-    mono.r = system.file("fonts", "VeraMono.ttf", package = "R2SWF");
-    mono.b = system.file("fonts", "VeraMoBd.ttf", package = "R2SWF");
-    mono.i = system.file("fonts", "VeraMoIt.ttf", package = "R2SWF");
-    mono.bi = system.file("fonts", "VeraMoBI.ttf", package = "R2SWF");
+    mono.r = system.file("fonts", "LiberationMono-Regular.ttf", package = "R2SWF");
+    mono.b = system.file("fonts", "LiberationMono-Bold.ttf", package = "R2SWF");
+    mono.i = system.file("fonts", "LiberationMono-Italic.ttf", package = "R2SWF");
+    mono.bi = system.file("fonts", "LiberationMono-BoldItalic.ttf", package = "R2SWF");
     
     add.fonts("sans", sans.r, sans.b, sans.i, sans.bi, NULL);
     add.fonts("serif", serif.r, serif.b, serif.i, serif.bi, NULL);
