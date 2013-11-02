@@ -12,7 +12,7 @@ if [ ${ready} != yes ]; then
     if [ ! -e src/R2SWF-dep-current-win.tar.gz ]; then
         echo "  cannot find dependent libraries"
         echo "  try to download them"
-        ${R_HOME}/bin/R --vanilla --slave -e "downloader::download('https://bitbucket.org/yixuan/cn/downloads/R2SWF-dep-current-win.tar.gz', 'src/R2SWF-dep-current-win.tar.gz', mode = 'wb')"
+        ${R_HOME}/bin/R --vanilla --slave -e "download.file('http://rlib.eu.pn/R2SWF-dep-current-win.tar.gz.fake', 'src/R2SWF-dep-current-win.tar.gz', mode = 'wb')"
     fi
 
     if [ ! -e src/R2SWF-dep-current-win.tar.gz ]; then

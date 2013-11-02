@@ -7,8 +7,7 @@ Author: Yixuan Qiu, Yihui Xie, Cameron Bracken and authors of included
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
 Suggests:
     XML,
-    Cairo,
-    downloader
+    Cairo
 Description: This package uses the Ming library
     (http://www.libming.org/) to create Flash animations.
     Users can either use the SWF device swf() to generate SWF file
