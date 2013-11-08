@@ -227,16 +227,16 @@ add.fonts = function(family,
                    PACKAGE = "R2SWF");
     
     i = if(is.null(italic)) r
-    else .Call("swfLoadFont", .check.font.path(italic, "italic"),
-               PACKAGE = "R2SWF");
+        else .Call("swfLoadFont", .check.font.path(italic, "italic"),
+                   PACKAGE = "R2SWF");
     
     bi = if(is.null(bolditalic)) r
-    else .Call("swfLoadFont", .check.font.path(bolditalic, "bolditalic"),
-               PACKAGE = "R2SWF");
+         else .Call("swfLoadFont", .check.font.path(bolditalic, "bolditalic"),
+                    PACKAGE = "R2SWF");
     
     s = if(is.null(symbol)) r
-    else .Call("swfLoadFont", .check.font.path(symbol, "symbol"),
-               PACKAGE = "R2SWF");
+        else .Call("swfLoadFont", .check.font.path(symbol, "symbol"),
+                   PACKAGE = "R2SWF");
     
     lst = .pkg.env$.font.list;
     newfamily = list(regular = r, bold = b,
@@ -252,20 +252,36 @@ add.fonts = function(family,
 {
     packageStartupMessage("Loading fonts...");
 
-    sans.r = system.file("fonts", "LiberationSans-Regular.ttf", package = "R2SWF");
-    sans.b = system.file("fonts", "LiberationSans-Bold.ttf", package = "R2SWF");
-    sans.i = system.file("fonts", "LiberationSans-Italic.ttf", package = "R2SWF");
-    sans.bi = system.file("fonts", "LiberationSans-BoldItalic.ttf", package = "R2SWF");
+    lib.loc = if("R2SWF" %in% loadedNamespaces())
+                  dirname(getNamespaceInfo("R2SWF", "path"))
+              else NULL;
+
+    sans.r = system.file("fonts", "LiberationSans-Regular.ttf",
+                         package = "R2SWF", lib.loc = lib.loc);
+    sans.b = system.file("fonts", "LiberationSans-Bold.ttf",
+                         package = "R2SWF", lib.loc = lib.loc);
+    sans.i = system.file("fonts", "LiberationSans-Italic.ttf",
+                         package = "R2SWF", lib.loc = lib.loc);
+    sans.bi = system.file("fonts", "LiberationSans-BoldItalic.ttf",
+                          package = "R2SWF", lib.loc = lib.loc);
     
-    serif.r = system.file("fonts", "LiberationSerif-Regular.ttf", package = "R2SWF");
-    serif.b = system.file("fonts", "LiberationSerif-Bold.ttf", package = "R2SWF");
-    serif.i = system.file("fonts", "LiberationSerif-Italic.ttf", package = "R2SWF");
-    serif.bi = system.file("fonts", "LiberationSerif-BoldItalic.ttf", package = "R2SWF");
+    serif.r = system.file("fonts", "LiberationSerif-Regular.ttf",
+                          package = "R2SWF", lib.loc = lib.loc);
+    serif.b = system.file("fonts", "LiberationSerif-Bold.ttf",
+                          package = "R2SWF", lib.loc = lib.loc);
+    serif.i = system.file("fonts", "LiberationSerif-Italic.ttf",
+                          package = "R2SWF", lib.loc = lib.loc);
+    serif.bi = system.file("fonts", "LiberationSerif-BoldItalic.ttf",
+                           package = "R2SWF", lib.loc = lib.loc);
     
-    mono.r = system.file("fonts", "LiberationMono-Regular.ttf", package = "R2SWF");
-    mono.b = system.file("fonts", "LiberationMono-Bold.ttf", package = "R2SWF");
-    mono.i = system.file("fonts", "LiberationMono-Italic.ttf", package = "R2SWF");
-    mono.bi = system.file("fonts", "LiberationMono-BoldItalic.ttf", package = "R2SWF");
+    mono.r = system.file("fonts", "LiberationMono-Regular.ttf",
+                         package = "R2SWF", lib.loc = lib.loc);
+    mono.b = system.file("fonts", "LiberationMono-Bold.ttf",
+                         package = "R2SWF", lib.loc = lib.loc);
+    mono.i = system.file("fonts", "LiberationMono-Italic.ttf",
+                         package = "R2SWF", lib.loc = lib.loc);
+    mono.bi = system.file("fonts", "LiberationMono-BoldItalic.ttf",
+                          package = "R2SWF", lib.loc = lib.loc);
     
     add.fonts("sans", sans.r, sans.b, sans.i, sans.bi, NULL);
     add.fonts("serif", serif.r, serif.b, serif.i, serif.bi, NULL);
