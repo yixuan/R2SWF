@@ -4,6 +4,7 @@ BUG FIXES
 
     o Remove configure.win so it should be built on both architectures
       on Windows
+    o Fix loading problem on R 2.15.3
 
 
 
