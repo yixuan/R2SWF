@@ -230,7 +230,7 @@ Rboolean swfSetupSWFInfo(pswfDesc swfInfo, const char *filename,
 void swfActivate(pDevDesc dd) {}
 void swfDeactivate(pDevDesc dd) {}
 
-/* We do the following when open a new page (frame):
+/* We do the following when opening a new page (frame):
    1. Add all pending shape objects to the current frame
    2. Add current frame to the movie
    3. Advance movie by 1 frame
