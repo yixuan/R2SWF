@@ -18,10 +18,10 @@
 #' swf2html(output)
 swf2html = function(swf.file, output, width = 480, height = 480, fragment = FALSE) {
   if (!file.exists(swf.file)) stop("swf file does not exist")
-  if (missing(output)) output = sub('\\.swf$', '.html', swf.file)
+  if (missing(output)) output = basename(sub('\\.swf$', '.html', swf.file))
   size = paste(c(sprintf('width="%s"', width), sprintf('height="%s"', height)), collapse = ' ')
   html = sprintf('<embed %s name="plugin" src="%s" type="application/x-shockwave-flash">',
-                 size, basename(swf.file))
+                 size, swf.file)
   if (!fragment) html = paste('<html>
 <head>
   <title>Flash animations made by the R2SWF package</title>
@@ -35,9 +35,12 @@ swf2html = function(swf.file, output, width = 480, height = 480, fragment = FALS
 ')
   if (!identical(output, FALSE)) cat(html, file = output)
   if (is.character(output) && file.exists(output)) {
+      if (dirname(output) != '.') {
+          file.rename(output, basename(output))
+          output = basename(output)
+      }
     message('output at ', normalizePath(output))
-    file.copy(swf.file, file.path(dirname(output), basename(swf.file)))
-    if (interactive()) try(browseURL(normalizePath(output)), silent = TRUE)
+    if (interactive()) try(browseURL(output), silent = TRUE)
   }
   invisible(html)
 }
