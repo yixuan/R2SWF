@@ -40,7 +40,7 @@ swf2html = function(swf.file, output, width = 480, height = 480, fragment = FALS
           output = basename(output)
       }
     message('output at ', normalizePath(output))
-    if (interactive()) try(browseURL(normalizePath(output)), silent = TRUE)
+    if (interactive()) try(browseURL(output), silent = TRUE)
   }
   invisible(html)
 }
