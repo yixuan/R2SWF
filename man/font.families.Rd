@@ -1,8 +1,11 @@
 \name{font.families}
 \alias{font.families}
+\alias{list.fonts}
 \title{List available font families for SWF device}
 \usage{
   font.families()
+
+  list.fonts()
 }
 \value{
   A character vector of available font family names
@@ -11,6 +14,10 @@
   This function lists font families currently available
   that can be used by SWF device through
   \code{par("family")}.
+  
+  \code{list.fonts} is the old name
+  of \code{font.families} and should \bold{NOT} be used in
+  any new code.
 }
 \details{
   By default there are three font families loaded

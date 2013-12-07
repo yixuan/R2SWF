@@ -1,8 +1,12 @@
 \name{font.add}
+\alias{add.fonts}
 \alias{font.add}
 \title{Add new font families for SWF device}
 \usage{
   font.add(family, regular, bold = NULL, italic = NULL,
+    bolditalic = NULL, symbol = NULL)
+
+  add.fonts(family, regular, bold = NULL, italic = NULL,
     bolditalic = NULL, symbol = NULL)
 }
 \arguments{
@@ -28,6 +32,10 @@
   This function registers new font families that can be
   used by SWF device. Currently supported formats are
   ttf/ttc fonts.
+  
+  \code{add.fonts} is the old name of
+  \code{font.add} and should \bold{NOT} be used in any new
+  code.
 }
 \details{
   In R graphics device, there are two parameters combined

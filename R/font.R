@@ -64,6 +64,8 @@ font.paths = function(new)
 #' 
 #' This function lists font families currently available that can be
 #' used by SWF device through \code{par("family")}.
+#' \code{list.fonts} is the old name of \code{font.families} and should
+#' \bold{NOT} be used in any new code.
 #' 
 #' @return A character vector of available font family names
 #' 
@@ -87,8 +89,14 @@ font.families = function()
 {
     return(names(.pkg.env$.font.list));
 }
-list.fonts = font.families;
 
+#' @rdname font.families
+#' @export
+list.fonts = function()
+{
+    warning("list.fonts() is deprecated. use font.families() instead");
+    font.families();
+}
 #' List available font files in the search path
 #' 
 #' This function lists font files in the search path that can be
@@ -144,6 +152,8 @@ font.files = function()
 #' 
 #' This function registers new font families that can be used by SWF
 #' device. Currently supported formats are ttf/ttc fonts.
+#' \code{add.fonts} is the old name of \code{font.add} and should
+#' \bold{NOT} be used in any new code.
 #' 
 #' @param family a character string of maximum 200-byte size,
 #'               indicating the family name of the fonts you want to add.
@@ -233,11 +243,11 @@ font.files = function()
 #' }
 #' 
 font.add = function(family,
-                     regular,
-                     bold = NULL,
-                     italic = NULL,
-                     bolditalic = NULL,
-                     symbol = NULL)
+                    regular,
+                    bold = NULL,
+                    italic = NULL,
+                    bolditalic = NULL,
+                    symbol = NULL)
 {
     family = as.character(family)[1];
     # Shouldn't modify default fonts
@@ -278,7 +288,19 @@ font.add = function(family,
     
     invisible(font.families());
 }
-add.fonts = font.add;
+
+#' @rdname font.add
+#' @export
+add.fonts = function(family,
+                     regular,
+                     bold = NULL,
+                     italic = NULL,
+                     bolditalic = NULL,
+                     symbol = NULL)
+{
+    warning("add.fonts() is deprecated. use font.add() instead");
+    invisible(font.add(family, regular, bold, italic, bolditalic, symbol));
+}
 
 # use font.add() to add default font
 .add.default.fonts = function()
