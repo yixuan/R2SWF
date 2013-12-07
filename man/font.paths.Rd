@@ -31,9 +31,9 @@
   Yixuan Qiu <\url{http://yixuan.cos.name/}>
 }
 \seealso{
-  See \code{\link{add.fonts}()} for details about how
+  See \code{\link{font.add}()} for details about how
   \pkg{R2SWF} looks for font files. There is also a
   complete example showing the usage of these functions in
-  the help page of \code{\link{add.fonts}()}
+  the help page of \code{\link{font.add}()}
 }
 

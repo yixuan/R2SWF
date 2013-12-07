@@ -346,7 +346,7 @@ void swfSetFillStyle(SWFShape shape, const pGEcontext gc, pswfDesc swfInfo)
                                 R_GREEN(gc->fill),
                                 R_BLUE(gc->fill),
                                 R_ALPHA(gc->fill));
-    SWFShape_setRightFillStyle(shape, fill);
+    SWFShape_setLeftFillStyle(shape, fill);
     
     SWFArray_append(swfInfo->array, (SWFObject) fill);
 }

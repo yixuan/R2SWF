@@ -1,9 +1,14 @@
+# Environment to store several important variables
 .pkg.env = new.env();
+# Current font list, a list of pointers to freetype structures
 .pkg.env$.font.list = list();
+# All fonts previously added, used to free memories when exiting
 .pkg.env$.font.list.all = list();
+# Font search path
 .pkg.env$.font.path = character(0);
 
-.default.font.paths = function()
+# Add default font search paths
+.add.default.font.paths = function()
 {
     path = switch(Sys.info()[["sysname"]],
            Windows = normalizePath(file.path(Sys.getenv("windir"), "Fonts")),
@@ -36,10 +41,10 @@
 #'       their subdirectories
 #' }
 #' 
-#' @seealso See \code{\link{add.fonts}()} for details about how
+#' @seealso See \code{\link{font.add}()} for details about how
 #'          \pkg{R2SWF} looks for font files. There is also a
 #'          complete example showing the usage of these functions
-#'          in the help page of \code{\link{add.fonts}()}
+#'          in the help page of \code{\link{font.add}()}
 #' 
 #' @export
 #' 
@@ -64,27 +69,52 @@ font.paths = function(new)
 #' 
 #' @details By default there are three font families loaded automatically,
 #' i.e., "sans", "serif" and "mono". If you want to use other font
-#' families in SWF device, you need to call \code{\link{add.fonts}()}
+#' families in SWF device, you need to call \code{\link{font.add}()}
 #' to register new fonts by specifying a family name and corresponding
-#' font file paths. See \code{\link{add.fonts}()} for details about
+#' font file paths. See \code{\link{font.add}()} for details about
 #' what's the meaning of "family name" in this context, as well as
 #' a complete example of registering and using a new font.
 #' 
-#' @seealso \code{\link{add.fonts}()}
+#' @seealso \code{\link{font.add}()}
 #' 
 #' @export
 #' 
 #' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
 #' 
-#' @examples list.fonts()
+#' @examples font.families()
 #' 
-list.fonts = function()
+font.families = function()
 {
     return(names(.pkg.env$.font.list));
 }
+list.fonts = font.families;
 
+#' List available font files in the search path
+#' 
+#' This function lists font files in the search path that can be
+#' added to SWF device by \code{\link{font.add}()}.
+#'
+#' Currently supported formats are ttf/ttc fonts.
+#' 
+#' @return A character vector of available font filenames
+#' 
+#' @seealso \code{\link{font.paths}()}, \code{\link{font.add}()}
+#' 
+#' @export
+#' 
+#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' 
+#' @examples font.files()
+#' 
+font.files = function()
+{
+    return(list.files(font.paths(), "\\.tt[cf]$", ignore.case = TRUE));
+}
+
+# Check whether a specified path points to a font file
 .check.font.path = function(path, type)
 {
+    # If it really exists
     if(file.exists(path))
     {
         if(file.info(path)$isdir) {
@@ -92,6 +122,7 @@ list.fonts = function()
         } else return(path);
     }
     
+    # If it doesn't exist, search the file in the search paths
     filename = basename(path);
     search.paths = font.paths();
     found = FALSE;
@@ -139,7 +170,7 @@ list.fonts = function()
 #' 
 #' In SWF device, there are three default font families, sans, serif and mono,
 #' along with those 5 font faces, that can be used immediately. If you want
-#' to use other font families, you could call \code{add.fonts()} to register
+#' to use other font families, you could call \code{font.add()} to register
 #' new fonts. Notice that the \code{family} argument in this function can be
 #' an arbitrary string which doesn't need to be the real font name. You will
 #' use the specified family name in functions like \code{par(family = "myfont")}
@@ -178,14 +209,14 @@ list.fonts = function()
 #'
 #' ## Register this font file and assign the family name "wqy"
 #' ## Other font faces will be the same with regular by default
-#' add.fonts("wqy", regular = "wqy-microhei.ttc")
+#' font.add("wqy", regular = "wqy-microhei.ttc")
 #' 
-#' ## A more concise way to add font is using absolute path,
+#' ## A more concise way to add font is to give the path directly,
 #' ## without calling font.paths()
-#' # add.fonts("wqy", "wqy-microhei/wqy-microhei.ttc")
+#' # font.add("wqy", "wqy-microhei/wqy-microhei.ttc")
 #' 
 #' ## List available font families
-#' list.fonts()
+#' font.families()
 #'
 #' ## Now it shows that we can use the family "wqy" in swf()
 #' swf("testfont.swf")
@@ -201,7 +232,7 @@ list.fonts = function()
 #' setwd(wd)
 #' }
 #' 
-add.fonts = function(family,
+font.add = function(family,
                      regular,
                      bold = NULL,
                      italic = NULL,
@@ -211,10 +242,10 @@ add.fonts = function(family,
     family = as.character(family)[1];
     # Shouldn't modify default fonts
     if(family %in% c("sans", "serif", "mono") &
-           all(c("sans", "serif", "mono") %in% list.fonts()))
+           all(c("sans", "serif", "mono") %in% font.families()))
         stop("default font families('sans', 'serif', 'mono') cannot be modified");
-    # The maximum length for font family name is 200 bytes
     
+    # The maximum length for font family name is 200 bytes
     if(nchar(family, type = "bytes") > 200)
         stop("family name is too long (max 200 bytes)");
     
@@ -245,9 +276,11 @@ add.fonts = function(family,
     .pkg.env$.font.list = lst;
     .pkg.env$.font.list.all = c(.pkg.env$.font.list.all, newfamily);
     
-    invisible(list.fonts());
+    invisible(font.families());
 }
+add.fonts = font.add;
 
+# use font.add() to add default font
 .add.default.fonts = function()
 {
     packageStartupMessage("Loading fonts...");
@@ -283,9 +316,9 @@ add.fonts = function(family,
     mono.bi = system.file("fonts", "LiberationMono-BoldItalic.ttf",
                           package = "R2SWF", lib.loc = lib.loc);
     
-    add.fonts("sans", sans.r, sans.b, sans.i, sans.bi, NULL);
-    add.fonts("serif", serif.r, serif.b, serif.i, serif.bi, NULL);
-    add.fonts("mono", mono.r, mono.b, mono.i, mono.bi, NULL);
+    font.add("sans", sans.r, sans.b, sans.i, sans.bi, NULL);
+    font.add("serif", serif.r, serif.b, serif.i, serif.bi, NULL);
+    font.add("mono", mono.r, mono.b, mono.i, mono.bi, NULL);
     
     # We do some "hacks" here. For default families(sans, serif, mono),
     # we want to set their symbol fonts to be serif-italic
@@ -300,6 +333,7 @@ add.fonts = function(family,
     invisible(NULL);
 }
 
+# Free memories when exiting
 .clean.fonts = function()
 {
     lst = unique(unlist(.pkg.env$.font.list.all));
