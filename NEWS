@@ -1,3 +1,20 @@
+		  CHANGES IN R2SWF VERSION 0.7
+
+NEW FEATURES
+
+    o Add function font.files() to list available font files
+
+
+BUG FIXES
+
+    o Fix swf2html() to make it work properly with knitr hook hook_r2swf()
+    o Rename list.fonts() to font.families(), and add.fonts() to font.add().
+      Old function names are deprecated but kept for compatibility.
+
+
+
+
+
 		  CHANGES IN R2SWF VERSION 0.6-1
 
 BUG FIXES

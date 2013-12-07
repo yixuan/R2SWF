@@ -4,6 +4,7 @@ export(image2swf)
 export(svg2swf)
 export(swf2html)
 export(swf)
-export(font.paths)
-export(list.fonts)
-export(add.fonts)
+export(font.paths, font.families, font.files, font.add)
+# deprecated functions
+export(list.fonts, add.fonts)
+
