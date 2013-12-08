@@ -10,13 +10,19 @@
 # Add default font search paths
 .add.default.font.paths = function()
 {
-    path = switch(Sys.info()[["sysname"]],
-           Windows = normalizePath(file.path(Sys.getenv("windir"), "Fonts")),
-           Linux = list.dirs(c("/usr/share/fonts",
+    if(.Platform$OS.type == "windows") {
+        path = normalizePath(file.path(Sys.getenv("windir"), "Fonts"));
+    } else if(.Platform$OS.type == "unix") {
+        if(Sys.info()["sysname"] == "Darwin")
+        {
+            path = list.dirs(c("/Library/Fonts",
+                               "~/Library/Fonts"));
+        } else {
+            path = list.dirs(c("/usr/share/fonts",
                                "/usr/local/share/fonts",
-                               "~/.fonts")),
-           Darwin = list.dirs(c("/Library/Fonts",
-                                "~/Library/Fonts")));
+                               "~/.fonts"));
+        }
+    } else stop("unknown OS type");
     .pkg.env$.font.path = path;
 }
 
