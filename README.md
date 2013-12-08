@@ -70,12 +70,6 @@ image2swf(pngfiles, "R2SWF-ex1.swf", interval = 0.3)
 
 ```
 
-The output SWF is:
-
-<div align="center">
- <embed width="480" height="300" name="plugin" src="http://statr.me/files/R2SWF-ex1.swf" type="application/x-shockwave-flash"> 
-</div>
-
 Using `svg2swf` is pretty similar, except that the output animation contains vector graphics.
 
 ```r
@@ -93,10 +87,6 @@ svg2swf(svgfiles, "R2SWF-ex2.swf", interval = 0.3)
 
 ```
 
-<div align="center">
- <embed width="480" height="300" name="plugin" src="http://statr.me/files/R2SWF-ex2.swf" type="application/x-shockwave-flash"> 
-</div>
-
 The third example shows how to use the SWF device to create (rather than converting) SWF file directly.
 
 ```r
@@ -113,12 +103,8 @@ for(i in 1:100) {
 dev.off()
 ```
 
-<div align="center">
- <embed width="480" height="480" name="plugin" src="http://statr.me/files/R2SWF-ex3.swf" type="application/x-shockwave-flash"> 
-</div>
-
 In general, when using the SWF device, high-level plotting functions (e.g. `plot()`)
 will advance the movie by one frame, and low-level functions (`lines()`, `text()`, etc.)
-are effective to the current frame.
+are effective only to the current frame.
 
 
