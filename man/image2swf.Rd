@@ -2,8 +2,7 @@
 \alias{image2swf}
 \title{Convert bitmap images to SWF}
 \usage{
-  image2swf(input, output = "movie.swf", bgColor = "white",
-    interval = 1)
+image2swf(input, output = "movie.swf", bgColor = "white", interval = 1)
 }
 \arguments{
   \item{input}{the file names of the images to be
@@ -17,19 +16,19 @@
   animation frames}
 }
 \value{
-  The name of the generated swf file if successful.
+The name of the generated swf file if successful.
 }
 \description{
-  Given the file names of a sequence of images, this
-  function can convert them into a Flash file (.swf).
-  Supported input formats are jpg/jpeg and png. The two
-  formats are allowed to appear in the same sequence.
+Given the file names of a sequence of images, this function
+can convert them into a Flash file (.swf). Supported input
+formats are jpg/jpeg and png. The two formats are allowed
+to appear in the same sequence.
 }
 \details{
-  This function uses the Ming library
-  (\url{http://www.libming.org/}) to implement the
-  conversion. If you want to create a Flash file consisting
-  of vector graphics, use \code{\link{svg2swf}()} instead.
+This function uses the Ming library
+(\url{http://www.libming.org/}) to implement the
+conversion. If you want to create a Flash file consisting
+of vector graphics, use \code{\link{svg2swf}()} instead.
 }
 \examples{
 if(capabilities("png")) {
@@ -43,6 +42,6 @@ if(capabilities("png")) {
 }
 }
 \author{
-  Yixuan Qiu <\email{yixuan.qiu@cos.name}>
+Yixuan Qiu <\email{yixuan.qiu@cos.name}>
 }
 

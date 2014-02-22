@@ -2,8 +2,7 @@
 \alias{svg2swf}
 \title{Convert a sequence of SVG files to SWF file}
 \usage{
-  svg2swf(input, output = "movie.swf", bgColor = "white",
-    interval = 1)
+svg2swf(input, output = "movie.swf", bgColor = "white", interval = 1)
 }
 \arguments{
   \item{input}{the file names of the SVG files to be
@@ -17,22 +16,21 @@
   animation frames}
 }
 \value{
-  The name of the generated SWF file if successful.
+The name of the generated SWF file if successful.
 }
 \description{
-  Given the file names of a sequence of SVG files, this
-  function could convert them into a Flash file (.swf).
+Given the file names of a sequence of SVG files, this
+function could convert them into a Flash file (.swf).
 }
 \details{
-  This function uses the XML package in R and a subset of
-  librsvg (\url{http://librsvg.sourceforge.net/}) to parse
-  the SVG file, and uses the Ming library
-  (\url{http://www.libming.org/}) to implement the
-  conversion. Currently this function supports SVG files
-  created by \code{\link[grDevices]{svg}()} in the
-  \pkg{grDevices} package, and
-  \code{\link[Cairo]{CairoSVG}()} in the \pkg{Cairo}
-  package.
+This function uses the XML package in R and a subset of
+librsvg (\url{http://librsvg.sourceforge.net/}) to parse
+the SVG file, and uses the Ming library
+(\url{http://www.libming.org/}) to implement the
+conversion. Currently this function supports SVG files
+created by \code{\link[grDevices]{svg}()} in the
+\pkg{grDevices} package, and
+\code{\link[Cairo]{CairoSVG}()} in the \pkg{Cairo} package.
 }
 \examples{
 \dontrun{
@@ -55,6 +53,6 @@ if(capabilities("cairo")) {
 }
 }
 \author{
-  Yixuan Qiu <\email{yixuan.qiu@cos.name}>
+Yixuan Qiu <\email{yixuan.qiu@cos.name}>
 }
 

@@ -2,8 +2,8 @@
 \alias{swf}
 \title{SWF graphics device}
 \usage{
-  swf(file = "Rplots.swf", width = 7, height = 7,
-    bg = "white", fg = "black", frameRate = 12)
+swf(file = "Rplots.swf", width = 7, height = 7, bg = "white",
+  fg = "black", frameRate = 12)
 }
 \arguments{
   \item{file}{a character string giving the output SWF
@@ -21,11 +21,11 @@
   second}
 }
 \description{
-  This function opens a SWF device that produces Flash
-  animation in SWF format. Every time you call a high level
-  plotting function like \code{\link[graphics]{plot}()},
-  the movie will create a new frame and draw following
-  shapes on it.
+This function opens a SWF device that produces Flash
+animation in SWF format. Every time you call a high level
+plotting function like \code{\link[graphics]{plot}()}, the
+movie will create a new frame and draw following shapes on
+it.
 }
 \examples{
 \dontrun{
@@ -38,6 +38,6 @@ if(require(animation)) {
 }
 }
 \author{
-  Yixuan Qiu <\url{http://yixuan.cos.name/}>
+Yixuan Qiu <\url{http://yixuan.cos.name/}>
 }
 

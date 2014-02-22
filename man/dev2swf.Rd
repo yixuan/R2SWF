@@ -2,9 +2,8 @@
 \alias{dev2swf}
 \title{Convert R graphics to SWF using different graphics devices}
 \usage{
-  dev2swf(expr, output = "movie.swf", bgColor = "white",
-    interval = 1, dev = "png", file.ext = "png",
-    img.name = "Rplot", ...)
+dev2swf(expr, output = "movie.swf", bgColor = "white", interval = 1,
+  dev = "png", file.ext = "png", img.name = "Rplot", ...)
 }
 \arguments{
   \item{expr}{an expression to generate a sequence of
@@ -29,22 +28,22 @@
   device}
 }
 \value{
-  The name of the generated swf file if succeeded.
+The name of the generated swf file if succeeded.
 }
 \description{
-  Given an R expression that can produce a sequence of
-  images, this function will record the images with the
-  device provided (e.g. \code{\link[grDevices]{png}()} or
-  \code{\link[grDevices]{jpeg}()}) and convert them to a
-  Flash file.
+Given an R expression that can produce a sequence of
+images, this function will record the images with the
+device provided (e.g. \code{\link[grDevices]{png}()} or
+\code{\link[grDevices]{jpeg}()}) and convert them to a
+Flash file.
 }
 \details{
-  You can also use devices which are not in the
-  \pkg{grDevices} package by setting the \code{dev}
-  argument to the name of the function that opens a device,
-  e.g. \code{\link[Cairo]{CairoPNG}()} in the \pkg{Cairo}
-  package. Note that the \code{file.ext} argument should be
-  set accordingly.
+You can also use devices which are not in the
+\pkg{grDevices} package by setting the \code{dev} argument
+to the name of the function that opens a device, e.g.
+\code{\link[Cairo]{CairoPNG}()} in the \pkg{Cairo} package.
+Note that the \code{file.ext} argument should be set
+accordingly.
 }
 \examples{
 olddir = setwd(tempdir())
@@ -63,6 +62,6 @@ swf2html(output2)
 setwd(olddir)
 }
 \author{
-  Yihui Xie <\url{http://yihui.name}>
+Yihui Xie <\url{http://yihui.name}>
 }
 

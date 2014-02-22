@@ -2,8 +2,7 @@
 \alias{swf2html}
 \title{Embed the SWF file into an HTML page}
 \usage{
-  swf2html(swf.file, output, width = 480, height = 480,
-    fragment = FALSE)
+swf2html(swf.file, output, width = 480, height = 480, fragment = FALSE)
 }
 \arguments{
   \item{swf.file}{the path of the SWF file}
@@ -20,11 +19,11 @@
   \item{fragment}{whether to produce an HTML fragment only}
 }
 \value{
-  The HTML code as a character string.
+The HTML code as a character string.
 }
 \description{
-  This function will generate an HTML file to display the
-  Flash animation.
+This function will generate an HTML file to display the
+Flash animation.
 }
 \examples{
 output = dev2swf({
@@ -33,6 +32,6 @@ output = dev2swf({
 swf2html(output)
 }
 \author{
-  Yihui Xie <\url{http://yihui.name}>
+Yihui Xie <\url{http://yihui.name}>
 }
 
