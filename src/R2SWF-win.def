@@ -4,6 +4,4 @@ EXPORTS
  image2swf
  svg2swf
  swfDevice
- swfLoadFont
- swfCleanFont
  Ming_collectGarbage

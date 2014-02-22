@@ -1,4 +1,4 @@
-PKG_CPPFLAGS = -I./include -I./libming
+PKG_CPPFLAGS = -I./include -I./include/freetype -I./libming
 PKG_LIBS = -L./libming -lming -L.${R_ARCH} -lfreetype -lpng -lz
 
 
@@ -11,11 +11,11 @@ $(SHLIB): libming/libming.a
 libming/libming.a:
 	cd libming && $(MAKE) all CC="$(CC)" AR="$(AR)" CPPFLAGS="$(R_XTRA_CPPFLAGS)" CFLAGS="$(ALL_CFLAGS)"
 
-deps: R2SWF-dep-current-win-biarch.tar.gz
-	tar xzf R2SWF-dep-current-win-biarch.tar.gz
+deps: sysfonts-dep-win-biarch.tar.gz
+	tar xzf sysfonts-dep-win-biarch.tar.gz
 
-R2SWF-dep-current-win-biarch.tar.gz:
-	${R_HOME}/bin/R --vanilla --slave -e "download.file('http://rlib.eu.pn/R2SWF-dep-current-win-biarch.tar.gz.fake', 'R2SWF-dep-current-win-biarch.tar.gz', mode = 'wb')"
+sysfonts-dep-win-biarch.tar.gz:
+	R --vanilla --slave -e "download.file('http://statr.me/files/sysfonts-dep-win-biarch.tar.gz', 'sysfonts-dep-win-biarch.tar.gz', mode = 'wb')"
 
 clean:
 	$(RM) *.o

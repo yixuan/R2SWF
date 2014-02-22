@@ -2,7 +2,7 @@ ZLIBINC = ../../include
 
 LIBPNGINC = ../../include
 
-FTINC = ../../include
+FTINC = ../../include/freetype
 
 CP = cp -fp
 RM = rm -f
