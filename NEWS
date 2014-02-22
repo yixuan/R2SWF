@@ -1,3 +1,16 @@
+		  CHANGES IN R2SWF VERSION 0.8
+
+DEPRECATED AND DEFUNCT
+
+    o Functions list.fonts() and add.fonts() are removed
+    o Functions font.paths(), font.families(), font.files() and
+      font.add() are moved to the sysfonts package which the
+      current version of R2SWF depends on
+
+
+
+
+
 		  CHANGES IN R2SWF VERSION 0.7-1
 
 BUG FIXES
