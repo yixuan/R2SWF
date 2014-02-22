@@ -5,6 +5,8 @@ Date: 2013-12-08
 Author: Yixuan Qiu, Yihui Xie, Cameron Bracken and authors of included
     software. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
+Depends:
+    sysfonts
 Suggests:
     XML,
     Cairo
@@ -23,5 +25,4 @@ Collate:
     'svg2swf.R'
     'swf2html.R'
     'zzz.R'
-    'font.R'
     'swfDevice.R'
