@@ -4,7 +4,7 @@
 
 /* Function called by R to open swf device */
 SEXP swfDevice(SEXP filename_r, SEXP width_r, SEXP height_r,
-               SEXP bg_r, SEXP fg_r, SEXP frameRate_r, SEXP env_r)
+               SEXP bg_r, SEXP fg_r, SEXP frameRate_r)
 {
     /* This is the device object used by graphics engine */
     pGEDevDesc gdd;
@@ -27,7 +27,7 @@ SEXP swfDevice(SEXP filename_r, SEXP width_r, SEXP height_r,
     /* Allocate and initialize the device description data */
     if(!(dev = (pDevDesc) calloc(1, sizeof(DevDesc))))
         return 0;
-    if(!swfSetup(dev, filename, width, height, bg, frameRate, env_r))
+    if(!swfSetup(dev, filename, width, height, bg, frameRate))
     {
         free(dev);
         Rf_error("unable to start swf device");
@@ -44,7 +44,7 @@ SEXP swfDevice(SEXP filename_r, SEXP width_r, SEXP height_r,
    like physical characteristics and plotting functions */
 Rboolean swfSetup(pDevDesc dev, const char *filename,
     double width, double height,
-    const int *bg, float frameRate, SEXP env)
+    const int *bg, float frameRate)
 {
     /* Create object to store swf device specific data  */
     pswfDesc swfInfo;
@@ -52,7 +52,7 @@ Rboolean swfSetup(pDevDesc dev, const char *filename,
         return FALSE;
     
     /* Setup swfInfo data */
-    swfSetupSWFInfo(swfInfo, filename, width, height, bg, frameRate, env);
+    swfSetupSWFInfo(swfInfo, filename, width, height, bg, frameRate);
     
     /* Comments coming form R_ext/GraphicsDevice.h */
     /********************************************************
@@ -179,10 +179,10 @@ Rboolean swfSetup(pDevDesc dev, const char *filename,
 }
 
 /* Initialize swf device specific data,
-   for example swf movie object and initial fonts */
+   for example swf movie object */
 Rboolean swfSetupSWFInfo(pswfDesc swfInfo, const char *filename,
     double width, double height,
-    const int *bg, float frameRate, SEXP env)
+    const int *bg, float frameRate)
 {
     /* Filename */
     strcpy(swfInfo->filename, filename);
@@ -210,11 +210,6 @@ Rboolean swfSetupSWFInfo(pswfDesc swfInfo, const char *filename,
     /* Initialize SWFArray, used to store SWFFillStyle objects
        and free them when movie is written to hard disk */
     swfInfo->array = newSWFArray(100);
-    
-    /* An R environment in which the font list is stored.
-       This serves as a "global" environment for plotting
-       functions in C */
-    swfInfo->pkgEnv = env;
     
     /* Functions to draw font outline, used by swfTextUTF8() */
     swfInfo->outlnFuns.move_to = outlineMoveTo;
@@ -449,43 +444,6 @@ void swfDrawStyledLineTo(SWFShape shape, double x, double y, const pGEcontext gc
     }
 }
 
-/* Get the font description object defined in swfFont.h */
-static pfontDesc swfGetFontDesc(const pGEcontext gc, pswfDesc swfInfo)
-{
-    int gcfontface = gc->fontface;
-    pfontDesc font;
-    
-    SEXP fontList;
-    SEXP fontNames;
-    SEXP extPtr;
-    int i, listLen;
-    
-    /* Font list is .pkg.env$.font.list, defined in font.R */
-    PROTECT(fontList = Rf_findVar(install(".font.list"), swfInfo->pkgEnv));
-    UNPROTECT(1);
-    fontNames = GET_NAMES(fontList);
-    listLen = Rf_length(fontList);
-    for(i = 0; i < listLen; i++)
-    {
-        if(strcmp(gc->fontfamily, CHAR(STRING_ELT(fontNames, i))) == 0)
-        {
-            break;
-        }
-    }
-    if(i == listLen) i = 0;
-    if(gcfontface < 1 || gcfontface > 5) gcfontface = 1;
-    
-    extPtr = VECTOR_ELT(VECTOR_ELT(fontList, i), gcfontface - 1);
-    font = (pfontDesc) R_ExternalPtrAddr(extPtr);
-    
-    return font;
-}
-
-FT_Face swfGetFTFace(const pGEcontext gc, pswfDesc swfInfo)
-{
-    return swfGetFontDesc(gc, swfInfo)->face;
-}
-
 /* The following two functions are copied from R/src/main/util.c */
 static size_t utf8toucs(wchar_t *wc, const char *s)
 {
@@ -709,8 +667,7 @@ void swfMetricInfo(int c, const pGEcontext gc, double* ascent, double* descent, 
     Rprintf("metricInfo called\n");
     Rprintf("** family = %s, c = %d\n", gc->fontfamily, c);
 #endif
-    pswfDesc swfInfo = (pswfDesc) dd->deviceSpecific;
-    FT_Face face = swfGetFTFace(gc, swfInfo);
+    FT_Face face = swfGetFTFace(gc);
     FT_Error err;
     double fontSize = gc->ps * gc->cex;
     double ratio = fontSize / face->units_per_EM;
@@ -785,13 +742,12 @@ double swfStrWidthUTF8(const char *str, const pGEcontext gc, pDevDesc dd)
     Rprintf("** family = %s, str[0] = %d, str[1] = %d\n",
         gc->fontfamily, str[0], str[1]);
 #endif
-    pswfDesc swfInfo = (pswfDesc) dd->deviceSpecific;
     /* Convert UTF-8 string to Unicode array */
     int maxLen = strlen(str);
     wchar_t *unicode = (wchar_t *) calloc(maxLen + 1, sizeof(wchar_t));
     int len = utf8towcs(unicode, str, maxLen);
     /* Get the font face object */
-    FT_Face face = swfGetFTFace(gc, swfInfo);
+    FT_Face face = swfGetFTFace(gc);
     FT_Error err;
     double fontSize = gc->ps * gc->cex;
     double ratio = fontSize / face->units_per_EM;
@@ -834,7 +790,7 @@ void swfTextUTF8(double x, double y, const char *str, double rot, double hadj, c
     wchar_t *unicode = (wchar_t *) calloc(maxLen + 1, sizeof(wchar_t));
     int len = utf8towcs(unicode, str, maxLen);
     
-    FT_Face face = swfGetFTFace(gc, swfInfo);
+    FT_Face face = swfGetFTFace(gc);
     double fontSize = gc->ps * gc->cex;
 
     swfSetTextColor(text, gc, swfInfo);

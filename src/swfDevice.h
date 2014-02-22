@@ -23,9 +23,6 @@ typedef struct swfDesc {
     SWFDisplayItem currentClip;
                          /* current mask/clip layer */
     SWFArray array;      /* store temporary objects */
-    SEXP pkgEnv;         /* environment storing objects in R,
-                            used to retrieve font objects,
-                            defined in font.R */
     FT_Outline_Funcs outlnFuns;
                          /* functions to draw font outline,
                             defined in swfText.h */
@@ -41,12 +38,12 @@ typedef swfDesc* pswfDesc;
 /* Setup the device descriptions data */
 Rboolean swfSetup(pDevDesc dev, const char *filename,
     double width, double height,
-    const int *bg, float frameRate, SEXP env);
+    const int *bg, float frameRate);
 
 /* Initialize SWF device specific data */
 Rboolean swfSetupSWFInfo(pswfDesc swfInfo, const char *filename,
     double width, double height,
-    const int *bg, float frameRate, SEXP env);
+    const int *bg, float frameRate);
 
 /* Function to set line style */
 void swfSetLineStyle(SWFShape shape, const pGEcontext gc, pswfDesc swfInfo);
@@ -56,8 +53,6 @@ void swfSetFillStyle(SWFShape shape, const pGEcontext gc, pswfDesc swfInfo);
 void swfSetTextColor(SWFShape shape, const pGEcontext gc, pswfDesc swfInfo);
 /* Draw line respecting lty parameter */
 void swfDrawStyledLineTo(SWFShape shape, double x, double y, const pGEcontext gc);
-/* Get font FT_Face object according to gc parameter */
-FT_Face swfGetFTFace(const pGEcontext gc, pswfDesc swfInfo);
 
 
 
