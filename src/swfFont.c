@@ -1,52 +1,53 @@
 #include "swfFont.h"
 
-SEXP swfLoadFont(SEXP fontPath)
+static SEXP GetVarFromPkgEnv(const char *varName, const char *pkgName)
 {
-    const char* filePath = CHAR(STRING_ELT(fontPath, 0));
-    pfontDesc font = (pfontDesc) calloc(1, sizeof(fontDesc));
-    SEXP extPtr;
-    FT_Error err;
+    /* See grDevices/src/devPS getFontDB() */
+    SEXP pkgNS, pkgEnv, var;
+    PROTECT(pkgNS = R_FindNamespace(ScalarString(mkChar(pkgName))));
+    PROTECT(pkgEnv = Rf_findVar(install(".pkg.env"), pkgNS));
+    if(TYPEOF(pkgEnv) == PROMSXP) {
+        PROTECT(pkgEnv);
+        pkgEnv = eval(pkgEnv, pkgNS);
+        UNPROTECT(1);
+    }  
+    PROTECT(var = Rf_findVar(install(varName), pkgEnv));
+    UNPROTECT(3);
     
-    err = FT_Init_FreeType(&(font->library));
-    if(err)
-    {
-        if(font) free(font);
-        Rf_error("freetype: unable to initialize freetype, error code %d", err);
-    }
-    err = FT_New_Face(font->library, filePath, 0, &(font->face));
-    if(err)
-    {
-        if(font->library) FT_Done_FreeType(font->library);
-        if(font) free(font);
-        switch(err)
-        {
-            case 0x01:
-                Rf_error("freetype: cannot open resource, error code %d", err);
-                break;
-            case 0x02:
-                Rf_error("freetype: unknown file format, error code %d", err);
-                break;
-            case 0x03:
-                Rf_error("freetype: broken file, error code %d", err);
-                break;
-            default:
-                Rf_error("freetype: unable to load font file, error code %d", err);
-                break;
-        }
-    }
-    
-    extPtr = R_MakeExternalPtr(font, R_NilValue, R_NilValue);
-    return extPtr;
+    return var;
 }
 
-SEXP swfCleanFont(SEXP extPtr)
+FT_Face swfGetFTFace(const pGEcontext gc)
 {
-    pfontDesc font = (pfontDesc) R_ExternalPtrAddr(extPtr);
+    int gcfontface = gc->fontface;
+    FontDesc *font;
     
-    if(font->face) FT_Done_Face(font->face);
-    if(font->library) FT_Done_FreeType(font->library);
-    if(font) free(font);
+    SEXP fontList;
+    SEXP fontNames;
+    SEXP extPtr;
+    int i, listLen;
     
-    return R_NilValue;
+    /* Font list is sysfonts:::.pkg.env$.font.list,
+       defined in sysfonts/R/font.R */    
+    fontList = GetVarFromPkgEnv(".font.list", "sysfonts");
+    
+    /* Search the given family name */
+    fontNames = GET_NAMES(fontList);
+    listLen = Rf_length(fontList);
+    for(i = 0; i < listLen; i++)
+    {
+        if(strcmp(gc->fontfamily, CHAR(STRING_ELT(fontNames, i))) == 0)
+        {
+            break;
+        }
+    }
+    /* If not found, use "sans" */
+    if(i == listLen) i = 0;
+    if(gcfontface < 1 || gcfontface > 5) gcfontface = 1;
+    
+    extPtr = VECTOR_ELT(VECTOR_ELT(fontList, i), gcfontface - 1);
+    font = (FontDesc *) R_ExternalPtrAddr(extPtr);
+    
+    return font->face;
 }
 
