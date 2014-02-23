@@ -764,6 +764,8 @@ double swfStrWidthUTF8(const char *str, const pGEcontext gc, pDevDesc dd)
         }
         width += face->glyph->metrics.horiAdvance * ratio;
     }
+    
+    free(unicode);
 
 #ifdef SWF_DEBUG
     Rprintf("** strWidthUTF8(width = %f)\n", width);
@@ -804,6 +806,8 @@ void swfTextUTF8(double x, double y, const char *str, double rot, double hadj, c
     SWFDisplayItem_moveTo(text_display,
                           x - hadj * strWidth * cos(rot * DEG2RAD),
                           y + hadj * strWidth * sin(rot * DEG2RAD));
+    
+    free(unicode);
 }
 
 
