@@ -102,7 +102,7 @@ Rboolean swfSetup(pDevDesc dev, const char *filename,
      ********************************************************/
     dev->canClip = TRUE;             /* Device-level clipping */
     dev->canChangeGamma = FALSE;     /* can the gamma factor be modified? */
-    dev->canHAdj = 0;                /* Can do at least some horiz adjust of text
+    dev->canHAdj = 2;                /* Can do at least some horiz adjust of text
                                         0 = none, 1 = {0,0.5,1}, 2 = [0,1] */
     
     /********************************************************
@@ -773,7 +773,6 @@ double swfStrWidthUTF8(const char *str, const pGEcontext gc, pDevDesc dd)
 }
 
 
-/* TODO: respect hadj */
 void swfTextUTF8(double x, double y, const char *str, double rot, double hadj, const pGEcontext gc, pDevDesc dd)
 {
 #ifdef SWF_DEBUG
@@ -793,14 +792,20 @@ void swfTextUTF8(double x, double y, const char *str, double rot, double hadj, c
     FT_Face face = swfGetFTFace(gc);
     double fontSize = gc->ps * gc->cex;
 
+    double strWidth = 0.0;
+
     swfSetTextColor(text, gc, swfInfo);
-    SWFShape_addString(text, unicode, len, fontSize, face,
-                       &(swfInfo->outlnFuns));
+    strWidth = SWFShape_addString(text, unicode, len, fontSize, face,
+                                  &(swfInfo->outlnFuns));
     
     text_display = SWFMovieClip_add(swfInfo->currentFrame, (SWFBlock) text);
-    SWFDisplayItem_moveTo(text_display, x, y);
+    
     SWFDisplayItem_rotate(text_display, rot);
+    SWFDisplayItem_moveTo(text_display,
+                          x - hadj * strWidth * cos(rot * DEG2RAD),
+                          y + hadj * strWidth * sin(rot * DEG2RAD));
 }
+
 
 void swfClose(pDevDesc dd)
 {
@@ -819,3 +824,4 @@ void swfClose(pDevDesc dd)
     destroySWFFillStyleArray(swfInfo->array);
     free(swfInfo);
 }
+

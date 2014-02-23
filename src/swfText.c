@@ -108,9 +108,9 @@ void errorcode(FT_Error err)
     }
 }
 
-void SWFShape_addString(SWFShape shape, const wchar_t* str, size_t nchar,
-                        double fontSize,
-                        FT_Face face, FT_Outline_Funcs *funs)
+double SWFShape_addString(SWFShape shape, const wchar_t* str, size_t nchar,
+                          double fontSize,
+                          FT_Face face, FT_Outline_Funcs *funs)
 {
     OutlineData data;
     FT_Outline outline;
@@ -143,4 +143,6 @@ void SWFShape_addString(SWFShape shape, const wchar_t* str, size_t nchar,
         http://www.freetype.org/freetype2/docs/tutorial/step2.html */
         data.deltax += face->glyph->metrics.horiAdvance * data.ratio_EM;
     }
+    /* Return the string width */
+    return data.deltax;
 }

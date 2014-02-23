@@ -31,9 +31,9 @@ void errorcode(FT_Error err);
 
 /* Draw a string on a SWFShape object. String will be placed at (0, 0),
    which is at the bottom left corner of the first character */
-void SWFShape_addString(SWFShape shape, const wchar_t* str, size_t nchar,
-                        double fontSize,
-                        FT_Face face, FT_Outline_Funcs *funs);
+double SWFShape_addString(SWFShape shape, const wchar_t* str, size_t nchar,
+                          double fontSize,
+                          FT_Face face, FT_Outline_Funcs *funs);
 
 
 
