@@ -1,5 +1,10 @@
 		  CHANGES IN R2SWF VERSION 0.8
 
+NEW FEATURES
+
+    o SWF graphics device now supports the hadj parameter
+
+
 DEPRECATED AND DEFUNCT
 
     o Functions list.fonts() and add.fonts() are removed
