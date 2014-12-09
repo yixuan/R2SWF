@@ -108,7 +108,7 @@ SWFFillStyle SWFShape_setStyleFromR(SWFShape s, SEXP style, StrokeStyle *sstyle,
     stroke = CHAR(STRING_ELT(style, STYIND_STROKE));
     if(!strcmp("none", stroke))
     {
-        sstyle->alpha = 0;
+        sstyle->red = sstyle->green = sstyle->blue = sstyle->alpha = 0;
     } else if(!strncmp("rgb", stroke, 3)) {
         sscanf(stroke, "rgb(%f%%,%f%%,%f%%)", &r, &g, &b);
         sstyle->red = (byte) floor(r / 100 * 255 + 0.5);
@@ -124,14 +124,14 @@ SWFFillStyle SWFShape_setStyleFromR(SWFShape s, SEXP style, StrokeStyle *sstyle,
     fill = CHAR(STRING_ELT(style, STYIND_FILL));
     if(!strcmp("none", fill))
     {
-        fstyle->alpha = 0;
+        fstyle->red = fstyle->green = fstyle->blue = fstyle->alpha = 0;
     } else if(!strncmp("rgb", fill, 3)) {
         sscanf(fill, "rgb(%f%%,%f%%,%f%%)", &r, &g, &b);
         fstyle->red = (byte) floor(r / 100 * 255 + 0.5);
         fstyle->green = (byte) floor(g / 100 * 255 + 0.5);
         fstyle->blue = (byte) floor(b / 100 * 255 + 0.5);
     } else {
-        fstyle->alpha = 0;
+        fstyle->red = fstyle->green = fstyle->blue = fstyle->alpha = 0;
     }
 
     SWFShape_setStrokeStyle(s, sstyle);
