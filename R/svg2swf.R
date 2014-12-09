@@ -2,6 +2,16 @@
 # graphics library, typically from svg() in the grDevices package (R >= 2.14.0
 # required for Windows OS), and CairoSVG() in the Cairo package.
 parseSVG = function(file.name) {
+  xmlParse = XML::xmlParse;
+  newXMLNamespace = XML::newXMLNamespace;
+  xmlRoot = XML::xmlRoot;
+  getNodeSet = XML::getNodeSet;
+  xmlAttrs = XML::xmlAttrs;
+  xmlParent = XML::xmlParent;
+  xmlName = XML::xmlName;
+  xmlChildren = XML::xmlChildren;
+  xmlSApply = XML::xmlSApply;
+
   svgFile = xmlParse(file.name);
   # Don't forget the name space!
   newXMLNamespace(xmlRoot(svgFile), "http://www.w3.org/2000/svg", "svg");
@@ -160,6 +170,11 @@ svg2swf = function(input, output = "movie.swf", bgColor = "white",
   # Use XML package
   if(!require(XML))
       stop("svg2swf() requires XML package");
+  
+  xmlParse = XML::xmlParse;
+  xmlAttrs = XML::xmlAttrs;
+  xmlRoot = XML::xmlRoot;
+  
   if(!is.character(input))
     stop("'input' must be a character vector naming the input SVG files");
 
