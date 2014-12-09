@@ -14,19 +14,15 @@ SVG to SWF, and `image2swf()` to convert PNG and JPG images into a single
 SWF file.
 
 ### Installation
-**R2SWF** depends on the following libraries:
+`R2SWF` depends on the following libraries:
 
 - zlib         [http://www.zlib.net/](http://www.zlib.net/)
 - libpng       [http://www.libpng.org/](http://www.libpng.org/)
 - freetype     [http://www.freetype.org/](http://www.freetype.org/)
 - libming      [http://www.libming.org/](http://www.libming.org/)
 
-<del>However, the source code of the dependent libraries (with minor modifications) are included in the package, so you don't need to install them by yourself.</del>
-
-CRAN does not allow the package to include source code of `zlib` and
-`libpng` for security issues, and suggests to use `freetype` in the
-system if possible. So in the current version of `R2SWF`, I removed those
-source code and you may need to install them by yourself.
+The source code of `libming` is included in `R2SWF`, and you need
+to install the other three by yourself.
 
 For Debian/Ubuntu users, the command to install dependent libraries is
 
@@ -38,15 +34,6 @@ For rpm based systems (e.g. Fedora), try to run
 
 ```
 sudo yum install zlib-devel libpng-devel freetype-devel
-```
-
-To install the package here:
-
-```r
-## For users: 
-install.packages('devtools')
-library(devtools)
-install_github('R2SWF', 'yixuan')
 ```
 
 ### Examples
