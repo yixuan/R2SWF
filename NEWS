@@ -12,7 +12,7 @@ BUG FIXES
 
 BUG FIXES
 
-    o Fix a memory bug detected by valgrind
+    o Fix a memory bug detected by valgrind, thanks to Prof. Ripley
 
 
 
