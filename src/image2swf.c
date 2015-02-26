@@ -67,7 +67,7 @@ SEXP image2swf(SEXP fileNames, SEXP format, SEXP outName,
         {
             swfHeight = SWFBitmap_getHeight(image);
             swfWidth = SWFBitmap_getWidth(image);
-            SWFMovie_setDimension(m, swfHeight, swfWidth);
+            SWFMovie_setDimension(m, swfWidth, swfHeight);
             dimNotSet = 0;
         }
         /* Convert image object to block object,
