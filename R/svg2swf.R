@@ -168,8 +168,8 @@ parseSVG = function(file.name) {
 svg2swf = function(input, output = "movie.swf", bgColor = "white",
                    interval = 1) {
   # Use XML package
-  if(!require(XML))
-      stop("svg2swf() requires XML package");
+  # if(!require(XML))
+  #     stop("svg2swf() requires XML package");
   
   xmlParse = XML::xmlParse;
   xmlAttrs = XML::xmlAttrs;
