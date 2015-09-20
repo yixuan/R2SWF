@@ -3,14 +3,19 @@
 
 #include <ming.h>
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
+/* Freetype 2.6 introduces a macro TYPEOF that conflicts with R */
+#ifdef TYPEOF
+#undef TYPEOF
+#endif
+
 #include <R.h>
 #include <Rdefines.h>
 #include <Rinternals.h>
 #include <R_ext/GraphicsEngine.h>
 #include <R_ext/GraphicsDevice.h>
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 typedef struct fontDesc {
     FT_Library library;
