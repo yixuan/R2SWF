@@ -6,7 +6,9 @@ Author: Yixuan Qiu, Yihui Xie, Cameron Bracken and authors of included
     software. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
 Imports:
-    sysfonts
+    sysfonts,
+    grDevices,
+    utils
 Suggests:
     XML,
     Cairo
