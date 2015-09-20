@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{News for Package "R2SWF"}
 
+\section{Changes in R2SWF version 0.9-1}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed a compilation conflict with FreeType 2.6, thanks to Kurt Hornik 
+    }
+  }
+}
+
 \section{Changes in R2SWF version 0.9}{
   \subsection{BUG FIXES}{
     \itemize{
@@ -106,7 +114,7 @@
     \itemize{
       \item Updated zlib to 1.2.8
       \item Updated libpng to 1.6.2
-      \item Added freetype 2.5.0
+      \item Added FreeType 2.5.0
       \item Updated libming to 0.4.5
       \item Fixed several memory leak problems
       \item Uses absolute paths for \code{dev2swf()}, \code{swf2html()} etc.
