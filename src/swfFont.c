@@ -4,14 +4,16 @@ static SEXP GetVarFromPkgEnv(const char *varName, const char *pkgName)
 {
     /* See grDevices/src/devPS getFontDB() */
     SEXP pkgNS, pkgEnv, var;
-    PROTECT(pkgNS = R_FindNamespace(ScalarString(mkChar(pkgName))));
+    PROTECT(pkgNS = R_FindNamespace(Rf_ScalarString(Rf_mkChar(pkgName))));
     PROTECT(pkgEnv = Rf_findVar(install(".pkg.env"), pkgNS));
     if(TYPEOF(pkgEnv) == PROMSXP) {
-        PROTECT(pkgEnv);
-        pkgEnv = eval(pkgEnv, pkgNS);
+        pkgEnv = Rf_eval(pkgEnv, pkgNS);
+        /* Unprotect the old pkgEnv */
         UNPROTECT(1);
+        /* Protect the new pkgEnv */
+        PROTECT(pkgEnv);
     }  
-    PROTECT(var = Rf_findVar(install(varName), pkgEnv));
+    PROTECT(var = Rf_findVar(Rf_install(varName), pkgEnv));
     UNPROTECT(3);
     
     return var;
@@ -29,10 +31,10 @@ FT_Face swfGetFTFace(const pGEcontext gc)
     
     /* Font list is sysfonts:::.pkg.env$.font.list,
        defined in sysfonts/R/font.R */    
-    fontList = GetVarFromPkgEnv(".font.list", "sysfonts");
+    fontList = PROTECT(GetVarFromPkgEnv(".font.list", "sysfonts"));
     
     /* Search the given family name */
-    fontNames = GET_NAMES(fontList);
+    fontNames = PROTECT(GET_NAMES(fontList));
     listLen = Rf_length(fontList);
     for(i = 0; i < listLen; i++)
     {
@@ -48,6 +50,7 @@ FT_Face swfGetFTFace(const pGEcontext gc)
     extPtr = VECTOR_ELT(VECTOR_ELT(fontList, i), gcfontface - 1);
     font = (FontDesc *) R_ExternalPtrAddr(extPtr);
     
+    UNPROTECT(2);
     return font->face;
 }
 
