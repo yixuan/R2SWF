@@ -1,7 +1,7 @@
 Package: R2SWF
-Version: 0.9-1
+Version: 0.9-2
 Title: Convert R Graphics to Flash Animations
-Date: 2015-09-20
+Date: 2017-08-31
 Author: Yixuan Qiu, Yihui Xie, Cameron Bracken and authors of included
     software. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
@@ -12,11 +12,11 @@ Imports:
 Suggests:
     XML,
     Cairo
-Description: Using the Ming library
-    (http://www.libming.org/) to create Flash animations.
-    Users can either use the SWF device swf() to generate SWF file
+Description: Using the 'Ming' library
+    <http://www.libming.org/> to create Flash animations.
+    Users can either use the 'SWF' device swf() to generate 'SWF' file
     directly through plotting functions like plot() and lines(),
-    or convert images of other formats (SVG, PNG, JPEG) into SWF.
+    or convert images of other formats ('SVG', 'PNG', 'JPEG') into 'SWF'.
 Copyright: see file COPYRIGHTS
 License: GPL-2
 SystemRequirements: zlib, libpng, FreeType
