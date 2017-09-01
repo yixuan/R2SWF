@@ -1,6 +1,16 @@
 \name{NEWS}
 \title{News for Package "R2SWF"}
 
+\section{Changes in R2SWF version 0.9-2}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Added a cleanup script per CRAN's policy
+      \item Registered native routines per CRAN's policy
+      \item Fixed PROTECT errors detected by CRAN
+    }
+  }
+}
+
 \section{Changes in R2SWF version 0.9-1}{
   \subsection{BUG FIXES}{
     \itemize{
