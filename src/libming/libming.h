@@ -86,11 +86,13 @@ char* __my__strdup (const char *s);
 #endif
 
 #if GIFLIB_GIFERRORSTRING
-static void
-PrintGifError(void)
-{
-	fprintf(stderr, "\nGIF-LIB error: %s.\n", GifErrorString());
-}
+# if GIFLIB_MAJOR < 5
+#  define PrintGifError(x) fprintf(stderr, "\nGIF-LIB error: %s.\n", GifErrorString())
+# else
+#  define PrintGifError(x) fprintf(stderr, "\nGIF-LIB error: %s.\n", GifErrorString(x))
+# endif
+#else
+# define PrintGifError(x) PrintGifError()
 #endif
 
 #endif /* SWF_LIBMING_H_INCLUDED */

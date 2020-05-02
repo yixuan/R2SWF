@@ -30,6 +30,10 @@ int fileOffset = 0;
 
 int readUInt8(Buffer f)
 {
+  if (f->buffersize <= fileOffset)
+  {
+    return EOF;
+  }
   return f->buffer[fileOffset++];
 }
 
@@ -45,6 +49,10 @@ int readSInt16(Buffer f)
 
 int readUInt16(Buffer f)
 {
+  if(f->buffersize <= fileOffset + 1)
+  {
+    return EOF;
+  }
   return readUInt8(f) + (readUInt8(f)<<8);
 }
 
@@ -55,6 +63,10 @@ long readSInt32(Buffer f)
 
 unsigned long readUInt32(Buffer f)
 {
+  if(f->buffersize <= fileOffset + 3)
+  {
+    return EOF;
+  }
   return (unsigned long)(readUInt8(f) + (readUInt8(f)<<8) + (readUInt8(f)<<16) + (readUInt8(f)<<24));
 }
 
@@ -77,13 +89,14 @@ double readDouble(Buffer f)
 
 char *readString(Buffer f)
 {
-  int len = 0, buflen = 256;
-  char c, *buf, *p;
+  int len = 0, buflen = 256, tmp_char;
+  char *buf, *p;
 
   buf = (char *)malloc(sizeof(char)*256);
   p = buf;
 
-  while((c=(char)readUInt8(f)) != '\0')
+  tmp_char = readUInt8(f);
+  while(tmp_char != EOF && tmp_char != '\0')
   {
     if(len==buflen)
     {
@@ -92,8 +105,9 @@ char *readString(Buffer f)
       p = buf+len;
     }
 
-    *(p++) = c;
+    *(p++) = (char)tmp_char;
     ++len;
+    tmp_char = readUInt8(f);
   }
 
   *p = 0;
