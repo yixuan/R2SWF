@@ -1071,7 +1071,7 @@ void swf4ParseInit(const char *script, int debug, int version)
  void do_unput4(const char c) { unput(c); }
 
 #define INITIAL 0
-#define asm 1
+#define SWFASM 1
 
 #ifndef YY_NO_UNISTD_H
 /* Special case for "unistd.h", since it is non-ANSI. We include it way
@@ -1521,7 +1521,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-{ count();	BEGIN(asm); return ASM;		}
+{ count();	BEGIN(SWFASM); return ASM;		}
 	YY_BREAK
 /* assembler v4 ops */
 
@@ -1913,7 +1913,7 @@ YY_RULE_SETUP
 ECHO;
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-case YY_STATE_EOF(asm):
+case YY_STATE_EOF(SWFASM):
 	yyterminate();
 
 	case YY_END_OF_BUFFER:

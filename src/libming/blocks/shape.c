@@ -1372,7 +1372,7 @@ char * SWFShape_dumpOutline(SWFShape s)
 		{
 		case SHAPERECORD_STATECHANGE:
 		{
-			if(!record->record.stateChange->flags & SWF_SHAPE_MOVETOFLAG)
+			if(!(record->record.stateChange->flags & SWF_SHAPE_MOVETOFLAG))
 				continue;
 			x = record->record.stateChange->moveToX;
 			y = record->record.stateChange->moveToY;
