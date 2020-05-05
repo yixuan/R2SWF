@@ -4,8 +4,14 @@
 \alias{swf}
 \title{SWF graphics device}
 \usage{
-swf(file = "Rplots.swf", width = 7, height = 7, bg = "white",
-  fg = "black", frameRate = 12)
+swf(
+  file = "Rplots.swf",
+  width = 7,
+  height = 7,
+  bg = "white",
+  fg = "black",
+  frameRate = 12
+)
 }
 \arguments{
 \item{file}{a character string giving the output SWF file}

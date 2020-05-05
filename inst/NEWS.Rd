@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package "R2SWF"}
 
+\section{Changes in R2SWF version 0.9-3}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Updated libming
+      \item Fixed a \code{-Wlogical-not-parentheses} warning, thanks to Prof. Ripley
+    }
+  }
+}
+
 \section{Changes in R2SWF version 0.9-2}{
   \subsection{BUG FIXES}{
     \itemize{
