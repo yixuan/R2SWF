@@ -10,12 +10,14 @@
 #' @param fragment whether to produce an HTML fragment only
 #' @return The HTML code as a character string.
 #' @export
-#' @author Yihui Xie <\url{http://yihui.name}>
+#' @author Yihui Xie <\url{https://yihui.org}>
 #' @examples
+#' olddir = setwd(tempdir())
 #' output = dev2swf({
 #'   for (i in 1:10) plot(runif(20), ylim = c(0, 1))
 #' }, output = 'test.swf')
 #' swf2html(output)
+#' setwd(olddir)
 swf2html = function(swf.file, output, width = 480, height = 480, fragment = FALSE) {
   if (!file.exists(swf.file)) stop("swf file does not exist")
   if (missing(output)) output = basename(sub('\\.swf$', '.html', swf.file))

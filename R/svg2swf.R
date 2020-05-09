@@ -146,7 +146,7 @@ parseSVG = function(file.name)
 #' @param interval the time interval (in seconds) between animation frames
 #' @return The name of the generated SWF file if successful.
 #' @export
-#' @author Yixuan Qiu <\email{yixuan.qiu@@cos.name}>
+#' @author Yixuan Qiu <\url{https://statr.me}>
 #' @examples \dontrun{
 #' if(capabilities("cairo")) {
 #'   olddir = setwd(tempdir())

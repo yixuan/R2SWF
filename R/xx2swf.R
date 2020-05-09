@@ -13,7 +13,7 @@
 #' @param interval the time interval (in seconds) between animation frames
 #' @return The name of the generated swf file if successful.
 #' @export
-#' @author Yixuan Qiu <\email{yixuan.qiu@@cos.name}>
+#' @author Yixuan Qiu <\url{https://statr.me}>
 #' @examples if(capabilities("png")) {
 #'   olddir = setwd(tempdir())
 #'   png("Rplot%03d.png")
@@ -71,7 +71,7 @@ image2swf <- function(input, output = "movie.swf", bgColor = "white",
 #' @param \dots other arguments to be passed to the graphics device
 #' @return The name of the generated swf file if succeeded.
 #' @export
-#' @author Yihui Xie <\url{http://yihui.name}>
+#' @author Yihui Xie <\url{https://yihui.org}>
 #' @examples
 #' olddir = setwd(tempdir())
 #' output1 = dev2swf({
@@ -112,7 +112,7 @@ dev2swf <- function(expr, output = "movie.swf",
 #' @inheritParams dev2swf
 #' @param files a character vector of input filenames
 #' @return The name of the SWF file.
-#' @author Yihui Xie <\url{http://yihui.name}>
+#' @author Yihui Xie <\url{https://yihui.org}>
 #' @export
 file2swf = function(files, output, bgColor = 'white', interval = 1) {
   (if (all(grepl('\\.(png|jpeg|jpg)$', files, ignore.case = TRUE))) {

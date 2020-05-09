@@ -14,10 +14,11 @@
 #' 
 #' @export
 #' 
-#' @author Yixuan Qiu <\url{http://yixuan.cos.name/}>
+#' @author Yixuan Qiu <\url{https://statr.me/}>
 #' 
 #' @examples \dontrun{
 #' ## A demonstration of K-means clustering, using animation package
+#' olddir = setwd(tempdir())
 #' if(require(animation)) {
 #'     swf("kmeans.swf", frameRate = 1)
 #'     kmeans.ani()
@@ -47,6 +48,7 @@
 #' text(1.3, 0.7, "Mono-BI", font = 4)
 #' 
 #' dev.off()
+#' setwd(olddir)
 #' }
 swf <- function(file = "Rplots.swf", width = 7, height = 7, bg = "white",
                 fg = "black", frameRate = 12)
