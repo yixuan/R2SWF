@@ -53,5 +53,5 @@ if(capabilities("cairo")) {
 
 }
 \author{
-Yixuan Qiu <\email{yixuan.qiu@cos.name}>
+Yixuan Qiu <\url{https://statr.me}>
 }

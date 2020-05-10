@@ -24,5 +24,5 @@ on the image format, it calls \code{\link{image2swf}} or
 \code{\link{svg2swf}}.
 }
 \author{
-Yihui Xie <\url{http://yihui.name}>
+Yihui Xie <\url{https://yihui.org}>
 }

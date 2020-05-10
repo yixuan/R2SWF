@@ -26,11 +26,13 @@ The HTML code as a character string.
 This function will generate an HTML file to display the Flash animation.
 }
 \examples{
+olddir = setwd(tempdir())
 output = dev2swf({
   for (i in 1:10) plot(runif(20), ylim = c(0, 1))
 }, output = 'test.swf')
 swf2html(output)
+setwd(olddir)
 }
 \author{
-Yihui Xie <\url{http://yihui.name}>
+Yihui Xie <\url{https://yihui.org}>
 }

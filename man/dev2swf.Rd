@@ -65,5 +65,5 @@ swf2html(output2)
 setwd(olddir)
 }
 \author{
-Yihui Xie <\url{http://yihui.name}>
+Yihui Xie <\url{https://yihui.org}>
 }
