@@ -110,6 +110,12 @@ void swfTextUTF8(double x, double y, const char *str, double rot, double hadj, c
 
 double swfStrWidthUTF8(const char *str, const pGEcontext gc, pDevDesc dd);
 
+static SEXP     swf_setPattern(SEXP pattern, pDevDesc dd);
+static void     swf_releasePattern(SEXP ref, pDevDesc dd);
+static SEXP     swf_setClipPath(SEXP path, SEXP ref, pDevDesc dd);
+static void     swf_releaseClipPath(SEXP ref, pDevDesc dd);
+static SEXP     swf_setMask(SEXP path, SEXP ref, pDevDesc dd);
+static void     swf_releaseMask(SEXP ref, pDevDesc dd);
 
 
 #endif /* SWFDEVICE_H_INCLUDED */
