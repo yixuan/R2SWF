@@ -174,7 +174,16 @@ Rboolean swfSetup(pDevDesc dev, const char *filename,
     dev->haveRaster = 1;             /* 1 = no, 2 = yes, 3 = except for missing values */
     dev->haveCapture = 1;            /* 1 = no, 2 = yes */
     dev->haveLocator = 1;            /* 1 = no, 2 = yes */
-    
+#if R_GE_version >= 13
+    dev->setPattern      = swf_setPattern;
+    dev->releasePattern  = swf_releasePattern;
+    dev->setClipPath     = swf_setClipPath;
+    dev->releaseClipPath = swf_releaseClipPath;
+    dev->setMask         = swf_setMask;
+    dev->releaseMask     = swf_releaseMask;
+
+    dev->deviceVersion = R_GE_definitions;
+#endif
     return TRUE;
 }
 
@@ -829,3 +838,20 @@ void swfClose(pDevDesc dd)
     free(swfInfo);
 }
 
+static SEXP swf_setPattern(SEXP pattern, pDevDesc dd) {
+    return R_NilValue;
+}
+
+static void swf_releasePattern(SEXP ref, pDevDesc dd) {} 
+
+static SEXP swf_setClipPath(SEXP path, SEXP ref, pDevDesc dd) {
+    return R_NilValue;
+}
+
+static void swf_releaseClipPath(SEXP ref, pDevDesc dd) {}
+
+static SEXP swf_setMask(SEXP path, SEXP ref, pDevDesc dd) {
+    return R_NilValue;
+}
+
+static void swf_releaseMask(SEXP ref, pDevDesc dd) {}
