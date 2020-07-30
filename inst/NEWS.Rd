@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package "R2SWF"}
 
+\section{Changes in R2SWF version 0.9-4}{
+  \subsection{NEW FEATURES}{
+    \itemize{
+      \item New device functions to support future R graphics engine,
+            thanks to Prof. Paul Murrell
+    }
+  }
+}
+
 \section{Changes in R2SWF version 0.9-3}{
   \subsection{BUG FIXES}{
     \itemize{
