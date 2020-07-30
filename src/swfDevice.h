@@ -61,33 +61,33 @@ void swfDrawStyledLineTo(SWFShape shape, double x, double y, const pGEcontext gc
  Device plotting function hooks. Defined in R_ext/GraphicsDevice.h
  
 *************************************************************/
-void swfActivate(pDevDesc dd);
+static void swfActivate(pDevDesc dd);
 
-void swfCircle(double x, double y, double r, const pGEcontext gc, pDevDesc dd);
+static void swfCircle(double x, double y, double r, const pGEcontext gc, pDevDesc dd);
 
-void swfClip(double x0, double x1, double y0, double y1, pDevDesc dd);
+static void swfClip(double x0, double x1, double y0, double y1, pDevDesc dd);
 
-void swfClose(pDevDesc dd);
+static void swfClose(pDevDesc dd);
 
-void swfDeactivate(pDevDesc dd);
+static void swfDeactivate(pDevDesc dd);
 
 /* static Rboolean swfLocator(double *x, double *y, pDevDesc dd); */
 
-void swfLine(double x1, double y1, double x2, double y2, const pGEcontext gc, pDevDesc dd);
+static void swfLine(double x1, double y1, double x2, double y2, const pGEcontext gc, pDevDesc dd);
 
-void swfMetricInfo(int c, const pGEcontext gc, double* ascent, double* descent, double* width, pDevDesc dd);
+static void swfMetricInfo(int c, const pGEcontext gc, double* ascent, double* descent, double* width, pDevDesc dd);
 
-void swfMode(int mode, pDevDesc dd);
+static void swfMode(int mode, pDevDesc dd);
 
-void swfNewPage(const pGEcontext gc, pDevDesc dd);
+static void swfNewPage(const pGEcontext gc, pDevDesc dd);
 
-void swfPolygon(int n, double *x, double *y, const pGEcontext gc, pDevDesc dd);
+static void swfPolygon(int n, double *x, double *y, const pGEcontext gc, pDevDesc dd);
 
-void swfPolyline(int n, double *x, double *y, const pGEcontext gc, pDevDesc dd);
+static void swfPolyline(int n, double *x, double *y, const pGEcontext gc, pDevDesc dd);
 
-void swfRect(double x0, double y0, double x1, double y1, const pGEcontext gc, pDevDesc dd);
+static void swfRect(double x0, double y0, double x1, double y1, const pGEcontext gc, pDevDesc dd);
 
-void swfPath(double *x, double *y, int npoly, int *nper, Rboolean winding, const pGEcontext gc, pDevDesc dd);
+static void swfPath(double *x, double *y, int npoly, int *nper, Rboolean winding, const pGEcontext gc, pDevDesc dd);
 
 /*
 static void swfRaster(unsigned int *raster, int w, int h,
@@ -100,23 +100,28 @@ static void swfRaster(unsigned int *raster, int w, int h,
 
 /* static SEXP swfCap(pDevDesc dd); */
 
-void swfSize(double *left, double *right, double *bottom, double *top, pDevDesc dd);
+static void swfSize(double *left, double *right, double *bottom, double *top, pDevDesc dd);
 
-double swfStrWidth(const char *str, const pGEcontext gc, pDevDesc dd);
+static double swfStrWidth(const char *str, const pGEcontext gc, pDevDesc dd);
 
-void swfText(double x, double y, const char *str, double rot, double hadj, const pGEcontext gc, pDevDesc dd);
+static void swfText(double x, double y, const char *str, double rot, double hadj, const pGEcontext gc, pDevDesc dd);
 
-void swfTextUTF8(double x, double y, const char *str, double rot, double hadj, const pGEcontext gc, pDevDesc dd);
+static void swfTextUTF8(double x, double y, const char *str, double rot, double hadj, const pGEcontext gc, pDevDesc dd);
 
-double swfStrWidthUTF8(const char *str, const pGEcontext gc, pDevDesc dd);
+static double swfStrWidthUTF8(const char *str, const pGEcontext gc, pDevDesc dd);
 
-static SEXP     swf_setPattern(SEXP pattern, pDevDesc dd);
-static void     swf_releasePattern(SEXP ref, pDevDesc dd);
-static SEXP     swf_setClipPath(SEXP path, SEXP ref, pDevDesc dd);
-static void     swf_releaseClipPath(SEXP ref, pDevDesc dd);
-static SEXP     swf_setMask(SEXP path, SEXP ref, pDevDesc dd);
-static void     swf_releaseMask(SEXP ref, pDevDesc dd);
+/* Below are added in R_GE_version >= 13 */
+static SEXP swfSetPattern(SEXP pattern, pDevDesc dd);
+
+static void swfReleasePattern(SEXP ref, pDevDesc dd);
+
+static SEXP swfSetClipPath(SEXP path, SEXP ref, pDevDesc dd);
+
+static void swfReleaseClipPath(SEXP ref, pDevDesc dd);
+
+static SEXP swfSetMask(SEXP path, SEXP ref, pDevDesc dd);
+
+static void swfReleaseMask(SEXP ref, pDevDesc dd);
 
 
 #endif /* SWFDEVICE_H_INCLUDED */
-

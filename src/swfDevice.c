@@ -175,12 +175,12 @@ Rboolean swfSetup(pDevDesc dev, const char *filename,
     dev->haveCapture = 1;            /* 1 = no, 2 = yes */
     dev->haveLocator = 1;            /* 1 = no, 2 = yes */
 #if R_GE_version >= 13
-    dev->setPattern      = swf_setPattern;
-    dev->releasePattern  = swf_releasePattern;
-    dev->setClipPath     = swf_setClipPath;
-    dev->releaseClipPath = swf_releaseClipPath;
-    dev->setMask         = swf_setMask;
-    dev->releaseMask     = swf_releaseMask;
+    dev->setPattern      = swfSetPattern;
+    dev->releasePattern  = swfReleasePattern;
+    dev->setClipPath     = swfSetClipPath;
+    dev->releaseClipPath = swfReleaseClipPath;
+    dev->setMask         = swfSetMask;
+    dev->releaseMask     = swfReleaseMask;
 
     dev->deviceVersion = R_GE_definitions;
 #endif
@@ -838,20 +838,53 @@ void swfClose(pDevDesc dd)
     free(swfInfo);
 }
 
-static SEXP swf_setPattern(SEXP pattern, pDevDesc dd) {
+
+SEXP swfSetPattern(SEXP pattern, pDevDesc dd)
+{
+#ifdef SWF_DEBUG
+    Rprintf("setPattern called\n");
+#endif
     return R_NilValue;
 }
 
-static void swf_releasePattern(SEXP ref, pDevDesc dd) {} 
 
-static SEXP swf_setClipPath(SEXP path, SEXP ref, pDevDesc dd) {
+void swfReleasePattern(SEXP ref, pDevDesc dd)
+{
+#ifdef SWF_DEBUG
+    Rprintf("releasePattern called\n");
+#endif
+}
+
+
+SEXP swfSetClipPath(SEXP path, SEXP ref, pDevDesc dd)
+{
+#ifdef SWF_DEBUG
+    Rprintf("setClipPath called\n");
+#endif
     return R_NilValue;
 }
 
-static void swf_releaseClipPath(SEXP ref, pDevDesc dd) {}
 
-static SEXP swf_setMask(SEXP path, SEXP ref, pDevDesc dd) {
+void swfReleaseClipPath(SEXP ref, pDevDesc dd)
+{
+#ifdef SWF_DEBUG
+    Rprintf("releaseClipPath called\n");
+#endif
+}
+
+
+SEXP swfSetMask(SEXP path, SEXP ref, pDevDesc dd)
+{
+#ifdef SWF_DEBUG
+    Rprintf("setMask called\n");
+#endif
     return R_NilValue;
 }
 
-static void swf_releaseMask(SEXP ref, pDevDesc dd) {}
+
+void swfReleaseMask(SEXP ref, pDevDesc dd)
+{
+#ifdef SWF_DEBUG
+    Rprintf("releaseMask called\n");
+#endif
+}
