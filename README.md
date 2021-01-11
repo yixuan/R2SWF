@@ -1,4 +1,5 @@
 ### Description
+
 This is an R package to convert R graphics to Flash file (SWF format).
 The conversion can be done in two different ways:
 
@@ -14,11 +15,12 @@ SVG to SWF, and `image2swf()` to convert PNG and JPG images into a single
 SWF file.
 
 ### Installation
+
 `R2SWF` depends on the following libraries:
 
-- zlib         [http://www.zlib.net/](http://www.zlib.net/)
+- zlib         [https://www.zlib.net/](https://www.zlib.net/)
 - libpng       [http://www.libpng.org/](http://www.libpng.org/)
-- freetype     [http://www.freetype.org/](http://www.freetype.org/)
+- freetype     [https://www.freetype.org/](https://www.freetype.org/)
 - libming      [http://www.libming.org/](http://www.libming.org/)
 
 The source code of `libming` is included in `R2SWF`, and you need
@@ -37,6 +39,7 @@ sudo yum install zlib-devel libpng-devel freetype-devel
 ```
 
 ### Examples
+
 In the first example, we first create 20 images using `png()` function,
 and then convert them into a single SWF file `R2SWF-ex1.swf`.
 
@@ -93,5 +96,3 @@ dev.off()
 In general, when using the SWF device, high-level plotting functions (e.g. `plot()`)
 will advance the movie by one frame, and low-level functions (`lines()`, `text()`, etc.)
 are effective only to the current frame.
-
-
