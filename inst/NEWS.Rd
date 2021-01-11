@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package "R2SWF"}
 
+\section{Changes in R2SWF version 0.9-5}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed a string comparison issue in the configure script
+      \item Fixed a bug in testing the capability of Cairo-based devices
+    }
+  }
+}
+
 \section{Changes in R2SWF version 0.9-4}{
   \subsection{NEW FEATURES}{
     \itemize{
