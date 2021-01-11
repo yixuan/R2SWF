@@ -83,8 +83,8 @@ image2swf <- function(input, output = "movie.swf", bgColor = "white",
 #'     output2 = dev2swf({
 #'         for(i in 1:10) plot(runif(20), ylim = c(0, 1))
 #'     }, dev='svg', file.ext='svg', output='movie-svg.swf')
+#'     swf2html(output2)
 #' }
-#' swf2html(output2)
 #'
 #' setwd(olddir)
 dev2swf <- function(expr, output = "movie.swf",
