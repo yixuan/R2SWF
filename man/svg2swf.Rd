@@ -24,7 +24,8 @@ convert them into a Flash file (.swf).
 }
 \details{
 This function uses the XML package in R and a subset of librsvg
-(\url{http://librsvg.sourceforge.net/}) to parse the SVG file, and
+(\url{https://wiki.gnome.org/action/show/Projects/LibRsvg})
+to parse the SVG file, and
 uses the Ming library (\url{http://www.libming.org/}) to
 implement the conversion. Currently this function supports SVG files
 created by \code{\link[grDevices]{svg}()} in the \pkg{grDevices}
