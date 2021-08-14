@@ -190,8 +190,7 @@ svg2swf = function(input, output = "movie.swf", bgColor = "white", interval = 1)
     size = as.numeric(unlist(strsplit(size, " ")));
     
     outfile = normalizePath(output, mustWork = FALSE);
-    .Call("svg2swf", filesData, outfile, size,
-          bg, as.numeric(interval), PACKAGE = "R2SWF");
+    .Call(svg2swf_c, filesData, outfile, size, bg, as.numeric(interval));
     
     message("SWF file created at ", outfile);
     invisible(output);

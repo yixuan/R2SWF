@@ -53,9 +53,9 @@
 swf <- function(file = "Rplots.swf", width = 7, height = 7, bg = "white",
                 fg = "black", frameRate = 12)
 {
-    .Call("swfDevice", as.character(file),
+    .Call(swfDevice, as.character(file),
           as.double(width), as.double(height),
           c(col2rgb(bg)), c(col2rgb(fg)),
-          as.double(frameRate), PACKAGE='R2SWF');
+          as.double(frameRate));
     invisible(NULL);
 }

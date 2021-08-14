@@ -14,10 +14,10 @@ static R_CMethodDef c_methods[] = {
 };
 
 static R_CallMethodDef call_methods[] = {
-    {"swfInit",   (DL_FUNC) &swfInit,   0},
-    {"image2swf", (DL_FUNC) &image2swf, 5},
-    {"svg2swf",   (DL_FUNC) &svg2swf,   5},
-    {"swfDevice", (DL_FUNC) &swfDevice, 6},
+    {"swfInit",     (DL_FUNC) &swfInit,   0},
+    {"image2swf_c", (DL_FUNC) &image2swf, 5},
+    {"svg2swf_c",   (DL_FUNC) &svg2swf,   5},
+    {"swfDevice",   (DL_FUNC) &swfDevice, 6},
     {NULL, NULL, 0}
 };
 

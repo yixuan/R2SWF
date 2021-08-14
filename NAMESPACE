@@ -1,3 +1,4 @@
+useDynLib(R2SWF, .registration = TRUE)
 import(sysfonts)
 importFrom("grDevices", "col2rgb", "dev.off")
 importFrom("utils", "browseURL")
@@ -8,4 +9,3 @@ export(image2swf)
 export(svg2swf)
 export(swf2html)
 export(swf)
-

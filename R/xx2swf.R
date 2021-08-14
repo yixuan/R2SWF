@@ -42,8 +42,7 @@ image2swf <- function(input, output = "movie.swf", bgColor = "white",
   infile = normalizePath(input, mustWork = FALSE);
   outfile = normalizePath(output, mustWork = FALSE);
 
-  .Call("image2swf", input, fmt, outfile, bg,
-        as.numeric(interval), PACKAGE = "R2SWF");
+  .Call(image2swf_c, input, fmt, outfile, bg, as.numeric(interval));
 
   message("SWF file created at ", outfile);
   invisible(output);
