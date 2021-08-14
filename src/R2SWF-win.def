@@ -5,3 +5,4 @@ EXPORTS
  svg2swf
  swfDevice
  Ming_collectGarbage
+ R_init_R2SWF

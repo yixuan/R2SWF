@@ -5,6 +5,7 @@
   \subsection{BUG FIXES}{
     \itemize{
       \item Fixed the configure script, thanks to Prof. Brian Ripley.
+      \item Fixed the issue of not exporting the initialization function on Windows.
     }
   }
 }
