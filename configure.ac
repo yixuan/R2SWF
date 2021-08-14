@@ -14,7 +14,7 @@ CPPFLAGS=`"${R_HOME}/bin/R" CMD config CPPFLAGS`
 AC_PROG_CC
 
 # Checks for pkg-config
-AC_PATH_PROG([PKGCONF], [pkg-config], [], [$PATH:/usr/bin:/usr/local/bin:/opt/bin])
+AC_PATH_PROG([PKGCONF], [pkg-config], [], [$PATH:/usr/bin:/usr/local/bin:/opt/bin:/opt/homebrew/bin])
 
 # If pkg-config is available, use it to find needed libraries
 if test -n "${PKGCONF}"; then
@@ -119,6 +119,22 @@ if test -z "${FT_LIBS}"; then
     exit 1
     fi
 fi
+
+# Additional check for linking
+CPPFLAGS="$CPPFLAGS ${FT_CPPFLAGS}"
+LIBS0="$LIBS"
+LIBS="$LIBS0 ${FT_LIBS}"
+AC_MSG_CHECKING([whether freetype2 flags work])
+AC_LINK_IFELSE([AC_LANG_CALL([], [FT_Init_FreeType])], AC_MSG_RESULT([yes]), [
+    AC_MSG_RESULT([no])
+    AC_MSG_CHECKING([whether --static helps])
+    FT_LIBS=`"${PKGCONF}" --libs --static freetype2`
+    LIBS="$LIBS0 ${FT_LIBS}"
+    AC_LINK_IFELSE([AC_LANG_CALL([], [FT_Init_FreeType])], AC_MSG_RESULT([yes]), [
+        AC_MSG_RESULT([no])
+        AC_MSG_ERROR([Cannot get FreeType to work, check config.log for details.])
+    ])
+])
 
 R2SWF_CPPFLAGS="${FT_CPPFLAGS} ${LIBPNG_CPPFLAGS} ${ZLIB_CPPFLAGS}"
 R2SWF_LIBS="${FT_LIBS} ${LIBPNG_LIBS} ${ZLIB_LIBS}"
