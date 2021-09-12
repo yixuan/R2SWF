@@ -113,7 +113,7 @@ SWFOutput_writeToMethod(SWFOutput out, SWFByteOutputMethod method, void *data)
 	while ( o != NULL )
 	{
 		buffer = o->buffer;
-		l = o->pos - buffer;
+		l = (int) (o->pos - buffer);
 
 		for(i=0; i<l; ++i)
 			method(buffer[i], data);
@@ -141,7 +141,7 @@ destroySWFOutput(SWFOutput out)
 void
 SWFOutput_grow(SWFOutput out)
 {
-	int num = out->pos - out->buffer; /* in case buffer gets displaced.. */
+	int num = (int) (out->pos - out->buffer); /* in case buffer gets displaced.. */
 
 	unsigned char* newbuf =
 		(unsigned char*)realloc(out->buffer, out->buffersize + OUTPUT_BUFFER_INCREMENT);
@@ -179,7 +179,7 @@ SWFOutput_checkSize(SWFOutput out, int bytes)
 		int New = OUTPUT_BUFFER_INCREMENT *
 							((bytes-out->free-1)/OUTPUT_BUFFER_INCREMENT + 1);
 
-		int num = out->pos - out->buffer; /* in case buffer gets displaced.. */
+		int num = (int) (out->pos - out->buffer); /* in case buffer gets displaced.. */
 
 		unsigned char *newbuf = (unsigned char*)realloc(out->buffer, out->buffersize+New);
 
@@ -284,7 +284,7 @@ SWFOutput_writeUInt8(SWFOutput out, int data)
 	SWFOutput_byteAlign(out);
 
 	SWFOutput_checkSize(out, 1);
-	*(out->pos) = data;
+	*(out->pos) = (byte) data;
 	++out->pos;
 	--out->free;
 }
@@ -413,7 +413,7 @@ SWFOutput_writeFixed(SWFOutput out, double val)
 {
 	unsigned int fixed;
 
-	fixed = val * (1<<16);
+	fixed = (unsigned int) (val * (1<<16));
 	SWFOutput_writeUInt32(out, fixed);
 }
 

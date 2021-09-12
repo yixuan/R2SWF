@@ -199,11 +199,11 @@ Rboolean swfSetupSWFInfo(pswfDesc swfInfo, const char *filename,
     /* Movie object */
     swfInfo->m = newSWFMovieWithVersion(8);
     /* Set swf background color */
-    SWFMovie_setBackground(swfInfo->m, bg[0], bg[1], bg[2]);
+    SWFMovie_setBackground(swfInfo->m, (byte) (bg[0]), (byte) (bg[1]), (byte) (bg[2]));
     /* Set movie frame rate */
     SWFMovie_setRate(swfInfo->m, frameRate);
     /* Set movie dimension */
-    SWFMovie_setDimension(swfInfo->m, width * 72.0, height * 72.0);
+    SWFMovie_setDimension(swfInfo->m, (float) (width * 72.0), (float) (height * 72.0));
     /* Set number of frames, only useful when you want to insert
        blank frames at the end of the movie. Otherwise it will be
        increased automatically every time you call
@@ -371,7 +371,7 @@ void swfSetTextColor(SWFShape shape, const pGEcontext gc, pswfDesc swfInfo)
 void swfDrawStyledLineTo(SWFShape shape, double x, double y, const pGEcontext gc)
 {
     int lty = gc->lty;
-    int lwd = gc->lwd;
+    int lwd = (int) (gc->lwd);
     /* Original positions */
     double x0 = SWFShape_getPenX(shape);
     double y0 = SWFShape_getPenY(shape);
@@ -688,7 +688,7 @@ void swfMetricInfo(int c, const pGEcontext gc, double* ascent, double* descent, 
     }
     
     /* c is the unicode of the character */
-    FT_Set_Char_Size(face, 0, fontSize * 64, 72, 0);
+    FT_Set_Char_Size(face, 0, (FT_F26Dot6) (fontSize * 64), 72, 0);
     err = FT_Load_Char(face, c, FT_LOAD_NO_SCALE);
     if(err)
     {
@@ -752,7 +752,7 @@ double swfStrWidthUTF8(const char *str, const pGEcontext gc, pDevDesc dd)
         gc->fontfamily, str[0], str[1]);
 #endif
     /* Convert UTF-8 string to Unicode array */
-    int maxLen = strlen(str);
+    int maxLen = (int) (strlen(str));
     wchar_t *unicode = (wchar_t *) calloc(maxLen + 1, sizeof(wchar_t));
     int len = utf8towcs(unicode, str, maxLen);
     /* Get the font face object */
@@ -796,7 +796,7 @@ void swfTextUTF8(double x, double y, const char *str, double rot, double hadj, c
     SWFShape text = newSWFShape();
     SWFDisplayItem text_display;
     /* Convert UTF-8 string to Unicode array */
-    int maxLen = strlen(str);
+    int maxLen = (int) (strlen(str));
     wchar_t *unicode = (wchar_t *) calloc(maxLen + 1, sizeof(wchar_t));
     int len = utf8towcs(unicode, str, maxLen);
     

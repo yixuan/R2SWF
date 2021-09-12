@@ -379,7 +379,7 @@ static void yy_fatal_error (yyconst char msg[]  );
  */
 #define YY_DO_BEFORE_ACTION \
 	(yytext_ptr) = yy_bp; \
-	swf5leng = (size_t) (yy_cp - yy_bp); \
+	swf5leng = (int) (yy_cp - yy_bp); \
 	(yy_hold_char) = *yy_cp; \
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
@@ -1194,7 +1194,7 @@ void swf5ParseInit(const char *script, int debug, int version)
   swf5debug = debug;
 
   lexBuffer = script;
-  lexBufferLen = strlen(script);
+  lexBufferLen = (int) (strlen(script));
   sLineNumber = 0;
   column = 0;
   msgline = msgbufs[0];
@@ -1211,7 +1211,7 @@ int read_int (const char *text, YYSTYPE *num)
     num->doubleVal = atof(swf5text);
     return DOUBLE;
   }
-  num->intVal = i;
+  num->intVal = (int) i;
   return INTEGER;
 }
 
@@ -1484,7 +1484,7 @@ if (yy_first_time) {
 yy_match:
 		do
 			{
-			register YY_CHAR yy_c = yy_ec[YY_SC_TO_UI(*yy_cp)];
+			register YY_CHAR yy_c = (YY_CHAR) (yy_ec[YY_SC_TO_UI(*yy_cp)]);
 			if ( yy_accept[yy_current_state] )
 				{
 				(yy_last_accepting_state) = yy_current_state;
@@ -1494,7 +1494,7 @@ yy_match:
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
 				if ( yy_current_state >= 1042 )
-					yy_c = yy_meta[(unsigned int) yy_c];
+					yy_c = (YY_CHAR) (yy_meta[(unsigned int) yy_c]);
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
@@ -2682,7 +2682,7 @@ static int yy_get_next_buffer (void)
 	else
 		{
 			int num_to_read =
-			YY_CURRENT_BUFFER_LVALUE->yy_buf_size - number_to_move - 1;
+			(int) (YY_CURRENT_BUFFER_LVALUE->yy_buf_size - number_to_move - 1);
 
 		while ( num_to_read <= 0 )
 			{ /* Not enough room in the buffer - grow it. */
@@ -2695,7 +2695,7 @@ static int yy_get_next_buffer (void)
 
 			if ( b->yy_is_our_buffer )
 				{
-				int new_size = b->yy_buf_size * 2;
+				int new_size = (int) (b->yy_buf_size * 2);
 
 				if ( new_size <= 0 )
 					b->yy_buf_size += b->yy_buf_size / 8;
@@ -2716,8 +2716,8 @@ static int yy_get_next_buffer (void)
 
 			(yy_c_buf_p) = &b->yy_ch_buf[yy_c_buf_p_offset];
 
-			num_to_read = YY_CURRENT_BUFFER_LVALUE->yy_buf_size -
-						number_to_move - 1;
+			num_to_read = (int) (YY_CURRENT_BUFFER_LVALUE->yy_buf_size -
+						number_to_move - 1);
 
 			}
 
@@ -2726,7 +2726,7 @@ static int yy_get_next_buffer (void)
 
 		/* Read in more data. */
 		YY_INPUT( (&YY_CURRENT_BUFFER_LVALUE->yy_ch_buf[number_to_move]),
-			(yy_n_chars), (size_t) num_to_read );
+			(yy_n_chars), (int) num_to_read );
 
 		YY_CURRENT_BUFFER_LVALUE->yy_n_chars = (yy_n_chars);
 		}
@@ -2778,7 +2778,7 @@ static int yy_get_next_buffer (void)
 
 	for ( yy_cp = (yytext_ptr) + YY_MORE_ADJ; yy_cp < (yy_c_buf_p); ++yy_cp )
 		{
-		register YY_CHAR yy_c = (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
+		register YY_CHAR yy_c = (YY_CHAR) (*yy_cp ? yy_ec[YY_SC_TO_UI(*yy_cp)] : 1);
 		if ( yy_accept[yy_current_state] )
 			{
 			(yy_last_accepting_state) = yy_current_state;
@@ -2788,7 +2788,7 @@ static int yy_get_next_buffer (void)
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
 			if ( yy_current_state >= 1042 )
-				yy_c = yy_meta[(unsigned int) yy_c];
+				yy_c = (YY_CHAR) (yy_meta[(unsigned int) yy_c]);
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 		}
@@ -2816,7 +2816,7 @@ static int yy_get_next_buffer (void)
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
 		if ( yy_current_state >= 1042 )
-			yy_c = yy_meta[(unsigned int) yy_c];
+			yy_c = (YY_CHAR) (yy_meta[(unsigned int) yy_c]);
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 	yy_is_jam = (yy_current_state == 1041);
@@ -2848,7 +2848,7 @@ static int yy_get_next_buffer (void)
 		yy_cp += (int) (dest - source);
 		yy_bp += (int) (dest - source);
 		YY_CURRENT_BUFFER_LVALUE->yy_n_chars =
-			(yy_n_chars) = YY_CURRENT_BUFFER_LVALUE->yy_buf_size;
+			(yy_n_chars) = (int) (YY_CURRENT_BUFFER_LVALUE->yy_buf_size);
 
 		if ( yy_cp < YY_CURRENT_BUFFER_LVALUE->yy_ch_buf + 2 )
 			YY_FATAL_ERROR( "flex scanner push-back overflow" );
@@ -2885,7 +2885,7 @@ static int yy_get_next_buffer (void)
 
 		else
 			{ /* need more input */
-			int offset = (yy_c_buf_p) - (yytext_ptr);
+			int offset = (int) ((yy_c_buf_p) - (yytext_ptr));
 			++(yy_c_buf_p);
 
 			switch ( yy_get_next_buffer(  ) )
@@ -3184,7 +3184,7 @@ static void swf5ensure_buffer_stack (void)
 		/* Increase the buffer to prepare for a possible push. */
 		int grow_size = 8 /* arbitrary grow size */;
 
-		num_to_alloc = (yy_buffer_stack_max) + grow_size;
+		num_to_alloc = (int) ((yy_buffer_stack_max) + grow_size);
 		(yy_buffer_stack) = (struct yy_buffer_state**)swf5realloc
 								((yy_buffer_stack),
 								num_to_alloc * sizeof(struct yy_buffer_state*)
@@ -3222,7 +3222,7 @@ YY_BUFFER_STATE swf5_scan_buffer  (char * base, yy_size_t  size )
 	b->yy_buf_pos = b->yy_ch_buf = base;
 	b->yy_is_our_buffer = 0;
 	b->yy_input_file = 0;
-	b->yy_n_chars = b->yy_buf_size;
+	b->yy_n_chars = (int) (b->yy_buf_size);
 	b->yy_is_interactive = 0;
 	b->yy_at_bol = 1;
 	b->yy_fill_buffer = 0;
@@ -3244,7 +3244,7 @@ YY_BUFFER_STATE swf5_scan_buffer  (char * base, yy_size_t  size )
 YY_BUFFER_STATE swf5_scan_string (yyconst char * yystr )
 {
     
-	return swf5_scan_bytes(yystr,strlen(yystr) );
+	return swf5_scan_bytes(yystr,(int) (strlen(yystr)) );
 }
 
 /** Setup the input buffer state to scan the given bytes. The next call to swf5lex() will
@@ -3583,7 +3583,7 @@ loop:
    while ((c = getinput()) != '*' && c != EOF)
    {
       if(column < 1023)
-         msgline[column] = c;
+         msgline[column] = (char) c;
 
       ++column;
 
@@ -3601,7 +3601,7 @@ loop:
    if ((c1 = getinput()) != '/' && c != EOF)
    {
       /* false start as this was no end of comment */
-      do_unput5(c1);
+      do_unput5((char) c1);
       goto loop;
    }
 
@@ -3626,7 +3626,7 @@ static void comment1()
       if (swf5debug) putchar(c);
 
       if(column < 1023)
-         msgline[column] = c;
+         msgline[column] = (char) c;
 
       ++column;
    };

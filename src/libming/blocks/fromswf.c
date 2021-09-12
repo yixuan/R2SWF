@@ -229,14 +229,14 @@ readint4(BITS bp)
 	return res;
 }
 static void putint2(unsigned char *p, int val)
-{	*p++ = val;
-	*p++ = val >> 8;
+{	*p++ = (unsigned short) val;
+	*p++ = (unsigned short) (val >> 8);
 }
 static void putint4(unsigned char *p, int val)
-{	*p++ = val;
-	*p++ = val >> 8;
-	*p++ = val >> 16;
-	*p++ = val >> 24;
+{	*p++ = (unsigned short) val;
+	*p++ = (unsigned short) (val >> 8);
+	*p++ = (unsigned short) (val >> 16);
+	*p++ = (unsigned short) (val >> 24);
 }
 
 /* open a swf file as a stream */
@@ -272,7 +272,7 @@ static struct swfile *openswf(SWFInput input)
 	SWFInput_read(input, res->vers, 4);
 	if(memcmp(res->vers, "FWS", 3) && memcmp(res->vers, "CWS", 3))
 		SWF_error("input not a SWF stream\n");
-	res->fsize = SWFInput_getUInt32(input);
+	res->fsize = (int) (SWFInput_getUInt32(input));
 	res->compressed = res->vers[0] == 'C';
 	if(res->compressed)
 	{
@@ -289,7 +289,7 @@ static struct swfile *openswf(SWFInput input)
 		inflateInit(&z);
 		inflate(&z, Z_FINISH);
 		inflateEnd(&z);
-		input = newSWFInput_allocedBuffer(zbuf, z.next_out-zbuf);
+		input = newSWFInput_allocedBuffer(zbuf, (int) (z.next_out-zbuf));
 #else
 		SWF_error("The SWF to be opened is compressed, but we can't uncompress it (no zlib compiled into this version of Ming).\n");
 		return NULL;
@@ -303,7 +303,7 @@ static struct swfile *openswf(SWFInput input)
 	rect((BITS) res);
 	res->readc = freadc;
 	readint2((BITS) res);	/* movie rate */
-	res->frames = readint2((BITS) res);
+	res->frames = (short) (readint2((BITS) res));
 	return res;
 }
 
@@ -326,7 +326,7 @@ static unsigned char treadc(TAG tp)
 
 static TAG readtag_common(BITS bp)
 {	TAG res = (TAG) malloc(sizeof(struct swftag));
-	res->type = readint2(bp);
+	res->type = (short) (readint2(bp));
 	res->size = res->type & 63;
 	putint2(res->hdr, res->type);
 	res->type >>= 6;
@@ -783,7 +783,7 @@ static void fillstyle(TAG tp, int lev)
 		gradient(tp, lev >= 3, cod);
 	}
 	else if(cod == 0x40 || cod == 0x41 || cod == 0x42 || cod == 0x43)
-	{	id = change_id(tp);
+	{	id = (unsigned short) (change_id(tp));
 		if(verbose)
 			printf("fill with id %d\n", id);
 		matrix((BITS) tp);
@@ -852,7 +852,7 @@ static void morphfillstyle(TAG tp)
 		morphgradient(tp);
 	}
 	else if(cod == 0x40 || cod == 0x41 || cod == 0x42 || cod == 0x43)
-	{	id = change_id(tp);
+	{	id = (unsigned short) (change_id(tp));
 		if(verbose) printf("fill with id %d\n", id);
 		matrix((BITS) tp);
 		alignbits(tp);
@@ -888,7 +888,7 @@ static void fillandlinestyles(TAG tp, int lev)
 
 static void linestyle(TAG tp, int lev)
 {	unsigned short w;
-	w = readint2((BITS) tp);
+	w = (unsigned short) (readint2((BITS) tp));
 	if(verbose)
 		printf ("w %d\n", w);
 	if(lev >= 3) rgba((BITS) tp); else rgb((BITS) tp);
@@ -896,8 +896,8 @@ static void linestyle(TAG tp, int lev)
 
 static void morphlinestyle(TAG tp)
 {	unsigned short w1, w2;
-	w1 = readint2((BITS) tp);
-	w2 = readint2((BITS) tp);
+	w1 = (unsigned short) (readint2((BITS) tp));
+	w2 = (unsigned short) (readint2((BITS) tp));
 	if(verbose)
 		printf("w %d => %d\n", w1, w2);
 	rgba((BITS) tp); rgba((BITS) tp);
@@ -908,10 +908,10 @@ static void morphlinestyle2(TAG tp)
 	int join_style;
 	int has_fill;
 	int is_morph = (tp->type == SWF_DEFINEMORPHSHAPE2);
-	w1 = readint2((BITS) tp);
+	w1 = (unsigned short) (readint2((BITS) tp));
 	if (is_morph) {
 		unsigned short w2;
-		w2 = readint2((BITS) tp);
+		w2 = (unsigned short) (readint2((BITS) tp));
 		if(verbose)
 			printf("w %d => %d\n", w1, w2);
 	} else {
@@ -941,7 +941,7 @@ static void morphlinestyle2(TAG tp)
 static void defineshape(TAG tp, int lev)
 {	unsigned short id;
 
-	id = change_id(tp);
+	id = (unsigned short) (change_id(tp));
 	if(verbose)
 		printf("shape %d\n", id);
 	alignbits(tp);
@@ -970,7 +970,7 @@ static void definemorphshape(TAG tp, int lev)
 	/* unsigned char *endp; */
 	int n;
 
-	id = change_id(tp);
+	id = (unsigned short) (change_id(tp));
 	if(verbose)
 		printf("morph %d\n", id);
 	rect((BITS) tp);
@@ -985,7 +985,7 @@ static void definemorphshape(TAG tp, int lev)
 	/* endp = tp->datptr + loff; */
 	fcnt = tp->readc(tp);
 	if(fcnt == 0xff)
-		fcnt = readint2((BITS) tp);
+		fcnt = (unsigned short) (readint2((BITS) tp));
 	if(verbose)
 		printf ("%d fill styles\n", fcnt);
 	for(n = 0 ; n < fcnt ; n++)
@@ -994,7 +994,7 @@ static void definemorphshape(TAG tp, int lev)
 	}
 	lcnt = tp->readc(tp);
 	if(lcnt == 0xff)
-		lcnt = readint2((BITS) tp);
+		lcnt = (unsigned short) (readint2((BITS) tp));
 	if(verbose)
 		printf ("%d line styles\n", lcnt);
 	for(n = 0 ; n < lcnt ; n++)
@@ -1023,7 +1023,7 @@ static void definetext(TAG tp, int lev)
 	unsigned short font=0, height;
 	signed short xoffs, yoffs;
 			
-	textid = change_id(tp);
+	textid = (unsigned short) (change_id(tp));
 	if(verbose) printf("text %d\n", textid);
 	rect((BITS) tp);
 	alignbits(tp);
@@ -1050,21 +1050,21 @@ static void definetext(TAG tp, int lev)
 			hasyoffset = getbits((BITS) tp, 1);
 			hasxoffset = getbits((BITS) tp, 1);
 			if(hasfont)
-				font = change_id(tp);
+				font = (unsigned short) (change_id(tp));
 			if(hascolor)
 			{	if(lev == 2) rgba((BITS) tp);
 				else rgb((BITS) tp);
 			}
 			if(hasxoffset)
-			{	xoffs = readint2((BITS) tp);
+			{	xoffs = (short) (readint2((BITS) tp));
 				if(verbose) printf("dx %d\n", xoffs);
 			}
 			if(hasyoffset)
-			{	yoffs = readint2((BITS) tp);
+			{	yoffs = (short) (readint2((BITS) tp));
 				if(verbose) printf("dy %d\n", yoffs);
 			}
 			if(hasfont)
-			{	height = readint2((BITS) tp);
+			{	height = (unsigned short) (readint2((BITS) tp));
 				if(verbose) printf("font %d size %d\n", font, height);
 			}
 		}
@@ -1091,9 +1091,9 @@ static void placeobject(TAG tp, int lv)
 	/* hasmatrix = */getbits((BITS)tp, 1);
 	haschar = getbits((BITS)tp, 1);
 	/* hasmove = */getbits((BITS)tp, 1);
-	depth = readint2((BITS) tp);
+	depth = (short) (readint2((BITS) tp));
 	if(haschar)
-	{	charid = change_id(tp);
+	{	charid = (short) (change_id(tp));
 		if(verbose) printf("char %d depth %d\n", charid, depth);
 	}
 }
@@ -1102,7 +1102,7 @@ static void definebutton(TAG tp)
 {	short butid, charid, layer;
 	unsigned char bstate;
 
-	butid = change_id(tp);
+	butid = (short) (change_id(tp));
 	if(verbose)
 		printf("char %d:\n", butid);
 	while((bstate = tp->readc(tp)))
@@ -1115,8 +1115,8 @@ static void definebutton(TAG tp)
 		if(bstate & 1)
 			if(verbose) printf("up");
 		if(verbose) printf("\n");
-		charid = change_id(tp);
-		layer = readint2((BITS) tp);
+		charid = (short) (change_id(tp));
+		layer = (short) (readint2((BITS) tp));
 		if(verbose) printf("char %d layer %d\n", charid, layer);
 		alignbits(tp);
 		matrix((BITS) tp);
@@ -1154,9 +1154,9 @@ static void definebutton2(TAG tp)
 {	short id, charid, offs, layer;
 	unsigned char ch, bstate;
 
-	id = change_id(tp);
+	id = (short) (change_id(tp));
 	ch = tp->readc(tp);
-	offs = readint2((BITS) tp);
+	offs = (short) (readint2((BITS) tp));
 	if(verbose)
 		printf("id %d %s action offset %d\n", id, ch ? "menu" : "button", offs);
 	while((bstate = tp->readc(tp)))
@@ -1169,8 +1169,8 @@ static void definebutton2(TAG tp)
 		if(bstate & 1)
 			if(verbose) printf("up");
 		if(verbose) printf("\n");
-		charid = change_id(tp);
-		layer = readint2((BITS) tp);
+		charid = (short) (change_id(tp));
+		layer = (short) (readint2((BITS) tp));
 		if(verbose) printf("char %d layer %d\n", charid, layer);
 		alignbits(tp);
 		matrix((BITS) tp);
@@ -1187,7 +1187,7 @@ static void definetextfield(TAG tp)
 	/* int hascolor, haslayout, hastext, hasfont; */
 	int hascolor, hasfont;
 	
-	textid = change_id(tp);
+	textid = (short) (change_id(tp));
 	if(verbose) printf("textfield %d\n", textid);
 	rect((BITS) tp);
 	alignbits(tp);
@@ -1207,7 +1207,7 @@ static void definetextfield(TAG tp)
 	html = getbits((BITS) tp, 1);
 	usefont = getbits((BITS) tp, 1);
 	if(hasfont)
-		fontid = change_id(tp);
+		fontid = (short) (change_id(tp));
 	if(verbose)
 	{	if ( fontid ) printf("font %d ", fontid);
 		if(noedit) printf("noedit ");
@@ -1226,9 +1226,9 @@ static void definetextfield(TAG tp)
 static void exportassets(TAG tp)
 {	short n, nobj, id;
 	char ch;
-	nobj = readint2((BITS) tp);
+	nobj = (short) (readint2((BITS) tp));
 	for(n = 0 ; n < nobj ; n++)
-	{	id = change_id(tp);
+	{	id = (short) (change_id(tp));
 		if(verbose) printf("%d ", id);
 		while((ch = tp->readc(tp)))
 			if(verbose) putchar(ch);
@@ -1241,11 +1241,11 @@ static void soundinfo(TAG tp)
 {	char flags, hasenvelope, hasloops, hasoutpoint, hasinpoint, npoints;
 	signed short loops, lev0, lev1;
 	int soundpoint, n;
-	flags = getbits((BITS) tp, 4);
-	hasenvelope = getbits((BITS) tp, 1);
-	hasloops = getbits((BITS) tp, 1);
-	hasoutpoint = getbits((BITS) tp, 1);
-	hasinpoint = getbits((BITS) tp, 1);
+	flags = (char) (getbits((BITS) tp, 4));
+	hasenvelope = (char) (getbits((BITS) tp, 1));
+	hasloops = (char) (getbits((BITS) tp, 1));
+	hasoutpoint = (char) (getbits((BITS) tp, 1));
+	hasinpoint = (char) (getbits((BITS) tp, 1));
 	if(flags & 1)
 		if(verbose) printf("no multiple ");
 	if(flags & 2)
@@ -1261,15 +1261,15 @@ static void soundinfo(TAG tp)
 		if(verbose) printf("outpoint %d\n", soundpoint);
 	}
 	if(hasloops)
-	{	loops = readint2((BITS) tp);
+	{	loops = (short) (readint2((BITS) tp));
 		if(verbose) printf("%d loops\n", loops);
 	}
 	if(hasenvelope)
 	{	npoints = tp->readc(tp);
 		for(n = 0 ; n < npoints ; n++)
 		{	soundpoint = readint4((BITS) tp);
-			lev0 = readint2((BITS) tp);
-			lev1 = readint2((BITS) tp);
+			lev0 = (short) (readint2((BITS) tp));
+			lev1 = (short) (readint2((BITS) tp));
 			if(verbose) printf("%d: %d %d\n", soundpoint, lev0, lev1);
 		}
 	}

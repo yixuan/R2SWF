@@ -107,7 +107,7 @@ void writeSWFVideoFrameToMethod(SWFBlock block, SWFByteOutputMethod method, void
 
 	for (i = 0; i < len; i++) {
 		ichar = SWFInput_getChar(input);
-		method(ichar, data);
+		method((byte) ichar, data);
 	}
 }
 
@@ -398,7 +398,7 @@ static int setStreamProperties(SWFVideoStream stream)
 	if(ret < 0)
 		return -1;
 
-	stream->codecId = tag.hdr.video.codec;
+	stream->codecId = (unsigned short) tag.hdr.video.codec;
 	switch (stream->codecId) {
 		case VIDEO_CODEC_H263:
 			ret = setH263StreamDimension(stream, &tag);

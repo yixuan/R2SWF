@@ -167,7 +167,7 @@ SWFOutput_writeGradientAsFilter(SWFOutput out, SWFGradient gradient)
 
 }
 
-#define GRADIENT_SIZE 32768.0
+#define GRADIENT_SIZE 32768.0f
 
 void 
 SWFGradientMatrix_update(SWFMatrix matrix, SWFRect bounds)
@@ -185,8 +185,8 @@ SWFGradientMatrix_update(SWFMatrix matrix, SWFRect bounds)
 
 	/* update matrix translation first, to be realtive to the gradient's 
 	 * coordinate system. */
-	SWFMatrix_moveTo(matrix, SWFMatrix_getTranslateX(matrix) / scaleX, 
-		SWFMatrix_getTranslateY(matrix) / scaleY);
+	SWFMatrix_moveTo(matrix, (int) (SWFMatrix_getTranslateX(matrix) / scaleX), 
+		(int) (SWFMatrix_getTranslateY(matrix) / scaleY));
 	
 	tmp = newSWFMatrix(scaleX, 0, 0, scaleY, bounds->minX + w/2,  bounds->minY + h/2);
 	/* temporary matrix scales gradient to given bounds and centers it. */
@@ -207,7 +207,7 @@ SWFOutput_writeGradient(SWFOutput out, SWFGradient gradient, SWFBlocktype shapeT
 	{
 		byte flags ;
 		nGrads = min(nGrads, 15);
-		flags = nGrads;
+		flags = (byte) nGrads;
 		flags |= (0x3 & gradient->interpolationMode) << 4;
 		flags |= (0x3 & gradient->spreadMode) << 6;
 		SWFOutput_writeUInt8(out, flags); /* only 1-15 allowed */

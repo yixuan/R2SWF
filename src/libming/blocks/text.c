@@ -347,7 +347,7 @@ SWFText_getScaledStringWidth(SWFText text, const char *string)
 	SWFFont font;
 	int height;
 	unsigned short* widestr;
-	int len = strlen(string);
+	int len = (int) strlen(string);
 	int n, ret;
 	
 	if(text->currentRecord == NULL)
@@ -430,7 +430,7 @@ SWFText_getScaledAscent(SWFText text)
 
 	font = text->currentRecord->font.font;
 	height = text->currentRecord->height;
-	return SWFFont_getScaledAscent(font) * height / 1024;
+	return (short) (SWFFont_getScaledAscent(font) * height / 1024);
 }
 
 
@@ -445,7 +445,7 @@ SWFText_getScaledDescent(SWFText text)
 
 	font = text->currentRecord->font.font;
 	height = text->currentRecord->height;
-	return SWFFont_getScaledDescent(font) * height / 1024;
+	return (short) (SWFFont_getScaledDescent(font) * height / 1024);
 }
 
 
@@ -455,7 +455,7 @@ SWFText_getScaledLeading(SWFText text)
 	SWFFont font = text->currentRecord->font.font;
 	int height = text->currentRecord->height;
 
-	return SWFFont_getScaledLeading(font) * height / 1024;
+	return (short) (SWFFont_getScaledLeading(font) * height / 1024);
 }
 
 void 
@@ -620,7 +620,7 @@ SWFText_addUTF8String(SWFText text, const char* string, int* advance)
 void
 SWFText_addString(SWFText text, const char* string, int* advance)
 {
-	int len = strlen(string);
+	int len = (int) strlen(string);
 	int i;
 	unsigned short* widestring = (unsigned short*) malloc(len * sizeof(unsigned short) );
 
@@ -663,7 +663,7 @@ SWFTextRecord_computeAdvances(SWFTextRecord textRecord)
 	for ( i=0; i<len; ++i )
 	{
 		int adv;
-		glyph = SWFFont_findGlyphCode(font, widestring[i]);
+		glyph = (unsigned short) SWFFont_findGlyphCode(font, widestring[i]);
 		adv = SWFFont_getCharacterAdvance(font, glyph);
 		adv += textRecord->spacing;
 
@@ -702,7 +702,7 @@ SWFText_resolveCodes(SWFText text)
 	{
 		SWFTextRecord_computeAdvances(textRecord);
 
-		text->nAdvanceBits = max(text->nAdvanceBits, textRecord->nAdvanceBits);
+		text->nAdvanceBits = max(text->nAdvanceBits, (byte) textRecord->nAdvanceBits);
 
 		if ( textRecord->flags & SWF_TEXT_HAS_FONT )
 		{	
@@ -789,7 +789,7 @@ SWFText_resolveCodes(SWFText text)
 			int fontchar_glyphcode;
 
 			unsigned short font_glyphcode =
-				SWFFont_findGlyphCode(font, textRecord->string[i]);
+				(unsigned short) SWFFont_findGlyphCode(font, textRecord->string[i]);
 			glyphBounds = SWFFont_getGlyphBounds(font,font_glyphcode);
 			SWFRect_getBounds(glyphBounds, &minX, &maxX, &minY, &maxY);
 
@@ -823,7 +823,7 @@ SWFText_resolveCodes(SWFText text)
 	}
 	SWFOutput_writeUInt8(out, 0); /* end text records */
 
-	text->nGlyphBits = nGlyphBits;
+	text->nGlyphBits = (byte) nGlyphBits;
 	text->initialRecord = NULL;
 	text->currentRecord = NULL;
 }

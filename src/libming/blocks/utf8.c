@@ -19,7 +19,7 @@ int UTF8Length(const char *string)
 	int l, str_len, i;
 
 	str_len = 0;
-	l = strlen(string);
+	l = (int) strlen(string);
 
 	for(i=0; i<l; ++i)
 	{
@@ -94,7 +94,7 @@ unsigned short UTF8GetChar(const char** strptr)
 
 			++p;
 
-			mbcode = ((byte0 & 0x1f)<<6) | (byte1 & 0x3f);
+			mbcode = (unsigned short) (((byte0 & 0x1f)<<6) | (byte1 & 0x3f));
 		}
 		else if ( (byte0 & 0xf0) == 0xe0 )
 		{
@@ -111,7 +111,7 @@ unsigned short UTF8GetChar(const char** strptr)
 
 			++p;
 
-			mbcode = ((byte0 & 0x0f)<<12) | ((byte1 & 0x3f)<<6) | (byte2 & 0x3f);
+			mbcode = (unsigned short) (((byte0 & 0x0f)<<12) | ((byte1 & 0x3f)<<6) | (byte2 & 0x3f));
 		}
 		else
 			return 0xffff;
@@ -119,7 +119,7 @@ unsigned short UTF8GetChar(const char** strptr)
 			/* MMM - currently up to 16-bit code are supported */
 	}
 	else
-		mbcode = byte0;
+		mbcode = (unsigned short) byte0;
 
 	*strptr = p;
 

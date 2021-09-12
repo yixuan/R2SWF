@@ -134,7 +134,7 @@ SWFBitmap newSWFBitmap_fromRawImg(unsigned char *raw,
 		free(image.data);
 		return NULL;
 	}
-	image.length = outsize;
+	image.length = (int) outsize;
 
 	return_data = (SWFBitmap)newSWFDBLBitmapData_fromData(&image);
 

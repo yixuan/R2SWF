@@ -164,7 +164,7 @@ void destroyBuffer(Buffer out)
 int bufferLength(Buffer out)
 {
 	if(out)
-		return (out->pos)-(out->buffer);
+		return (int) ((out->pos)-(out->buffer));
 	else
 		return 0;
 }
@@ -184,12 +184,12 @@ void bufferCheckSize(Buffer out, int bytes)
 			int pushd = 0;
 
 			if(out->pushloc)
-	pushd = out->pos - out->pushloc;
+                pushd = (int) (out->pos - out->pushloc);
 
 			out->pos = newbuf+num;
 
 			if(out->pushloc)
-	out->pushloc = out->pos - pushd;
+                out->pushloc = out->pos - pushd;
 		}
 
 		out->buffer = newbuf;
@@ -228,7 +228,7 @@ int bufferWriteDataAndPush(Buffer a, Buffer b)
 	int i, pushd = 0;
 
 	byte *data = b->buffer;
-	int length = b->pos - b->buffer;
+	int length = (int) (b->pos - b->buffer);
 
 	if(a->pushloc && (b->buffer[0] == SWFACTION_PUSH) && swfVersion > 4)
 	{
@@ -239,7 +239,7 @@ int bufferWriteDataAndPush(Buffer a, Buffer b)
 	}
 
 	if(b->pushloc)
-		pushd = b->pos - b->pushloc;
+		pushd = (int) (b->pos - b->pushloc);
 
 	bufferCheckSize(a, length);
 
@@ -306,7 +306,7 @@ int bufferWritePushOp(Buffer out)
 int bufferWriteU8(Buffer out, int data)
 {
 	bufferCheckSize(out, 1);
-	*(out->pos) = data;
+	*(out->pos) = (byte) data;
 	out->pos++;
 	out->free--;
 
@@ -325,17 +325,17 @@ int bufferWriteS16(Buffer out, int data)
 	return 2;
 }
 
-int bufferWriteHardString(Buffer out, const char *string, int length)
+int bufferWriteHardString(Buffer out, const char *string, size_t length)
 {
-	int i;
+    size_t i;
 
 	for(i=0; i<length; ++i)
 		bufferWriteU8(out, (byte)string[i]);
 
-	return length;
+	return (int) length;
 }
 
-int bufferWriteConstantString(Buffer out, const char *string, int length)
+int bufferWriteConstantString(Buffer out, const char *string, size_t length)
 {
 	int n;
 
@@ -365,14 +365,14 @@ int bufferWriteConstantString(Buffer out, const char *string, int length)
 }
 
 /* allow pushing STRINGs for SWF>=5 */
-int bufferWritePushString(Buffer out, char *string, int length)
+int bufferWritePushString(Buffer out, char *string, size_t length)
 {
 	int l, len = 0;
 	if(out->pushloc == NULL || swfVersion < 5)
 	{
 		len = 3;
 		bufferWritePushOp(out);
-		bufferWriteS16(out, length+1);
+		bufferWriteS16(out, (int) (length+1));
 	}
 	
 	bufferWriteU8(out, PUSH_STRING);
@@ -381,16 +381,16 @@ int bufferWritePushString(Buffer out, char *string, int length)
 	return len + l + 1;
 }
 
-int bufferWriteString(Buffer out, const char *string, int length)
+int bufferWriteString(Buffer out, const char *string, size_t length)
 {
 	if(swfVersion < 5)
 	{
 		bufferWritePushOp(out);
-		bufferWriteS16(out, length+1);
+		bufferWriteS16(out, (int) (length+1));
 		bufferWriteU8(out, PUSH_STRING);
 		bufferWriteHardString(out, string, length);
 
-		return 4 + length;
+		return 4 + (int) length;
 	}
 	else
 	{
@@ -595,7 +595,7 @@ void lower(char *s)
 {
 	while(*s)
 	{
-		*s = tolower(*s);
+		*s = (char) (tolower(*s));
 		++s;
 	}
 }
@@ -687,14 +687,14 @@ void bufferResolveJumpsFull(Buffer out, byte *break_ptr, byte *continue_ptr)
 	if(*p == MAGIC_CONTINUE_NUMBER_LO &&
 		 *(p+1) == MAGIC_CONTINUE_NUMBER_HI)
 	{
-		target = continue_ptr - (p+2);
+		target = (int) (continue_ptr - (p+2));
 		*p = target & 0xff;
 		*(p+1) = (target>>8) & 0xff;
 	}
 	else if(*p == MAGIC_BREAK_NUMBER_LO &&
 		*(p+1) == MAGIC_BREAK_NUMBER_HI)
 	{
-		target = break_ptr - (p+2);
+		target = (int) (break_ptr - (p+2));
 		*p = target & 0xff;
 		*(p+1) = (target>>8) & 0xff;
 	}
@@ -754,8 +754,8 @@ void bufferResolveSwitch(Buffer buffer, struct switchcases *slp)
 	{	len += scp->condlen;
 		output = buffer->buffer + len;
 		if((n < slp->count-1) && !scp->isbreak)
-		{	output[scp->actlen-2] = (scp+1)->condlen & 0xff;
-			output[scp->actlen-1] = (scp+1)->condlen >> 8;
+		{	output[scp->actlen-2] = (unsigned char) ((scp+1)->condlen & 0xff);
+			output[scp->actlen-1] = (unsigned char) ((scp+1)->condlen >> 8);
 		}
 		len += scp->actlen;
 	}
@@ -868,7 +868,7 @@ static int bufferWriteDefineFunction2(Buffer out, char *func_name,
 				num_args, flags, bufferLength(args),
 				bufferLength(code), taglen);
 #endif
-		bufferWriteS16(out, taglen);
+		bufferWriteS16(out, (int) taglen);
 
 		bufferWriteU8(out, 0); /* empty function name */
 	}
@@ -891,7 +891,7 @@ static int bufferWriteDefineFunction2(Buffer out, char *func_name,
 				bufferLength(args),
 				bufferLength(code), taglen);
 #endif
-		bufferWriteS16(out, taglen);
+		bufferWriteS16(out, (int) taglen);
 		bufferWriteHardString(out, func_name, strlen(func_name)+1);	 
 	}
 	bufferWriteS16(out, num_args); /* number of params */
@@ -901,7 +901,7 @@ static int bufferWriteDefineFunction2(Buffer out, char *func_name,
  	bufferConcat(out, c);
 	bufferWriteS16(out, bufferLength(code)); /* code size */
 	bufferConcat(out, code);
-	return taglen;
+	return (int) taglen;
 }
 
 void destroyASFunction(ASFunction func)

@@ -3545,7 +3545,7 @@ yyparse ()
   yyssp++;
 
  yysetstate:
-  *yyssp = yystate;
+  *yyssp = (yytype_int16) yystate;
 
   if (yyss + yystacksize - 1 <= yyssp)
     {
@@ -3889,7 +3889,7 @@ yyreduce:
 
     { (yyval.action) = newBuffer();
 									bufferWriteOp((yyval.action), SWFACTION_TRY);
-									bufferWriteS16((yyval.action), 8+strlen((yyvsp[(5) - (7)].str)));       /* TRY tag length */
+									bufferWriteS16((yyval.action), (int) (8+strlen((yyvsp[(5) - (7)].str))));       /* TRY tag length */
 									bufferWriteU8((yyval.action), 1);                   /* flags */
 									bufferWriteS16((yyval.action), bufferLength((yyvsp[(2) - (7)].action))+5); /* try block length + JUMP length */
 									bufferWriteS16((yyval.action), bufferLength((yyvsp[(7) - (7)].action)));   /* catch block length */
@@ -3922,7 +3922,7 @@ yyreduce:
 
     { (yyval.action) = newBuffer();
 									bufferWriteOp((yyval.action), SWFACTION_TRY);
-									bufferWriteS16((yyval.action), 8+strlen((yyvsp[(5) - (9)].str)));        /* TRY tag length */
+									bufferWriteS16((yyval.action), (int) (8+strlen((yyvsp[(5) - (9)].str))));        /* TRY tag length */
 									bufferWriteU8((yyval.action), 3);                    /* flags */
 									bufferWriteS16((yyval.action), bufferLength((yyvsp[(2) - (9)].action))+5);  /* try block length + JUMP length */
 									bufferWriteS16((yyval.action), bufferLength((yyvsp[(7) - (9)].action)));    /* catch block length */
@@ -5076,7 +5076,7 @@ yyreduce:
 
     { (yyval.action) = newBuffer();
 		  bufferWriteOp((yyval.action), SWFACTION_GETURL);
-		  bufferWriteS16((yyval.action), strlen((yyvsp[(3) - (6)].str)) + strlen((yyvsp[(5) - (6)].str)) + 2);
+		  bufferWriteS16((yyval.action), (int) (strlen((yyvsp[(3) - (6)].str)) + strlen((yyvsp[(5) - (6)].str)) + 2));
 		  bufferWriteHardString((yyval.action), (yyvsp[(3) - (6)].str), strlen((yyvsp[(3) - (6)].str)));
 		  bufferWriteU8((yyval.action), 0);
 		  bufferWriteHardString((yyval.action), (yyvsp[(5) - (6)].str), strlen((yyvsp[(5) - (6)].str)));
@@ -5177,7 +5177,7 @@ yyreduce:
 
     { (yyval.action) = newBuffer();
 		  bufferWriteOp((yyval.action), SWFACTION_SETTARGET);
-		  bufferWriteS16((yyval.action), strlen((yyvsp[(3) - (4)].str))+1);
+		  bufferWriteS16((yyval.action), (int) (strlen((yyvsp[(3) - (4)].str))+1));
 		  bufferWriteHardString((yyval.action), (yyvsp[(3) - (4)].str), strlen((yyvsp[(3) - (4)].str))+1);
 		  free((yyvsp[(3) - (4)].str)); }
     break;

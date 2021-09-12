@@ -43,7 +43,7 @@ writeSWFFileAttributesToMethod(SWFBlock block, SWFByteOutputMethod method, void*
 	if(fattrs->hasABC)
 		flags |= SWFFILEATTRIBUTES_HASABC; 
 	
-	method(flags, data);
+	method((byte) flags, data);
 	method(0, data);
 	method(0, data);
 	method(0, data);

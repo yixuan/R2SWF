@@ -189,7 +189,7 @@ newSWFMovieWithVersion(int version /* Flash version */)
 	if (movie == NULL)
 		return NULL;
 
-	movie->version = version;
+	movie->version = (byte) version;
 	movie->blockList = newSWFBlockList();
 	movie->displayList = newSWFDisplayList();
 	/* Default movie dimension is hard-coded to 320x240 pixels */
@@ -283,7 +283,7 @@ void
 SWFMovie_setNumberOfFrames(SWFMovie movie /* movie to adjust */,
 	int totalFrames	/* new frame count */)
 {
-	movie->totalFrames = totalFrames;
+	movie->totalFrames = (unsigned short) totalFrames;
 }
 
 /*
@@ -816,7 +816,7 @@ SWFMovie_toOutput(SWFMovie movie, int level)
 	if(level >= 0)
 	{	/* a little bit more than the uncompressed data */
 		compresslength = swflength + (swflength/1000) + 15 + 1;
-		swfbuffer    = newSizedSWFOutput( compresslength + 8 );
+		swfbuffer    = newSizedSWFOutput( (int) (compresslength + 8) );
 	}
 	else
 		swfbuffer    = newSizedSWFOutput( swflength );
@@ -848,7 +848,7 @@ SWFMovie_toOutput(SWFMovie movie, int level)
 	{
 		status = compress2 ( (Bytef*) SWFOutput_getBuffer(swfbuffer)+8, &compresslength, SWFOutput_getBuffer(tempbuffer), SWFOutput_getLength(tempbuffer), level);
 		if (status == Z_OK) {
-			SWFOutput_truncate(swfbuffer, compresslength+8);
+			SWFOutput_truncate(swfbuffer, (int) (compresslength+8));
 			destroySWFOutput(tempbuffer);
 		} else SWF_error("compression failed");
 	}

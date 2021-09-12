@@ -15,7 +15,7 @@ writeSWFImportBlockToMethod(SWFBlock block, SWFByteOutputMethod method, void *da
 	struct importitem *ip;
 	int length, count;
 	char *p;
-	length = 3 + strlen(imports->filename);
+	length = (int) (3 + strlen(imports->filename));
 	for(ip = imports->importlist, count = 0 ; ip ; ip = ip->next)
 	{	length += 3 + strlen(ip->name);
 		count++;
@@ -45,7 +45,7 @@ int
 completeSWFImportBlock(SWFBlock block)
 {	SWFImportBlock imports = (SWFImportBlock) block;
 	struct importitem *ip;
-	int length = 3 + strlen(imports->filename);
+	int length = (int) (3 + strlen(imports->filename));
 	for(ip = imports->importlist ; ip ; ip = ip->next)
 		length += 3 + strlen(ip->name);
 

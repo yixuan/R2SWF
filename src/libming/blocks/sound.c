@@ -287,7 +287,7 @@ newSWFSound_fromSoundStream(SWFSoundStream stream)
 
 	sound->freeInput = FALSE;
 	sound->input = 0;
-	sound->flags = SWFSoundStream_getFlags(stream);
+	sound->flags = (byte) SWFSoundStream_getFlags(stream);
 	sound->soundStream = stream;
 
 	return sound;

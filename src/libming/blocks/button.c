@@ -199,7 +199,7 @@ SWFButton_addCharacter(SWFButton button /* button object */,
 void
 SWFButtonRecord_setDepth(SWFButtonRecord b, int depth)
 {
-	b->layer = depth;
+	b->layer = (unsigned short) depth;
 }
 
 /*

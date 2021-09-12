@@ -283,7 +283,7 @@ newSWFShapeFromBitmap(SWFBitmap bitmap, int flag)
 		SWF_error("Invalid bitmap fill flag");
 	}
 
-	fill = SWFShape_addBitmapFillStyle(shape, bitmap, flag);
+	fill = SWFShape_addBitmapFillStyle(shape, bitmap, (byte) flag);
 
 	width = SWFBitmap_getWidth(bitmap);
 	height = SWFBitmap_getHeight(bitmap);
@@ -343,7 +343,7 @@ SWFShape_end(SWFShape shape)
 
 	buffer = SWFOutput_getBuffer(shape->out);
 	buffer[0] =
-		(SWFOutput_numBits(shape->nFills) << 4) + SWFOutput_numBits(shape->nLines);
+		(byte) ((SWFOutput_numBits(shape->nFills) << 4) + SWFOutput_numBits(shape->nLines));
 
 	for ( i=0; i<shape->nRecords; ++i )
 	{
@@ -465,8 +465,8 @@ static ShapeRecord addShapeRecord(SWFShape shape, ShapeRecord record,
 			shape->records[shape->nRecords].record.stateChange = change;
 			change->moveToX += shape->xpos;
 			change->moveToY += shape->ypos;
-			change->moveToX *= scale;
-			change->moveToY *= scale;
+			change->moveToX = (int) (change->moveToX * scale);
+			change->moveToY = (int) (change->moveToY * scale);
 
 			*vx = change->moveToX;
 			*vy = change->moveToY;
@@ -477,8 +477,8 @@ static ShapeRecord addShapeRecord(SWFShape shape, ShapeRecord record,
 			LineToRecord lineTo = (LineToRecord)
 				calloc(1,sizeof(struct lineToRecord));
 			*lineTo = *record.record.lineTo;
-			lineTo->dx *= scale;
-			lineTo->dy *= scale;
+			lineTo->dx = (int) (lineTo->dx * scale);
+			lineTo->dy = (int) (lineTo->dy * scale);
 			shape->records[shape->nRecords].record.lineTo = lineTo;
 
 			*vx += lineTo->dx;
@@ -493,10 +493,10 @@ static ShapeRecord addShapeRecord(SWFShape shape, ShapeRecord record,
 			CurveToRecord curveTo = (CurveToRecord)
 				calloc(1,sizeof(struct curveToRecord));
 			*curveTo = *record.record.curveTo;
-			curveTo->controlx *= scale;
-			curveTo->controly *= scale;
-			curveTo->anchorx *= scale;
-			curveTo->anchory *= scale;
+			curveTo->controlx = (int) (curveTo->controlx *  scale);
+			curveTo->controly = (int) (curveTo->controly * scale);
+			curveTo->anchorx = (int) (curveTo->anchorx * scale);
+			curveTo->anchory = (int) (curveTo->anchory *scale);
 			shape->records[shape->nRecords].record.curveTo = curveTo;
 
 			*vx += curveTo->controlx;
@@ -1276,7 +1276,7 @@ SWFShape_drawScaledGlyph(SWFShape shape,
 	vx = shape->xpos;
 	vy = shape->ypos;
 	for(i = 0; i < glyph->nRecords; i++)
-		addShapeRecord(shape, glyph->records[i], &vx, &vy, size/1024.0);
+		addShapeRecord(shape, glyph->records[i], &vx, &vy, size/1024.0f);
 }
 
 /*
@@ -1313,7 +1313,7 @@ int SWFShape_getVersion(SWFShape shape)
 void SWFShape_setRenderHintingFlags(SWFShape shape, int flags)
 {
 	flags &= (SWF_SHAPE_USESCALINGSTROKES | SWF_SHAPE_USENONSCALINGSTROKES);
-	shape->flags = flags;
+	shape->flags = (unsigned char) flags;
 	SWFShape_useVersion(shape, SWF_SHAPE4);
 }
 
@@ -1346,7 +1346,7 @@ static void oprintf(struct out *op, const char *fmt, ...)
 
 	va_start(ap, fmt);
 	l = vsprintf(buf, fmt, ap);
-	while((d = op->ptr - op->buf) + l >= op->len-1)
+	while((d = (int) (op->ptr - op->buf)) + l >= op->len-1)
 	{
 		op->buf = (char *) realloc(op->buf, op->len += 100);
 		op->ptr = op->buf + d;

@@ -28,10 +28,12 @@
 #ifndef SWF_MING_H_INCLUDED
 #define SWF_MING_H_INCLUDED
 
-#ifdef __GNUC__
-	#define __deprecated __attribute__((deprecated))
-#else
-	#define __deprecated
+#ifndef __deprecated
+    #ifdef __GNUC__
+    	#define __deprecated __attribute__((deprecated))
+    #else
+    	#define __deprecated
+    #endif
 #endif
 
 #ifdef __cplusplus

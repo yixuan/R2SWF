@@ -223,7 +223,7 @@ rsvg_path_arc (RSVGParsePathCtx * ctx,
    
     /* Now draw the arc */
 
-    n_segs = ceil (fabs (delta_theta / (M_PI * 0.5 + 0.001)));
+    n_segs = (int) (ceil (fabs (delta_theta / (M_PI * 0.5 + 0.001))));
 
     for (i = 0; i < n_segs; i++)
         rsvg_path_arc_segment (ctx, cx, cy,
@@ -412,7 +412,8 @@ rsvg_parse_path_do_cmd (RSVGParsePathCtx * ctx, int final)
         if (ctx->param == 7 || final) {
             rsvg_path_arc (ctx,
                            ctx->params[0], ctx->params[1], ctx->params[2],
-                           ctx->params[3], ctx->params[4], ctx->params[5], ctx->params[6]);
+                           (int) (ctx->params[3]), (int) (ctx->params[4]),
+                           ctx->params[5], ctx->params[6]);
             ctx->param = 0;
         }
         break;

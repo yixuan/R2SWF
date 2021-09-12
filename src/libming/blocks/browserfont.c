@@ -64,7 +64,7 @@ finishBrowserFont(SWFBrowserFont font)
 	 	SWFOutput_writeUInt8(out, 0);
 
 	SWFOutput_writeUInt8(out, 0); /* reserved flags */
-	SWFOutput_writeUInt8(out, strlen(font->name));
+	SWFOutput_writeUInt8(out, (int) (strlen(font->name)));
 
 	for ( i=0; i<strlen(font->name); ++i )
 		SWFOutput_writeUInt8(out, font->name[i]);

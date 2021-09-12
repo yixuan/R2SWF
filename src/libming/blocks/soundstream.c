@@ -157,7 +157,7 @@ write_flv(SWFSoundStreamBlock streamblock, SWFByteOutputMethod method, void *dat
 		int ichar = SWFInput_getChar(input);
 		if(ichar != EOF)
 		{
-			method(ichar, data);
+			method((byte) ichar, data);
 			l--;
 			continue;
 		}
@@ -517,7 +517,7 @@ getStreamFlag_flv(SWFSoundStream stream, float frameRate, float skip)
 	flags |= tag.hdr.audio.channel | tag.hdr.audio.format;
 	
 	stream->flags = flags; /* XXX: fixme */
-	skip_msec = round(skip * 1000);
+	skip_msec = (unsigned int) round(skip * 1000);
 	if(FLVStream_setStreamOffset(stream->source.flv.stream, skip_msec) < 0)
 		return -1;
 

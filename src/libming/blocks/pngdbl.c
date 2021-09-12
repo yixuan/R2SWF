@@ -201,8 +201,8 @@ static int readPNG(png_structp png_ptr, dblData result)
 	       &png.bit_depth, &png.color_type,
 	       NULL, NULL, NULL);
 
-	result->width = png.width;
-	result->height = png.height;
+	result->width = (unsigned short) png.width;
+	result->height = (unsigned short) png.height;
 
 	png.channels = png_get_channels(png_ptr, info_ptr);
 
@@ -223,13 +223,13 @@ static int readPNG(png_structp png_ptr, dblData result)
 
 		for(i=0; i<(int)png.num_palette; ++i)
 			png.palette[i].red = png.palette[i].green = png.palette[i].blue = 
-			 (i*255)/(png.num_palette-1);
+			 (png_byte) ((i*255)/(png.num_palette-1));
 	}
 
 
   /* malloc stuff */
 	row_pointers = (png_bytep*) malloc(png.height*sizeof(png_bytep));
-	rowbytes = png_get_rowbytes(png_ptr, info_ptr);
+	rowbytes = (unsigned int) png_get_rowbytes(png_ptr, info_ptr);
 
 	png.data = (unsigned char*) malloc(png.height * rowbytes);
 
@@ -262,10 +262,10 @@ static int readPNG(png_structp png_ptr, dblData result)
 				b = p[2];
 				alpha = p[3];
 
-				p[0] = alpha;
-				p[1] = (char)((int)(r*alpha)>>8);
-				p[2] = (char)((int)(g*alpha)>>8);
-				p[3] = (char)((int)(b*alpha)>>8);
+				p[0] = (unsigned char) alpha;
+				p[1] = (unsigned char) ((int)(r*alpha)>>8);
+				p[2] = (unsigned char) ((int)(g*alpha)>>8);
+				p[3] = (unsigned char) ((int)(b*alpha)>>8);
 			}
 		}
 	}
@@ -277,7 +277,7 @@ static int readPNG(png_structp png_ptr, dblData result)
 		int tablesize = png.num_palette * sizeof(png_color);
   
 		result->format = 3;
-		result->format2 = png.num_palette-1;
+		result->format2 = (byte) (png.num_palette-1);
 		data = (unsigned char*) malloc(tablesize + alignedsize);
 		memcpy(data, png.palette, tablesize);
 		alignedcopy(png, data + tablesize);
@@ -302,7 +302,7 @@ static int readPNG(png_structp png_ptr, dblData result)
 
 	/* compress the RGB color table (if present) and image data one block */
 	compress2(result->data, (uLongf *) &outsize, data, alignedsize, 9);
-	result->length = outsize;
+	result->length = (int) outsize;
 
 	free(data);
 	free(png.data);

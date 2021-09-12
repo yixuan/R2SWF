@@ -252,10 +252,10 @@ SEXP svg2swf(SEXP filesData, SEXP outName, SEXP size,
 
     SWFMovie_setDimension(mainMovie, (float) REAL(size)[2], (float) REAL(size)[3]);
     SWFMovie_setBackground(mainMovie,
-                           INTEGER(bgColor)[0],
-                           INTEGER(bgColor)[1],
-                           INTEGER(bgColor)[2]);
-    SWFMovie_setRate(mainMovie, (float) 1.0 / REAL(interval)[0]);
+                           (byte) (INTEGER(bgColor)[0]),
+                           (byte) (INTEGER(bgColor)[1]),
+                           (byte) (INTEGER(bgColor)[2]));
+    SWFMovie_setRate(mainMovie, (float) (1.0 / REAL(interval)[0]));
     SWFMovie_setNumberOfFrames(mainMovie, nFiles);
 
     Ming_setCubicThreshold(1);

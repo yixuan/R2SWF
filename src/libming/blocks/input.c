@@ -267,7 +267,7 @@ SWFInput_file_seek(SWFInput input, long offset, int whence)
 		input->offset = offset;
 
 	else if ( whence == SEEK_END )
-		input->offset = input->length - offset;
+		input->offset = (int) (input->length - offset);
 
 	else if ( whence == SEEK_CUR )
 		input->offset += offset;
@@ -295,7 +295,7 @@ SWFInput_file_getChar(SWFInput input)
 }
 
 static int SWFInput_file_read(SWFInput input, unsigned char *buffer, int count)
-{	int len = fread(buffer, 1, count, (FILE *)input->data);
+{	int len = (int) (fread(buffer, 1, count, (FILE *)input->data));
 	input->offset += len;
 	return len;
 }
@@ -329,7 +329,7 @@ newSWFInput_file(FILE *f)
 	input->bufbits = 0;
 	input->buffer = 0;
 	input->offset = 0;
-	input->length = buf.st_size;
+	input->length = (int) (buf.st_size);
 
 #if TRACK_ALLOCS
 	input->gcnode = ming_gc_add_node(input, (dtorfunctype) destroySWFInput);
@@ -406,16 +406,16 @@ SWFInput_buffer_seek(SWFInput input, long offset, int whence)
 	if ( whence == SEEK_CUR )
 	{
 		if ( offset >= 0 )
-			input->offset = min(input->length, input->offset + offset);
+			input->offset = min(input->length, (int) (input->offset + offset));
 		else
-			input->offset = max(0, input->offset + offset);
+			input->offset = max(0, (int) (input->offset + offset));
 	}
 
 	else if ( whence == SEEK_END )
-		input->offset = max(0, input->length - offset);
+		input->offset = max(0, (int) (input->length - offset));
 
 	else if ( whence == SEEK_SET )
-		input->offset = min(input->length, offset);
+		input->offset = min(input->length, (int) offset);
 }
 
 
@@ -510,10 +510,10 @@ SWFInput_stream_seek(SWFInput input, long offset, int whence)
 	struct SWFInputStreamData *data;
 
 	if ( whence == SEEK_CUR )
-		input->offset = input->offset + offset;
+		input->offset = (int) (input->offset + offset);
 
 	else if ( whence == SEEK_SET )
-		input->offset = offset;
+		input->offset = (int) offset;
 
 	else if ( whence == SEEK_END )
 	{
@@ -524,7 +524,7 @@ SWFInput_stream_seek(SWFInput input, long offset, int whence)
 			if (input->length > MAX_INPUTSTREAM)
 				break;
 
-		input->offset = input->length - offset;
+		input->offset = (int) (input->length - offset);
 	}
 
 	if (input->offset < 0)
@@ -546,7 +546,7 @@ SWFInput_stream_seek(SWFInput input, long offset, int whence)
 	l=1; /* just to initialize to something */
 	while((len > 0) && (l > 0))
 	{
-		l = fread(data->buffer, sizeof(unsigned char), len, data->file);
+		l = (int) (fread(data->buffer, sizeof(unsigned char), len, data->file));
 		len -= l;
 		readOffset += l;
 	}
@@ -579,7 +579,7 @@ SWFInput_stream_getChar(SWFInput input)
 															 (input->length + INPUTSTREAM_INCREMENT));
 			}
 
-			data->buffer[input->length] = c;
+			data->buffer[input->length] = (unsigned char) c;
 			++input->length;
 		}
 
@@ -610,8 +610,8 @@ SWFInput_stream_read(SWFInput input, unsigned char* buffer, int count)
 							sizeof(unsigned char) * INPUTSTREAM_INCREMENT *
 							(((input->offset + count) / INPUTSTREAM_INCREMENT) + 1));
 
-		num = fread(data->buffer + input->length,
-								sizeof(unsigned char), need, data->file);
+		num = (int) (fread(data->buffer + input->length,
+								sizeof(unsigned char), need, data->file));
 
 		input->length += num;
 	}
@@ -718,16 +718,16 @@ SWFInput_input_seek(SWFInput input, long offset, int whence)
 	if ( whence == SEEK_CUR )
 	{
 		if ( offset >= 0 )
-			input->offset = min(input->length, input->offset + offset);
+			input->offset = min(input->length, (int) (input->offset + offset));
 		else
-			input->offset = max(0, input->offset + offset);
+			input->offset = max(0, (int) (input->offset + offset));
 	}
 
 	else if ( whence == SEEK_END )
-		input->offset = max(0, input->length - offset);
+		input->offset = max(0, (int) (input->length - offset));
 
 	else if ( whence == SEEK_SET )
-		input->offset = min(input->length, offset);
+		input->offset = min(input->length, (int) offset);
 }
 
 

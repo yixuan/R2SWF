@@ -88,7 +88,7 @@ resetBounds(SWFTextField field)
 
 	if ( field->width == 0 )
 	{
-		int width = field->fontHeight*(field->string ? strlen(field->string) : 0);
+		int width = (int) (field->fontHeight*(field->string ? strlen(field->string) : 0));
 		maxX = field->padding + width;
 	}
 	else
@@ -122,9 +122,9 @@ completeSWFTextField(SWFBlock block)
 
 	/* we're guessing how big the block's going to be.. */
 	SWFOutput out =
-		newSizedSWFOutput(42 
+		newSizedSWFOutput((int) (42 
 			+ ((field->varName)?strlen(field->varName):0) 
-			+ ((field->string)?strlen(field->string):0));
+			+ ((field->string)?strlen(field->string):0)));
 
 	field->out = out;
 
@@ -334,7 +334,7 @@ SWFTextField_getUnresolvedFont(SWFTextField field)
 void
 SWFTextField_addChars(SWFTextField field, const char *string)
 {
-	int n, len = strlen(string);
+	int n, len = (int) strlen(string);
 	if(field->fonttype == Font || field->fonttype == FontChar)
 	{	field->embeds = (unsigned short *)realloc(
 			field->embeds, (field->embedlen + len) * 2);
@@ -435,7 +435,7 @@ SWFTextField_addString(SWFTextField field, const char *string)
 {
 	int l, n;
 
-	l = strlen(string);
+	l = (int) strlen(string);
 
 	SWFTextField_addStringOnly(field, string);
 	if(field->fonttype == FontChar || field->fonttype == Font) 
@@ -499,7 +499,7 @@ SWFTextField_setScaledPadding(SWFTextField field, int padding)
 void
 SWFTextField_setScaledLeftMargin(SWFTextField field, int leftMargin)
 {
-	field->leftMargin = leftMargin;
+	field->leftMargin = (short) leftMargin;
 	field->flags |= SWFTEXTFIELD_HASLAYOUT;
 }
 
@@ -507,7 +507,7 @@ SWFTextField_setScaledLeftMargin(SWFTextField field, int leftMargin)
 void
 SWFTextField_setScaledRightMargin(SWFTextField field, int rightMargin)
 {
-	field->rightMargin = rightMargin;
+	field->rightMargin = (short) rightMargin;
 	field->flags |= SWFTEXTFIELD_HASLAYOUT;
 }
 
@@ -515,7 +515,7 @@ SWFTextField_setScaledRightMargin(SWFTextField field, int rightMargin)
 void
 SWFTextField_setScaledIndentation(SWFTextField field, int indentation)
 {
-	field->indentation = indentation;
+	field->indentation = (short) indentation;
 	field->flags |= SWFTEXTFIELD_HASLAYOUT;
 }
 
@@ -523,7 +523,7 @@ SWFTextField_setScaledIndentation(SWFTextField field, int indentation)
 void
 SWFTextField_setScaledLineSpacing(SWFTextField field, int lineSpacing)
 {
-	field->lineSpacing = lineSpacing;
+	field->lineSpacing = (short) lineSpacing;
 	field->flags |= SWFTEXTFIELD_HASLAYOUT;
 	resetBounds(field);
 }
@@ -532,7 +532,7 @@ SWFTextField_setScaledLineSpacing(SWFTextField field, int lineSpacing)
 void
 SWFTextField_setAlignment(SWFTextField field, SWFTextFieldAlignment alignment)
 {
-	field->alignment = alignment;
+	field->alignment = (short) alignment;
 	field->flags |= SWFTEXTFIELD_HASLAYOUT;
 }
 
@@ -540,7 +540,7 @@ SWFTextField_setAlignment(SWFTextField field, SWFTextFieldAlignment alignment)
 void
 SWFTextField_setLength(SWFTextField field, int length)
 {
-	field->length = length;
+	field->length = (short) length;
 	field->flags |= SWFTEXTFIELD_HASLENGTH;
 }
 

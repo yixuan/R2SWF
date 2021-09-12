@@ -107,7 +107,7 @@ newSWFDBLBitmap_fromInput(SWFInput input)
 
 	if ( version == 'l' )
 	{
-		BLOCK(dbl)->length = SWFInput_getUInt32_BE(input);
+		BLOCK(dbl)->length = (int) (SWFInput_getUInt32_BE(input));
 		BLOCK(dbl)->length += 2; /* character id */
 	}
 	else

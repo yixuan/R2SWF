@@ -215,7 +215,7 @@ int getMP3Flags(SWFInput input, byte *flags)
 	}
 
 	*flags =
-		SWF_SOUND_MP3_COMPRESSED | rate | SWF_SOUND_16BITS | channels;
+		(byte) (SWF_SOUND_MP3_COMPRESSED | rate | SWF_SOUND_16BITS | channels);
 	return start;
 }
 
@@ -275,7 +275,7 @@ unsigned int getMP3Duration(SWFInput input)
 
 	sampleRate = SWFSound_getSampleRate(flags);
 	SWFInput_seek(input, start, SEEK_SET);
-	return samples * 1000.0	/ sampleRate;
+	return (unsigned int) (samples * 1000.0 / sampleRate);
 }
 /*
  * Local variables:

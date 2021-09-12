@@ -90,7 +90,7 @@ SWFFont_buildReverseMapping(SWFFont font)
 				memset(font->codeToGlyph.wideMap[high], 0, 256 * sizeof(unsigned short));
 			}
 
-			font->codeToGlyph.wideMap[high][low] = i;
+			font->codeToGlyph.wideMap[high][low] = (unsigned short) i;
 		}
 	}
 	else
@@ -101,7 +101,7 @@ SWFFont_buildReverseMapping(SWFFont font)
 		for ( i=0; i<font->nGlyphs; ++i )
 		{
 		 if (font->glyphToCode[i]<256)
-			font->codeToGlyph.charMap[font->glyphToCode[i]] = i;
+			font->codeToGlyph.charMap[font->glyphToCode[i]] = (byte) i;
 		 else
 		 	SWF_warn("No such glyph %d in map\n",i);
 		}
@@ -134,7 +134,7 @@ completeSWFFontCharacter(SWFBlock block)
 	SWFOutput_writeUInt8(inst->out, inst->flags);
 	SWFOutput_writeUInt8(inst->out, font->langCode);
 
-	SWFOutput_writeUInt8(inst->out, strlen(font->name));
+	SWFOutput_writeUInt8(inst->out, (int) (strlen(font->name)));
 	string = font->name;
 	while ( (c = *(string++)) != 0 )
 		SWFOutput_writeUInt8(inst->out, c);
@@ -185,7 +185,7 @@ completeSWFFontCharacter(SWFBlock block)
 		}
 		for (i = 0; i < inst->nGlyphs; ++i) {
 			int glyph = SWFFont_findGlyphCode(font,inst->codeTable[i]);
-			SWFOutput_writeRect(buffer, SWFFont_getGlyphBounds(font, glyph));
+			SWFOutput_writeRect(buffer, SWFFont_getGlyphBounds(font, (unsigned short) glyph));
 			SWFOutput_byteAlign(buffer);
 		}
 		SWFOutput_writeUInt16(buffer, 0); /* no kerning FIXME ! */
@@ -747,7 +747,7 @@ int
 SWFFont_getScaledStringWidth(SWFFont font, const char* string)
 {
 	unsigned short* widestr;
-	int len = strlen(string);
+	int len = (int) (strlen(string));
 	int n, width;
 	widestr = (unsigned short*) malloc(2 * len);
 	for(n = 0 ; n < len ; n++)

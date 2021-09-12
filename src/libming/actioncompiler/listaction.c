@@ -75,14 +75,14 @@ double readDouble(Buffer f)
   double d;
   unsigned char *p = (unsigned char *)&d;
 
-  p[4] = readUInt8(f);
-  p[5] = readUInt8(f);
-  p[6] = readUInt8(f);
-  p[7] = readUInt8(f);
-  p[0] = readUInt8(f);
-  p[1] = readUInt8(f);
-  p[2] = readUInt8(f);
-  p[3] = readUInt8(f);
+  p[4] = (unsigned char) readUInt8(f);
+  p[5] = (unsigned char) readUInt8(f);
+  p[6] = (unsigned char) readUInt8(f);
+  p[7] = (unsigned char) readUInt8(f);
+  p[0] = (unsigned char) readUInt8(f);
+  p[1] = (unsigned char) readUInt8(f);
+  p[2] = (unsigned char) readUInt8(f);
+  p[3] = (unsigned char) readUInt8(f);
 
   return d;
 }
@@ -127,7 +127,7 @@ void dumpBytes(Buffer f, int length)
   {
     for(i=0; i<16; ++i)
     {
-      printf("%02x ", buf[i] = readUInt8(f));
+      printf("%02x ", buf[i] = (unsigned char) readUInt8(f));
       ++j;
 
       if(j==length)

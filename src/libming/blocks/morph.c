@@ -113,9 +113,8 @@ completeSWFMorphBlock(SWFBlock block)
 
 	SWFOutput_byteAlign(out);
 
-	offset =
-		SWFOutput_getCurPos(out) - patch +
-		SWFOutput_getLength(SWFShape_getOutput(shape1)) - 4;
+	offset = (int) (SWFOutput_getCurPos(out) - patch +
+		            SWFOutput_getLength(SWFShape_getOutput(shape1)) - 4);
 
 	*(patch++) = offset & 0xff;
 	offset >>= 8;

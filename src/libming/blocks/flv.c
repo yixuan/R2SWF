@@ -95,7 +95,7 @@ FLVStream *FLVStream_fromInput(SWFInput input)
 
 	ichar = SWFInput_getChar(input);
 	if(ichar != EOF)
-		flv->version = ichar;
+		flv->version = (char) ichar;
 
 	flv->has_video = 0;
 	flv->has_audio = 0;
@@ -110,7 +110,7 @@ FLVStream *FLVStream_fromInput(SWFInput input)
 	}
 
 	ulchar = SWFInput_getUInt32_BE(input);
-	flv->offset = ulchar + 4;
+	flv->offset = (unsigned int) (ulchar + 4);
 	flv->stream_start = flv->offset;
 	return flv;
 }
@@ -196,7 +196,7 @@ unsigned int FLVStream_getDuration(FLVStream *flv, int type)
 		if(tag.tagType == type)
 		{
 			/* optimistic approach */
-			duration = tag.timeStamp;
+			duration = (unsigned int) (tag.timeStamp);
 		}
 		p_tag = &tag;
 	}
@@ -230,18 +230,18 @@ SWFInput FLVTag_getPayloadInput(FLVTag *tag)
 	if(tag->tagType == FLV_VIDEOTAG
 		&& tag->hdr.video.codec == VIDEO_CODEC_SCREEN)
 	{
-		length = tag->dataSize;
+		length = (int) (tag->dataSize);
 		SWFInput_seek(input, tag->data, SEEK_SET);
 	}
 	else if(tag->tagType == FLV_VIDEOTAG
                 && tag->hdr.video.codec == VIDEO_CODEC_VP6)
 	{
-		length = tag->dataSize - 2;
+		length = (int) (tag->dataSize - 2);
 		SWFInput_seek(input, tag->data + 2, SEEK_SET);
 	}
 	else /* skip flv-audio/video-data byte */
 	{
-		length = tag->dataSize - 1;
+		length = (int) (tag->dataSize - 1);
 		SWFInput_seek(input, tag->data + 1, SEEK_SET);
 	}
 
@@ -259,7 +259,7 @@ int FLVStream_setStreamOffset(FLVStream *flv, unsigned int msecs)
 	{
 		if(tag.timeStamp >= msecs)
 		{
-			flv->offset = tag.offset;
+			flv->offset = (unsigned int) tag.offset;
 			return 0;
 		}
 		p_tag = &tag;

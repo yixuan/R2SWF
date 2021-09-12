@@ -145,7 +145,7 @@ static void readGlyphs(SWFFont font, FT_Face face)
 	FT_ULong charcode;
 	double ratio_EM = 1024.0 / face->units_per_EM;
 
-	int msize = face->num_glyphs + 20; /* +20 to avoid realloc in most cases */
+	int msize = (int) (face->num_glyphs + 20); /* +20 to avoid realloc in most cases */
 	font->shapes = (SWFShape *)malloc(sizeof(SWFShape) * msize);
 	font->advances = (short *)malloc(sizeof(short) * msize);
 	font->glyphToCode = (unsigned short *)malloc(sizeof(unsigned short) * msize);
@@ -185,7 +185,7 @@ static void readGlyphs(SWFFont font, FT_Face face)
 				sizeof(unsigned short) * msize);
 		}
 		font->shapes[glyphCount] = data.shape;
-		font->glyphToCode[glyphCount] = charcode;
+		font->glyphToCode[glyphCount] = (unsigned short) charcode;
 		font->advances[glyphCount] = (short)(face->glyph->advance.x * ratio_EM);
 		if(charcode > 255)
 			font->flags |= SWF_FONT_WIDECODES;
@@ -242,7 +242,7 @@ static SWFFont loadFontFromFace(FT_Face face)
 	ratio_EM = 1024.0 / face->units_per_EM;
 	font->ascent = (short)(face->ascender * ratio_EM);
 	font->descent = (short)(face->descender * -ratio_EM);
-	font->leading = ((face->height-face->ascender + face->descender) * ratio_EM);
+	font->leading = (short)((face->height-face->ascender + face->descender) * ratio_EM);
 
 	SWFFont_buildReverseMapping(font);
 	return font;
@@ -271,7 +271,7 @@ SWFFontCollection loadTTFCollection(const char *filename)
 			SWF_warn("loadTTFCollection: Cannot access %s ****\n", filename);
 		goto error_ft;
 	}
-	numFaces = face->num_faces;
+	numFaces = (int) face->num_faces;
 	collection = newSWFFontCollection();
 	
 	font = loadFontFromFace(face);

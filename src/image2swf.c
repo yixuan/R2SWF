@@ -31,11 +31,11 @@ SEXP image2swf(SEXP fileNames, SEXP format, SEXP outName,
     /* Set the background color of the movie.
      * bgColor is a vector of length 3, representing RGB values. */
     SWFMovie_setBackground(m,
-                           INTEGER(bgColor)[0],
-                           INTEGER(bgColor)[1],
-                           INTEGER(bgColor)[2]);
+                           (byte) (INTEGER(bgColor)[0]),
+                           (byte) (INTEGER(bgColor)[1]),
+                           (byte) (INTEGER(bgColor)[2]));
     /* Set the frame rate of the movie */
-    SWFMovie_setRate(m, (float) 1.0 / REAL(interval)[0]);
+    SWFMovie_setRate(m, (float) (1.0 / REAL(interval)[0]));
 
     /* Main loop.
      * Adding an image to the movie at one time. */

@@ -50,17 +50,17 @@ readBounds(SWFInput input, struct SWFRect_s* bounds)
 static void
 readKernInfo(SWFInput input, struct kernInfo *kern)
 {
-	kern->code1 = SWFInput_getChar(input);
-	kern->code2 = SWFInput_getChar(input);
-	kern->adjustment = SWFInput_getSInt16(input);
+	kern->code1 = (byte) SWFInput_getChar(input);
+	kern->code2 = (byte) SWFInput_getChar(input);
+	kern->adjustment = (short) SWFInput_getSInt16(input);
 }
 
 static void
 readKernInfo16(SWFInput input, struct kernInfo16 *kern)
 {
-	kern->code1 = SWFInput_getUInt16(input);
-	kern->code2 = SWFInput_getUInt16(input);
-	kern->adjustment = SWFInput_getSInt16(input);
+	kern->code1 = (byte) SWFInput_getUInt16(input);
+	kern->code2 = (byte) SWFInput_getUInt16(input);
+	kern->adjustment = (short) SWFInput_getSInt16(input);
 }
 
 
@@ -148,7 +148,7 @@ static SWFShape readGlyphShape(SWFInput input)
 	checkShapeHeader(input, &numFillBits, &numLineBits);
 
 	SWFInput_readBits(input, 2); /* type 0, newstyles */
-	style = SWFInput_readBits(input, 3);
+	style = (char) (SWFInput_readBits(input, 3));
 
 	shape = newSWFGlyphShape();
 	if (SWFInput_readBits(input, 1))
@@ -177,20 +177,20 @@ static int readFontLayout(SWFInput input, SWFFont font)
 
 	font->advances = (short *)malloc(
 			font->nGlyphs * sizeof(short));
-	font->ascent = SWFInput_getSInt16(input);
-	font->descent = SWFInput_getSInt16(input);
-	font->leading = SWFInput_getSInt16(input);
+	font->ascent = (short) SWFInput_getSInt16(input);
+	font->descent = (short) SWFInput_getSInt16(input);
+	font->leading = (short) SWFInput_getSInt16(input);
 
 	/* get advances */
 	for (i = 0; i < font->nGlyphs; ++i )
-		font->advances[i] = SWFInput_getSInt16(input);
+		font->advances[i] = (short) SWFInput_getSInt16(input);
 
 	/* temp hack */
 	for (i = 0; i < font->nGlyphs; ++i )
 		readBounds(input, &__rect);
 
 		/* get kern table */
-	font->kernCount = SWFInput_getUInt16(input);
+	font->kernCount = (short) SWFInput_getUInt16(input);
 
 	if ( font->kernCount > 0 )
 	{
@@ -218,10 +218,10 @@ static int readFontLayout(SWFInput input, SWFFont font)
 static int checkFdbHeader(SWFInput input)
 {
 	char f, d, b, z;
-	f = SWFInput_getChar(input);
-	d = SWFInput_getChar(input);
-	b = SWFInput_getChar(input);;
-	z = SWFInput_getChar(input);
+	f = (char) SWFInput_getChar(input);
+	d = (char) SWFInput_getChar(input);
+	b = (char) SWFInput_getChar(input);;
+	z = (char) SWFInput_getChar(input);
 
 	if(f != 'f' || d != 'd' || b != 'b' || z != '0')
 	{
@@ -246,12 +246,12 @@ SWFFont loadSWFFontFromInput(SWFInput input)
 
 	font = newSWFFont();
 	flags = SWFInput_getChar(input);
-	font->flags = flags;
-	font->langCode = SWFInput_getChar(input);
+	font->flags = (byte) flags;
+	font->langCode = (byte) SWFInput_getChar(input);
 	namelen = SWFInput_getChar(input);
 	font->name = (char *) malloc(namelen + 1);
 	for ( i=0; i < namelen; ++i )
-		font->name[i] = SWFInput_getChar(input);
+		font->name[i] = (char) SWFInput_getChar(input);
 	font->name[namelen] = '\0';
 
 	nGlyphs = SWFInput_getUInt16(input);
@@ -279,12 +279,12 @@ SWFFont loadSWFFontFromInput(SWFInput input)
 	if ( flags & SWF_FONT_WIDECODES )
 	{
 		for (i = 0; i < nGlyphs; ++i )
-			font->glyphToCode[i] = SWFInput_getUInt16(input);
+			font->glyphToCode[i] = (unsigned short) SWFInput_getUInt16(input);
 	}
 	else
 	{
 		for (i = 0; i < nGlyphs; ++i )
-			font->glyphToCode[i] = SWFInput_getChar(input);
+			font->glyphToCode[i] = (unsigned short) SWFInput_getChar(input);
 	}
 
 	if ( flags & SWF_FONT_HASLAYOUT )
