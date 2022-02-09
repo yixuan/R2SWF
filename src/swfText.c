@@ -140,7 +140,7 @@ double SWFShape_addString(SWFShape shape, const wchar_t* str, size_t nchar,
         /* After we draw a character, we move the pen right to a distance
         of the advance */
         /* See the picture in
-        http://www.freetype.org/freetype2/docs/tutorial/step2.html */
+        https://freetype.org/freetype2/docs/tutorial/step2.html */
         data.deltax += face->glyph->metrics.horiAdvance * data.ratio_EM;
     }
     /* Return the string width */

@@ -2714,7 +2714,7 @@ fi
         echo "****************************************************"
         echo "Error: zlib not found"
         echo "If you have not installed zlib, you can download"
-        echo "the source code from http://www.zlib.net/"
+        echo "the source code from https://www.zlib.net/"
         echo ""
         echo "In Debian/Ubuntu-like systems, you can use"
         echo '  "sudo apt-get install zlib1g-dev"'
@@ -2840,7 +2840,7 @@ fi
         echo "Error: freetype-config not found."
         echo "Please install FreeType with freetype-config script."
         echo "If you have not installed FreeType, you can"
-        echo "download the source code from http://freetype.org/"
+        echo "download the source code from https://freetype.org/"
         echo ""
         echo "In Debian/Ubuntu-like systems, you can use"
         echo '  "sudo apt-get install libfreetype6-dev"'

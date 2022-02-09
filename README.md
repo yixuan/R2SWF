@@ -18,10 +18,10 @@ SWF file.
 
 `R2SWF` depends on the following libraries:
 
-- zlib         [https://www.zlib.net/](https://www.zlib.net/)
-- libpng       [http://www.libpng.org/](http://www.libpng.org/)
-- freetype     [https://www.freetype.org/](https://www.freetype.org/)
-- libming      [http://www.libming.org/](http://www.libming.org/)
+- zlib     [https://www.zlib.net/](https://www.zlib.net/)
+- libpng   [http://www.libpng.org/](http://www.libpng.org/)
+- freetype [https://freetype.org/](https://freetype.org/)
+- libming  [https://github.com/libming/libming](https://github.com/libming/libming)
 
 The source code of `libming` is included in `R2SWF`, and you need
 to install the other three by yourself.

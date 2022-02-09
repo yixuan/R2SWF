@@ -4,7 +4,7 @@
 #' into a Flash file (.swf). Supported input formats are jpg/jpeg and png. The
 #' two formats are allowed to appear in the same sequence.
 #'
-#' This function uses the Ming library (\url{http://www.libming.org/}) to
+#' This function uses the Ming library (\url{https://github.com/libming/libming}) to
 #' implement the conversion. If you want to create a Flash file consisting of
 #' vector graphics, use \code{\link{svg2swf}()} instead.
 #' @param input the file names of the images to be converted
