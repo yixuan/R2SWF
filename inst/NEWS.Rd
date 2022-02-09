@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{News for Package "R2SWF"}
 
+\section{Changes in R2SWF version 0.9-7}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Supported UCRT on Windows, thanks to Tomas Kalibera and Uwe Ligges.
+    }
+  }
+}
+
 \section{Changes in R2SWF version 0.9-6}{
   \subsection{BUG FIXES}{
     \itemize{
