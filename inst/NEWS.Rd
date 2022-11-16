@@ -1,6 +1,14 @@
 \name{NEWS}
 \title{News for Package "R2SWF"}
 
+\section{Changes in R2SWF version 0.9-8}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Fixed compiler warnings.
+    }
+  }
+}
+
 \section{Changes in R2SWF version 0.9-7}{
   \subsection{BUG FIXES}{
     \itemize{
@@ -59,7 +67,7 @@
 \section{Changes in R2SWF version 0.9-1}{
   \subsection{BUG FIXES}{
     \itemize{
-      \item Fixed a compilation conflict with FreeType 2.6, thanks to Kurt Hornik 
+      \item Fixed a compilation conflict with FreeType 2.6, thanks to Kurt Hornik
     }
   }
 }
