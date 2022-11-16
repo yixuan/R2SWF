@@ -1,7 +1,7 @@
 /*
     Ming, an SWF output library
     Copyright (C) 2001  Opaque Industries - http://www.opaque.net/
-	
+
     3.3.2007 Klaus Rechert
 
     This library is free software; you can redistribute it and/or
@@ -29,7 +29,7 @@ static void
 writeSWFScriptLimitsToMethod(SWFBlock block, SWFByteOutputMethod method, void* data)
 {
 	SWFScriptLimits sl = (SWFScriptLimits)block;
-	
+
 	methodWriteUInt16(sl->maxRecursion, method, data);
 	methodWriteUInt16(sl->timeout, method, data);
 }
@@ -43,23 +43,23 @@ completeSWFScriptLimits(SWFBlock block)
 void
 destroySWFScriptLimits(SWFScriptLimits sl)
 {
-	free(sl);	
+	free(sl);
 }
 
-void 
+void
 SWFScriptLimits_maxRecursion(SWFScriptLimits sl, int count)
 {
 	sl->maxRecursion = count;
 }
 
-void 
+void
 SWFScriptLimits_setTimeout(SWFScriptLimits sl, int timeout)
 {
 	sl->timeout = timeout;
 }
 
 SWFScriptLimits
-newSWFScriptLimits()
+newSWFScriptLimits(void)
 {
         SWFScriptLimits sl = (SWFScriptLimits)malloc(sizeof(struct SWFScriptLimits_s));
 
@@ -68,7 +68,7 @@ newSWFScriptLimits()
         BLOCK(sl)->writeBlock = writeSWFScriptLimitsToMethod;
         BLOCK(sl)->complete = completeSWFScriptLimits;
         BLOCK(sl)->dtor = (destroySWFBlockMethod) destroySWFScriptLimits;
-	
+
 	sl->maxRecursion = 265;
 	sl->timeout = 15;
         return sl;

@@ -83,7 +83,7 @@ ming_gc_remove_node(mem_node *node)
 }
 
 void
-Ming_collectGarbage()
+Ming_collectGarbage(void)
 {
 	mem_node *ptr;
 #if DEBUG
@@ -97,12 +97,12 @@ Ming_collectGarbage()
 		/*
 		 * the node destructor might destory other
 		 * objects in the list, so we better always
-		 * start from the firstnode 
+		 * start from the firstnode
 		 */
 		ptr=firstnode;
-			
+
 	}
-  
+
   /* yixuan--If this function is called more than once, we must reset
      firstnode and lastnode */
   firstnode = NULL;

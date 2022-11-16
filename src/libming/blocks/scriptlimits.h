@@ -1,10 +1,10 @@
 /*
-    
+
    Ming, an SWF output library
    Copyright (C) 2002  Opaque Industries - http://www.opaque.net/
-   
+
    3.3.2007 Klaus Rechert
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Lesser General Public
    License as published by the Free Software Foundation; either
@@ -34,7 +34,7 @@ struct SWFScriptLimits_s
 
 typedef struct SWFScriptLimits_s* SWFScriptLimits;
 
-SWFScriptLimits newSWFScriptLimits();
+SWFScriptLimits newSWFScriptLimits(void);
 void destroySWFScriptLimits(SWFScriptLimits sl);
 void SWFScriptLimits_maxRecursion(SWFScriptLimits sl, int count);
 void SWFScriptLimits_setTimeout(SWFScriptLimits sl, int timeout);

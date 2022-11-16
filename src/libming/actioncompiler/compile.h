@@ -1,7 +1,7 @@
 /* compile.h
- * 
+ *
  * $Id$
- * 
+ *
  * Notice: This header file contains declarations of functions and types that
  * are just used internally. All library functions and types that are supposed
  * to be publicly accessable are defined in ./src/ming.h.
@@ -18,7 +18,7 @@ typedef struct _buffer *Buffer;
 
 /* shut up bison.simple */
 void yyerror(const char *msg);
-int yylex();
+int yylex(void);
 
 #ifndef max
   #define max(x,y)	(((x)>(y))?(x):(y))
@@ -126,8 +126,8 @@ struct function_s
 };
 typedef struct function_s *ASFunction;
 
-struct variable_s	
-{	
+struct variable_s
+{
 	char *name;
 	Buffer initCode;
 };
@@ -136,7 +136,7 @@ typedef struct variable_s *ASVariable;
 typedef enum
 {
 	UNDEF,
-	METHOD,	
+	METHOD,
 	VARIABLE,
 	BUFF
 } ClassMemberType;
@@ -188,13 +188,13 @@ void addctx(enum ctx val);
 void delctx(enum ctx val);
 int chkctx(enum ctx val);
 
-void checkByteOrder();
+void checkByteOrder(void);
 
 /* This is the only function needs be visible: */
 SWFAction compileSWFActionCode(const char *script);
 
 /* create/destroy buffer object */
-Buffer newBuffer();
+Buffer newBuffer(void);
 void destroyBuffer(Buffer out);
 int bufferConcat(Buffer a, Buffer b);        /* destroys b. */
 int bufferConcatSimple(Buffer a, Buffer b);
@@ -247,7 +247,7 @@ void bufferPatchPushLength(Buffer buffer, int len);
 int bufferWriteFunction(Buffer out, ASFunction function, int version);
 int bufferWriteClass(Buffer out, ASClass clazz);
 
-ASFunction newASFunction();
+ASFunction newASFunction(void);
 ASVariable newASVariable(char *, Buffer);
 ASClass newASClass(char *name, char *extends, ASClassMember members);
 

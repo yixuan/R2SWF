@@ -44,7 +44,7 @@ writeSWFPrebuiltClipToMethod(SWFBlock block, SWFByteOutputMethod method, void *d
 	SWFPrebuiltClip clip = (SWFPrebuiltClip) block;
 	methodWriteUInt16(CHARACTERID(clip), method, data);
 	methodWriteUInt16(clip->frames, method, data);
-	
+
 	SWFOutput_writeToMethod(clip->display, method, data);
 }
 
@@ -70,7 +70,7 @@ destroySWFPrebuiltClip(SWFPrebuiltClip clip)
 }
 
 SWFPrebuiltClip
-newSWFPrebuiltClip()
+newSWFPrebuiltClip(void)
 {
 	SWFPrebuiltClip clip = (SWFPrebuiltClip)malloc(sizeof(struct SWFPrebuiltClip_s));
 
@@ -80,7 +80,7 @@ newSWFPrebuiltClip()
 	BLOCK(clip)->writeBlock = writeSWFPrebuiltClipToMethod;
 	BLOCK(clip)->complete = completeSWFPrebuiltClip;
 	BLOCK(clip)->dtor = (destroySWFBlockMethod) destroySWFPrebuiltClip;
-	
+
 	clip->frames = 0;
 	clip->display = newSWFOutput();
 	return clip;
@@ -90,7 +90,7 @@ static void
 writeSWFPrebuiltToMethod(SWFBlock block, SWFByteOutputMethod method, void *data)
 {
 	SWFPrebuilt defines = (SWFPrebuilt) block;
-	
+
 	SWFOutput_writeToMethod(defines->defines, method, data);
 }
 
@@ -108,10 +108,10 @@ destroySWFPrebuilt(SWFPrebuilt defines)
 }
 
 SWFPrebuilt
-newSWFPrebuilt()
+newSWFPrebuilt(void)
 {
 	SWFPrebuilt data = (SWFPrebuilt)malloc(sizeof(struct SWFPrebuilt_s));
-	
+
 	SWFBlockInit((SWFBlock)data);
 	BLOCK(data)->type = SWF_PREBUILT;
 	BLOCK(data)->writeBlock = writeSWFPrebuiltToMethod;
@@ -245,10 +245,10 @@ struct swfile
 	char bitoff;
 	unsigned char (*readc)(struct swfile *);
 
-	char *name;	
+	char *name;
 	unsigned char vers[4];
 	int fsize;
-	
+
 	char rect[9];
 	unsigned short rectlen;
 	SWFInput input;
@@ -497,7 +497,7 @@ static int handle_tag(TAG tp)
 				tagnam = "stagDefineFontAlignZones"; break;
 			case SWF_EXPORTASSETS:
 				tagnam = "stagExportAssets"; break;
-			/*case stagClipInit:	
+			/*case stagClipInit:
 				tagnam = "stagClipInit"; break;*/
 			/*case stagNewFontInfo:
 				tagnam = "stagNewFontInfo"; break;*/
@@ -655,10 +655,10 @@ static void shaperecord(TAG tp, int nfillbits, int nlinebits, int lev)
 	int statemoveto, movebits, movex, movey, fill0style, fill1style, linestyle;
 	int edgeflag, nbits, genlineflag, dx, dy, vertlineflag;
 	int cdx, cdy, adx, ady;
-	
+
 	while(1)
 	{	type = getbits((BITS) tp, 1);
-		
+
 		if(!type)
 		{	statenewstyles = getbits((BITS) tp, 1);
 			statelinestyle = getbits((BITS) tp, 1);
@@ -731,7 +731,7 @@ static void shaperecord(TAG tp, int nfillbits, int nlinebits, int lev)
 
 static void gradient(TAG tp, int alpha, int cod)
 {	int n, ngrad, r1;
-	
+
 	alignbits(tp);
 	ngrad = tp->readc(tp);
 	for(n = 0 ; n < ngrad ; n++)
@@ -794,7 +794,7 @@ static void fillstyle(TAG tp, int lev)
 
 static void morphgradient(TAG tp)
 {	int n, ngrad, r1, r2;
-	
+
 	alignbits(tp);
 	ngrad = tp->readc(tp);
 	for(n = 0 ; n < ngrad ; n++)
@@ -869,7 +869,7 @@ static void fillandlinestyles(TAG tp, int lev)
 	nfill = tp->readc(tp);
 	if(nfill == 0xff)
 		nfill = readint2((BITS) tp);
-	if(verbose)	
+	if(verbose)
 		printf ("%d fill styles\n", nfill);
 	for(n = 0 ; n < nfill ; n++)
 		fillstyle(tp, lev);
@@ -1022,7 +1022,7 @@ static void definetext(TAG tp, int lev)
 	int hasfont, hascolor, hasyoffset, hasxoffset;
 	unsigned short font=0, height;
 	signed short xoffs, yoffs;
-			
+
 	textid = (unsigned short) (change_id(tp));
 	if(verbose) printf("text %d\n", textid);
 	rect((BITS) tp);
@@ -1186,7 +1186,7 @@ static void definetextfield(TAG tp)
 	int noedit, password, multiline, wordwrap, drawbox, noselect, html, usefont;
 	/* int hascolor, haslayout, hastext, hasfont; */
 	int hascolor, hasfont;
-	
+
 	textid = (short) (change_id(tp));
 	if(verbose) printf("textfield %d\n", textid);
 	rect((BITS) tp);
@@ -1291,8 +1291,8 @@ static void definebuttonsound(TAG tp)
 
 extern int SWF_gNumCharacters;
 
-/* 
- * load and create a SWF File as MovieClip 
+/*
+ * load and create a SWF File as MovieClip
  */
 SWFPrebuiltClip
 newSWFPrebuiltClip_fromInput(SWFInput input)
@@ -1302,7 +1302,7 @@ newSWFPrebuiltClip_fromInput(SWFInput input)
 	TAG tp;
 	struct swfile *swf;
 	int type = 0, todisplay;
-	
+
 	swf = openswf(input);
 	if ( ! swf ) return NULL;
 	clip = newSWFPrebuiltClip();
@@ -1346,7 +1346,7 @@ newSWFPrebuiltClip_fromInput(SWFInput input)
 	return clip;
 }
 
-/* 
+/*
  * load SWF file which can be used as a MovieClip
  */
 SWFPrebuiltClip

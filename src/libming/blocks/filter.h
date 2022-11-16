@@ -16,7 +16,7 @@ struct SWFFilterList_s
 
 typedef struct SWFFilterList_s * SWFFilterList;
 
-SWFFilterList newSWFFilterList();
+SWFFilterList newSWFFilterList(void);
 void SWFFilterList_add(SWFFilterList list, SWFFilter filter);
 void SWFOutput_writeFilterList(SWFOutput out, SWFFilterList list);
 void destroySWFFilterList(SWFFilterList list);

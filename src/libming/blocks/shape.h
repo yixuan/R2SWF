@@ -18,7 +18,7 @@
 */
 
 /* shape.h
- * 
+ *
  * $Id$
  *
  * Notice: This header file contains declarations of functions and types that
@@ -87,14 +87,14 @@ int SWFShape_getFlags(SWFShape shape);
 void
 SWFOutput_writeGlyphShape(SWFOutput out, SWFShape shape);
 
-SWFShape newSWFGlyphShape();
+SWFShape newSWFGlyphShape(void);
 
-void 
+void
 SWFShape_setLineStyle2filled_internal(SWFShape shape, unsigned short width,
                        SWFFillStyle fill,
                        int flags, float miterLimit);
 
-void 
+void
 SWFShape_setLineStyle2_internal(SWFShape shape, unsigned short width,
                        byte r, byte g, byte b, byte a,
                        int flags, float miterLimit);

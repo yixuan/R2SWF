@@ -1,10 +1,10 @@
 /*
-    
+
    Ming, an SWF output library
    Copyright (C) 2002  Opaque Industries - http://www.opaque.net/
-   
+
    27.2.2007 Klaus Rechert
-   
+
    This library is free software; you can redistribute it and/or
    modify it under the terms of the GNU Lesser General Public
    License as published by the Free Software Foundation; either
@@ -35,7 +35,7 @@ struct SWFFileAttributes_s
 
 typedef struct SWFFileAttributes_s* SWFFileAttributes;
 
-SWFFileAttributes newSWFFileAttributes();
+SWFFileAttributes newSWFFileAttributes(void);
 void destroySWFFileAttributes(SWFFileAttributes fattrs);
 void SWFFileAttributes_useNetwork(SWFFileAttributes fattrs, int flag);
 void SWFFileAttributes_hasMetadata(SWFFileAttributes fattrs, int flag);

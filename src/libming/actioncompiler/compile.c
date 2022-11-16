@@ -138,7 +138,7 @@ int bufferWriteConstants(Buffer out)
 	return len+3;
 }
 
-Buffer newBuffer()
+Buffer newBuffer(void)
 {
 	Buffer out = (Buffer)malloc(BUFFER_SIZE);
 	if(out == NULL)
@@ -374,10 +374,10 @@ int bufferWritePushString(Buffer out, char *string, size_t length)
 		bufferWritePushOp(out);
 		bufferWriteS16(out, (int) (length+1));
 	}
-	
+
 	bufferWriteU8(out, PUSH_STRING);
 	l = bufferWriteHardString(out, string, length);
-	bufferPatchPushLength(out, l + 1);	
+	bufferPatchPushLength(out, l + 1);
 	return len + l + 1;
 }
 
@@ -430,7 +430,7 @@ int bufferWriteInt(Buffer out, int i)
 	bufferWriteU8(out, p[1]);
 	bufferWriteU8(out, p[2]);
 	bufferWriteU8(out, p[3]);
-#else 
+#else
 	bufferWriteU8(out, p[3]);
 	bufferWriteU8(out, p[2]);
 	bufferWriteU8(out, p[1]);
@@ -460,7 +460,7 @@ int bufferWriteFloat(Buffer out, float f)
 	bufferWriteU8(out, p[0]);
 	bufferWriteU8(out, p[1]);
 	bufferWriteU8(out, p[2]);
-	bufferWriteU8(out, p[3]);	
+	bufferWriteU8(out, p[3]);
 #else
 	bufferWriteU8(out, p[3]);
 	bufferWriteU8(out, p[2]);
@@ -607,14 +607,14 @@ void lower(char *s)
 static enum ctx *ctx_stack = {0};
 static int ctx_count = {0}, ctx_len = {0};
 void addctx(enum ctx val)
-{	
+{
 	if(ctx_count >= ctx_len)
 		ctx_stack = (enum ctx*) realloc(ctx_stack, (ctx_len += 10) * sizeof(enum ctx));
 	ctx_stack[ctx_count++] = val;
 }
 void delctx(enum ctx val)
-{	
-	if(ctx_count <= 0)  
+{
+	if(ctx_count <= 0)
 		SWF_error("consistency check in delctx: stack empty!\n");
 	else if (ctx_stack[--ctx_count] != val)
 		SWF_error("consistency check in delctx: val %i != %i\n", ctx_stack[ctx_count], val);
@@ -723,7 +723,7 @@ void bufferResolveSwitch(Buffer buffer, struct switchcases *slp)
 {	struct switchcase *scp;
 	int n, len;
 	unsigned char *output;
-			
+
 	len = bufferLength(buffer);
 	for(n = 0, scp = slp->list ; n < slp->count ; n++, scp++)
 	{	scp->actlen = bufferLength(scp->action);
@@ -760,7 +760,7 @@ void bufferResolveSwitch(Buffer buffer, struct switchcases *slp)
 		len += scp->actlen;
 	}
 }
-	
+
 int lookupProperty(char *string)
 {
 	lower(string);
@@ -820,16 +820,16 @@ int bufferWriteWTHITProperty(Buffer out)
  * @param flags
  * 	See SWFDefineFunction2Flags enum.
  */
-static int bufferWriteDefineFunction2(Buffer out, char *func_name, 
+static int bufferWriteDefineFunction2(Buffer out, char *func_name,
 		Buffer args, Buffer code, int flags, int num_regs)
 {
 	Buffer c;
 	char buf[1024];
 	int num_args = 0, i;
 	char *p = (char *) args->buffer;
-	size_t taglen;	
+	size_t taglen;
 	strcpy(buf, "");
-		
+
 	/* REGISTERPARAM records */
 	c = newBuffer();
 	/* TODO: rewrite this function, all these calls to strncat
@@ -839,7 +839,7 @@ static int bufferWriteDefineFunction2(Buffer out, char *func_name,
 		if(p[i] == '\0')
 		{
 			bufferWriteU8(c, 0);
-			bufferWriteHardString(c, buf, strlen(buf)+1);	
+			bufferWriteHardString(c, buf, strlen(buf)+1);
 			strcpy(buf, "");
 			num_args++;
 		}
@@ -892,7 +892,7 @@ static int bufferWriteDefineFunction2(Buffer out, char *func_name,
 				bufferLength(code), taglen);
 #endif
 		bufferWriteS16(out, (int) taglen);
-		bufferWriteHardString(out, func_name, strlen(func_name)+1);	 
+		bufferWriteHardString(out, func_name, strlen(func_name)+1);
 	}
 	bufferWriteS16(out, num_args); /* number of params */
  	bufferWriteU8(out, num_regs); /* register count */
@@ -912,23 +912,23 @@ void destroyASFunction(ASFunction func)
 
 int bufferWriteFunction(Buffer out, ASFunction function, int version)
 {
-	int tagLen; 
-	
+	int tagLen;
+
 	if(version == 2)
 	{
-		tagLen = bufferWriteDefineFunction2(out, function->name, 
+		tagLen = bufferWriteDefineFunction2(out, function->name,
 			function->params.buffer, function->code, function->flags, 0);
 	}
 	else
 	{
-		tagLen = 5; 
+		tagLen = 5;
 		tagLen += bufferLength(function->params.buffer);
 		if(function->name != NULL)
-			tagLen += strlen(function->name); 
-	
+			tagLen += strlen(function->name);
+
 		bufferWriteOp(out, SWFACTION_DEFINEFUNCTION);
 		bufferWriteS16(out, tagLen);
-		if(function->name == NULL) 
+		if(function->name == NULL)
 			bufferWriteU8(out, 0); /* empty function name */
 		else
 			bufferWriteHardString(out, function->name, strlen(function->name) +1 );
@@ -941,7 +941,7 @@ int bufferWriteFunction(Buffer out, ASFunction function, int version)
 	return tagLen;
 }
 
-ASFunction newASFunction()
+ASFunction newASFunction(void)
 {
 	ASFunction func;
 	func = (ASFunction) malloc(sizeof(struct function_s));
@@ -960,10 +960,10 @@ void destroyASClass(ASClass clazz)
 		free(clazz->name);
 	if(clazz->extends)
 		free(clazz->extends);
-	
+
 	member = clazz->members;
 	while(member)
-	{	
+	{
 		ASClassMember _this = member;
 		member = member->next;
 		free(_this);
@@ -988,7 +988,7 @@ ASFunction ASClass_getConstructor(ASClass clazz)
 			continue;
 		if(strcmp(func->name, clazz->name) != 0)
 			continue;
-		
+
 		_this->element.function = NULL;
 		return func;
 	}
@@ -1022,12 +1022,12 @@ static int bufferWriteClassConstructor(Buffer out, ASClass clazz)
 		len += bufferWriteOp(out, SWFACTION_GETVARIABLE);
 		len += bufferWriteOp(out, SWFACTION_EXTENDS);
 	}
-	
+
 	len += bufferWriteRegister(out, 1);
 	len += bufferWriteString(out, "prototype", strlen("prototype") + 1);
 	len += bufferWriteOp(out, SWFACTION_GETMEMBER);
 	len += bufferWriteSetRegister(out, 2);
-	
+
 	len += bufferWriteOp(out, SWFACTION_POP);
 
 	return len;
@@ -1047,12 +1047,12 @@ static int bufferWriteClassMethods(Buffer out, ASClass clazz)
 		func = _this->element.function;
 		if(!func || !func->name)
 			continue;
-	
+
 		if(strcmp(func->name, clazz->name) == 0)
 		{
 			SWF_error("only one class constructor allowed\n");
 		}
-	
+
 		len += bufferWriteRegister(out, 2);
 		len += bufferWriteString(out, func->name, strlen(func->name) + 1);
 		free(func->name);
@@ -1072,7 +1072,7 @@ static int bufferWriteClassVariable(Buffer out, ASVariable var)
 		len += bufferWriteRegister(out, 2);
 		len += bufferWriteString(out, var->name, strlen(var->name)+1);
 		len += bufferConcat(out, var->initCode);
-		len += bufferWriteOp(out, SWFACTION_SETMEMBER); 
+		len += bufferWriteOp(out, SWFACTION_SETMEMBER);
 	}
 	free(var->name);
 	free(var); /* aka destroyASVariable */
@@ -1093,7 +1093,7 @@ static int bufferWriteClassMembers(Buffer out, ASClass clazz)
 		var = _this->element.var;
 		if(!var)
 			continue;
-		bufferWriteClassVariable(out, var);	
+		bufferWriteClassVariable(out, var);
 		_this->element.var = NULL;
 	}
 	return len;
@@ -1104,7 +1104,7 @@ int bufferWriteClass(Buffer out, ASClass clazz)
 {
 	int len = 0;
 	len += bufferWriteClassConstructor(out, clazz);
-	len += bufferWriteClassMembers(out, clazz);	
+	len += bufferWriteClassMembers(out, clazz);
 	len += bufferWriteClassMethods(out, clazz);
 	/* set class properties */
 	len += bufferWriteInt(out, 1);
@@ -1117,7 +1117,7 @@ int bufferWriteClass(Buffer out, ASClass clazz)
 
 	len += bufferWriteString(out, "prototype", strlen("prototype") + 1);
 	len += bufferWriteOp(out, SWFACTION_GETMEMBER);
-		
+
 	len += bufferWriteInt(out, 3);
 	len += bufferWriteString(out, "ASSetPropFlags", strlen("ASSetPropFlags") + 1);
 	len += bufferWriteOp(out, SWFACTION_CALLFUNCTION);
@@ -1142,7 +1142,7 @@ ASClass newASClass(char *name, char *extends, ASClassMember members)
 	clazz->name = name;
 	clazz->extends = extends;
 	clazz->members = members;
-	return clazz;	
+	return clazz;
 }
 
 ASClassMember newASClassMember_function(ASFunction func)
@@ -1150,7 +1150,7 @@ ASClassMember newASClassMember_function(ASFunction func)
 	ASClassMember member = (ASClassMember) malloc(sizeof(struct class_member_s));
 	member->element.function = func;
 	member->type = METHOD;
-	member->next = NULL; 
+	member->next = NULL;
 	return member;
 }
 
@@ -1159,7 +1159,7 @@ ASClassMember newASClassMember_variable(ASVariable var)
 	ASClassMember member = (ASClassMember) malloc(sizeof(struct class_member_s));
 	member->element.var = var;
 	member->type = VARIABLE;
-	member->next = NULL; 
+	member->next = NULL;
 	return member;
 }
 
@@ -1169,7 +1169,7 @@ ASClassMember newASClassMember_buffer(Buffer buf)
 	ASClassMember member = (ASClassMember) malloc(sizeof(struct class_member_s));
 	member->element.buffer = buf;
 	member->type = BUFF;
-	member->next = NULL; 
+	member->next = NULL;
 	return member;
 }
 ASVariable newASVariable(char *name, Buffer buf)

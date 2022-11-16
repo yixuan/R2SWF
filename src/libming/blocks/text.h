@@ -65,7 +65,7 @@ short SWFText_getScaledLeading(SWFText text);
 
 void SWFText_resolveCodes(SWFText text);
 
-SWFTextRecord newSWFTextRecord();
+SWFTextRecord newSWFTextRecord(void);
 
 void destroySWFTextRecord(SWFTextRecord record);
 

@@ -18,9 +18,9 @@
 */
 
 /* output.h
- * 
+ *
  * $Id$
- * 
+ *
  * Notice: This header file contains declarations of functions and types that
  * are just used internally. All library functions and types that are supposed
  * to be publicly accessable are defined in ./src/ming.h.
@@ -37,7 +37,7 @@ typedef struct SWFOutput_s *SWFOutput;
 
 
 /* create/destroy output object */
-SWFOutput newSWFOutput();
+SWFOutput newSWFOutput(void);
 
 SWFOutput newSizedSWFOutput(int size);
 

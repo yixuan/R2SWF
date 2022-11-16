@@ -663,7 +663,7 @@ newDropShadowFilter(SWFColor color /* color of shadow */,
 	return filter;
 }
 
-SWFFilterList newSWFFilterList()
+SWFFilterList newSWFFilterList(void)
 {
 	SWFFilterList list;
 

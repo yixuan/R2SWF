@@ -73,23 +73,23 @@ void destroySWFBlock(SWFBlock block);
 int completeSWFBlock(SWFBlock block);
 
 /* writes this block to the given output method */
-int writeSWFBlockToMethod(SWFBlock block, SWFByteOutputMethod method, 
+int writeSWFBlockToMethod(SWFBlock block, SWFByteOutputMethod method,
                           void *data);
 
 /* initialize character values to something sane */
 void SWFBlockInit(SWFBlock block);
 
 /* return a new ShowFrame block */
-SWFBlock newSWFShowFrameBlock();
+SWFBlock newSWFShowFrameBlock(void);
 
 /* return a new End block */
-SWFBlock newSWFEndBlock();
+SWFBlock newSWFEndBlock(void);
 
 /* return a new Protect block */
 SWFBlock newSWFProtect(const char *);
 
 /* return a new empty block */
-SWFBlock newEmptySWFBlock();
+SWFBlock newEmptySWFBlock(SWFBlocktype type);
 
 /* return the block's type */
 SWFBlocktype SWFBlock_getType(SWFBlock block);

@@ -51,14 +51,14 @@ struct SWFAction_s
 		FILE *file;
 		char *script;
 	} input;
-	int debug;	
+	int debug;
 };
 
 struct SWFInitAction_s
 {
 	struct SWFBlock_s block;
 	int spriteId;
-	SWFAction action; 
+	SWFAction action;
 	SWFMovieClip clip;
 };
 
@@ -75,7 +75,7 @@ static char *readActionFile(FILE *file)
 		free(script);
 		return NULL;
 	}
-	destroySWFInput(input);	
+	destroySWFInput(input);
 	script[len] = '\0';
 	return script;
 }
@@ -89,20 +89,20 @@ void SWFOutput_writeAction(SWFOutput out, SWFAction action)
 	{
 		SWF_warn("SWFAction: compile action first\n");
 		return;
-	}	
-	
+	}
+
 	len = SWFOutput_getLength(action->out);
 	data = SWFOutput_getBuffer(action->out);
 	SWFOutput_writeBuffer(out, data, len);
-} 
+}
 
 /*
  * Compiles the current script stored in this SWFAction instance.
  * returns 0 on success, -1 otherwise.
  * the length of the compiled bytecode is storen in the length pointer (if not NULL).
  */
-int SWFAction_compile(SWFAction action, 
-                      int swfVersion /* target SWF version */, 
+int SWFAction_compile(SWFAction action,
+                      int swfVersion /* target SWF version */,
                       int *length /* output length */)
 {
 	char *script = NULL;
@@ -137,13 +137,13 @@ int SWFAction_compile(SWFAction action,
                 swf5ParseInit(script, action->debug, swfVersion);
 		parserError = swf5parse((void *)&b);
         }
-	else 
+	else
 		parserError = 1;
-	
+
 	/* if INPUT_FILE script was allocated by readActionFile() */
 	if(action->inputType == INPUT_FILE)
 		free(script);
-		
+
 	action->out = newSWFOutput();
 
         if(!parserError)
@@ -160,21 +160,21 @@ int SWFAction_compile(SWFAction action,
 
 	if(parserError)
 		return -1;
-		
+
 	return 0;
 }
 
-/* 
+/*
  * Returns the compiled bytecode.
  * If not already compiled the script will compiled for SWF V7.
  *
- * Returns NULL in case of an error. Length pointer stores the length of 
+ * Returns NULL in case of an error. Length pointer stores the length of
  * the compiled bytecode.
  */
 byte *SWFAction_getByteCode(SWFAction action, int *length)
 {
 	int ret = 0;
-	if(action == NULL) 
+	if(action == NULL)
 		return NULL;
 
 	if(action->out == NULL)
@@ -185,7 +185,7 @@ byte *SWFAction_getByteCode(SWFAction action, int *length)
 	}
 
 	if(ret < 0)
-	{	
+	{
 		*length = -1;
 		return NULL;
 	}
@@ -246,10 +246,10 @@ void destroySWFAction(SWFAction action)
 		default:
 			break;
 	}
-	
+
 	if(action->out)
 		destroySWFOutput(action->out);
-	
+
 	free(action);
 }
 
@@ -265,7 +265,7 @@ void destroySWFInitAction(SWFInitAction init)
 }
 
 
-static SWFAction createEmptyAction()
+static SWFAction createEmptyAction(void)
 {
 	SWFAction action = (SWFAction)malloc(sizeof(struct SWFAction_s));
 
@@ -281,7 +281,7 @@ static SWFAction createEmptyAction()
 }
 
 /**
- * enable verbose compiler output 
+ * enable verbose compiler output
  *
  * Set debug value to 1 get very! verbose compile messages.
  * @return old value
@@ -350,7 +350,7 @@ SWFInitAction newSWFInitAction_withId(SWFAction action, int id /* mc character i
 	BLOCK(init)->dtor = (destroySWFBlockMethod) destroySWFInitAction;
 	BLOCK(init)->type = SWF_INITACTION;
 	init->clip = NULL;	/* use external clip */
-	init->spriteId = id;	
+	init->spriteId = id;
 	init->action = action;
 	return init;
 }

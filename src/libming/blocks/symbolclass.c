@@ -37,7 +37,7 @@ struct SWFSymbolClass_s
 };
 
 static void
-writeSWFSymbolClassToMethod(SWFBlock block, 
+writeSWFSymbolClassToMethod(SWFBlock block,
                             SWFByteOutputMethod method, void* data)
 {
 	SWFOutput out = ((SWFSymbolClass)block)->out;
@@ -49,7 +49,7 @@ completeSWFSymbolClass(SWFBlock block)
 {
 	int i;
 	SWFSymbolClass sclass = (SWFSymbolClass)block;
-	
+
 	sclass->out = newSWFOutput();
 	SWFOutput_writeUInt16(sclass->out, sclass->numSymbols);
 	for(i = 0; i < sclass->numSymbols; i++)
@@ -79,16 +79,16 @@ destroySWFSymbolClass(SWFSymbolClass sclass)
 }
 
 void
-SWFSymbolClass_addSymbol(SWFSymbolClass sclass, 
+SWFSymbolClass_addSymbol(SWFSymbolClass sclass,
                          SWFCharacter character, const char *name)
 {
 	size_t size;
 	if(sclass == NULL || name == NULL)
 		return;
-	
+
 	size = (sclass->numSymbols + 1) * sizeof(int);
 	sclass->cIds = (int*)realloc(sclass->cIds, size);
-	
+
 	size = (sclass->numSymbols + 1) * sizeof(char *);
 	sclass->names = (char **)realloc(sclass->names, size);
 
@@ -97,11 +97,11 @@ SWFSymbolClass_addSymbol(SWFSymbolClass sclass,
 		sclass->cIds[sclass->numSymbols] = 0;
 	else
 		sclass->cIds[sclass->numSymbols] = character->id;
- 
+
 	sclass->numSymbols++;
 }
 
-SWFSymbolClass newSWFSymbolClass()
+SWFSymbolClass newSWFSymbolClass(void)
 {
         SWFSymbolClass sclass = (SWFSymbolClass)malloc(sizeof(struct SWFSymbolClass_s));
 
@@ -115,7 +115,7 @@ SWFSymbolClass newSWFSymbolClass()
 	sclass->names = NULL;
 	sclass->cIds = NULL;
 	sclass->out = NULL;
-	
+
         return sclass;
 }
 

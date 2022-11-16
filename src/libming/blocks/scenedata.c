@@ -29,7 +29,7 @@
 struct SWFSceneData_s
 {
 	struct SWFCharacter_s character;
-	
+
 	unsigned int sceneCount;
 	unsigned int *sceneOffset;
 	char **sceneName;
@@ -37,7 +37,7 @@ struct SWFSceneData_s
 	unsigned int frameLabelCount;
 	unsigned int *frameNumber;
 	char **frameLabel;
-	
+
 	SWFOutput out;
 };
 
@@ -59,7 +59,7 @@ static int completeSWFSceneData(SWFBlock block)
 	for(i = 0; i < sdata->sceneCount; i++)
 	{
 		SWFOutput_writeEncUInt32(sdata->out, sdata->sceneOffset[i]);
-		SWFOutput_writeString(sdata->out, 
+		SWFOutput_writeString(sdata->out,
 			(unsigned char *)sdata->sceneName[i]);
 	}
 
@@ -67,7 +67,7 @@ static int completeSWFSceneData(SWFBlock block)
 	for(i = 0; i < sdata->frameLabelCount; i++)
 	{
 		SWFOutput_writeEncUInt32(sdata->out, sdata->frameNumber[i]);
-		SWFOutput_writeString(sdata->out, 
+		SWFOutput_writeString(sdata->out,
 			(unsigned char *)sdata->frameLabel[i]);
 	}
 	return SWFOutput_getLength(sdata->out);
@@ -84,7 +84,7 @@ destroySWFSceneData(SWFSceneData sdata)
 		free(sdata->sceneName);
 		free(sdata->sceneOffset);
 	}
-	
+
 	if(sdata->frameLabelCount > 0)
 	{
 		for(i = 0; i < sdata->frameLabelCount; i++)
@@ -95,10 +95,10 @@ destroySWFSceneData(SWFSceneData sdata)
 	free(sdata);
 }
 
-void 
+void
 SWFSceneData_addScene(SWFSceneData sdata, unsigned int offset, const char *name)
 {
-	sdata->sceneName = (char **)realloc(sdata->sceneName, 
+	sdata->sceneName = (char **)realloc(sdata->sceneName,
 		(sdata->sceneCount + 1) * sizeof(char *));
 	sdata->sceneOffset = (unsigned int*) realloc(sdata->sceneOffset,
 		(sdata->sceneCount + 1) * sizeof(unsigned int));
@@ -107,11 +107,11 @@ SWFSceneData_addScene(SWFSceneData sdata, unsigned int offset, const char *name)
 	sdata->sceneCount++;
 }
 
-void 
-SWFSceneData_addFrameLabel(SWFSceneData sdata, unsigned int fnum, 
+void
+SWFSceneData_addFrameLabel(SWFSceneData sdata, unsigned int fnum,
                            const char *label)
 {
-	sdata->frameLabel = (char **)realloc(sdata->frameLabel, 
+	sdata->frameLabel = (char **)realloc(sdata->frameLabel,
 		(sdata->frameLabelCount + 1) * sizeof(char *));
 	sdata->frameNumber = (unsigned int*)realloc(sdata->frameNumber,
 		(sdata->frameLabelCount + 1) * sizeof(unsigned int));
@@ -121,7 +121,7 @@ SWFSceneData_addFrameLabel(SWFSceneData sdata, unsigned int fnum,
 }
 
 SWFSceneData
-newSWFSceneData()
+newSWFSceneData(void)
 {
 	SWFSceneData sdata= (SWFSceneData)malloc(sizeof(struct SWFSceneData_s));
 
@@ -130,11 +130,11 @@ newSWFSceneData()
 	BLOCK(sdata)->writeBlock = writeSWFSceneDataToMethod;
 	BLOCK(sdata)->complete = completeSWFSceneData;
 	BLOCK(sdata)->dtor = (destroySWFBlockMethod) destroySWFSceneData;
-	
+
 	sdata->sceneCount = 0;
 	sdata->sceneOffset = NULL;
 	sdata->sceneName = NULL;
-	
+
 	sdata->frameLabelCount = 0;
 	sdata->frameNumber = NULL;
 	sdata->frameLabel = NULL;

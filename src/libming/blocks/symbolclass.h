@@ -19,9 +19,9 @@
 #ifndef __SYMBOL_CLASS_H_
 #define __SYMBOL_CLASS_H_
 
-SWFSymbolClass newSWFSymbolClass();
+SWFSymbolClass newSWFSymbolClass(void);
 
-void SWFSymbolClass_addSymbol(SWFSymbolClass sclass, 
+void SWFSymbolClass_addSymbol(SWFSymbolClass sclass,
                          SWFCharacter character, const char *name);
 void destroySWFSymbolClass(SWFSymbolClass sclass);
 #endif

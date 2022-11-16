@@ -1,7 +1,7 @@
 /*
     Ming, an SWF output library
     Copyright (C) 2001  Opaque Industries - http://www.opaque.net/
-	
+
     27.2.2007 Klaus Rechert
 
     This library is free software; you can redistribute it and/or
@@ -35,14 +35,14 @@ writeSWFFileAttributesToMethod(SWFBlock block, SWFByteOutputMethod method, void*
 
 	int flags = 0;
 	SWFFileAttributes fattrs = (SWFFileAttributes)block;
-	
+
 	if(fattrs->hasMetadata)
 		flags |= SWFFILEATTRIBUTES_HASMETADATA;
 	if(fattrs->useNetwork)
 		flags |= SWFFILEATTRIBUTES_USENETWORK;
 	if(fattrs->hasABC)
-		flags |= SWFFILEATTRIBUTES_HASABC; 
-	
+		flags |= SWFFILEATTRIBUTES_HASABC;
+
 	method((byte) flags, data);
 	method(0, data);
 	method(0, data);
@@ -61,23 +61,23 @@ completeSWFFileAttributes(SWFBlock block)
 void
 destroySWFFileAttributes(SWFFileAttributes fattrs)
 {
-	free(fattrs);	
+	free(fattrs);
 }
 
-void 
+void
 SWFFileAttributes_hasMetadata(SWFFileAttributes fattrs, int flag)
 {
 	fattrs->hasMetadata = flag;
 }
 
-void 
+void
 SWFFileAttributes_useNetwork(SWFFileAttributes fattrs, int flag)
 {
 	fattrs->useNetwork = flag;
 }
 
 SWFFileAttributes
-newSWFFileAttributes()
+newSWFFileAttributes(void)
 {
         SWFFileAttributes fattrs= (SWFFileAttributes)malloc(sizeof(struct SWFFileAttributes_s));
 
@@ -86,7 +86,7 @@ newSWFFileAttributes()
         BLOCK(fattrs)->writeBlock = writeSWFFileAttributesToMethod;
         BLOCK(fattrs)->complete = completeSWFFileAttributes;
         BLOCK(fattrs)->dtor = (destroySWFBlockMethod) destroySWFFileAttributes;
-	
+
 	fattrs->hasMetadata = 0;
 	fattrs->useNetwork = 0;
 	fattrs->hasABC = 0;

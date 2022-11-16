@@ -34,7 +34,7 @@
 
 typedef struct SWFBlockList_s *SWFBlockList;
 
-SWFBlockList newSWFBlockList();
+SWFBlockList newSWFBlockList(void);
 void destroySWFBlockList(SWFBlockList list);
 
 void SWFBlockList_addBlock(SWFBlockList blocklist, SWFBlock block);

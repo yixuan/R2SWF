@@ -106,11 +106,11 @@ struct SWFFontCollection_s
 	int numFonts;
 };
 
-SWFFont newSWFFont();
+SWFFont newSWFFont(void);
 
 void SWFFontCollection_addFont(SWFFontCollection collection, SWFFont font);
 void destroySWFFontCollection(SWFFontCollection collection);
-SWFFontCollection newSWFFontCollection();
+SWFFontCollection newSWFFontCollection(void);
 
 SWFShape SWFFont_getGlyph(SWFFont font, unsigned short c);
 
@@ -140,7 +140,7 @@ int SWFFont_getCharacterKern(SWFFont font, unsigned short c1, unsigned short c2)
 
 SWFFontCharacter newSWFFontCharacter(SWFFont font);
 
-SWFFontCharacter newSWFDummyFontCharacter();
+SWFFontCharacter newSWFDummyFontCharacter(void);
 
 void destroySWFFontCharacter(SWFFontCharacter fontCharacter);
 

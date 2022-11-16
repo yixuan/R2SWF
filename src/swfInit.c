@@ -6,7 +6,7 @@
 
 /* This function will be called when the package is loaded,
    hence called only once. */
-SEXP swfInit()
+SEXP swfInit(void)
 {
     /* Some global initializations */
     Ming_init();
@@ -20,6 +20,6 @@ SEXP swfInit()
        use R to handle warnings and errors. */
     Ming_setWarnFunction(Rf_warning);
     Ming_setErrorFunction(Rf_error);
-    
+
     return R_NilValue;
 }

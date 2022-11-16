@@ -18,9 +18,9 @@
 */
 
 /* font_util.h
- * 
+ *
  * $Id$
- * 
+ *
  * Notice: This header file contains declarations of functions and types that
  * are just used internally. All library functions and types that are supposed
  * to be publicly accessable are defined in ./src/ming.h.
@@ -35,6 +35,6 @@ SWFFont Ming_getFont(const char* name);
 
 SWFFont Ming_loadFont(const char* path, const char* name);
 
-void Ming_cleanupFonts();
+void Ming_cleanupFonts(void);
 
 #endif /* SWF_FONT_UTIL_H_INCLUDED */

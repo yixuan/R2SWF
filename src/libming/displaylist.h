@@ -18,9 +18,9 @@
 */
 
 /* displaylist.h
- * 
+ *
  * $Id$
- * 
+ *
  * Notice: This header file contains declarations of functions and types that
  * are just used internally. All library functions and types that are supposed
  * to be publicly accessable are defined in ./src/ming.h.
@@ -43,30 +43,30 @@ struct SWFDisplayItem_s
 	int flags;
 	int depth;
 	SWFPlaceObject2Block block;
-	
+
 	/* we need to know if an item is placed
  	 * if it is not placed do not write a remove tag
  	 */
-	int isPlaced; 
+	int isPlaced;
 
 	SWFCharacter character;
 	SWFPosition position;
 	SWFMatrix matrix;
 	struct SWFDisplayList_s *list;
-	
+
 	SWFBlockList blocklist;
 };
 
 
 /* display item */
 
-void SWFDisplayItem_removeFromList(SWFDisplayItem, SWFBlockList); 
+void SWFDisplayItem_removeFromList(SWFDisplayItem, SWFBlockList);
 
 void destroySWFDisplayList(SWFDisplayList displayList);
 
-SWFDisplayList newSWFDisplayList();
+SWFDisplayList newSWFDisplayList(void);
 
-SWFDisplayList newSWFSpriteDisplayList();
+SWFDisplayList newSWFSpriteDisplayList(void);
 
 void SWFDisplayList_nextFrame(SWFDisplayList list);
 
