@@ -63,7 +63,7 @@ void destroySWFBlockList(SWFBlockList list)
 
 
 SWFBlockList
-newSWFBlockList()
+newSWFBlockList(void)
 {
 	SWFBlockList blockList = (SWFBlockList) malloc(sizeof(struct SWFBlockList_s));
 

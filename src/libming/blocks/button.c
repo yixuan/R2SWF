@@ -131,14 +131,14 @@ void SWFButton_addAction(SWFButton button, SWFAction action, int flags)
 	++button->nActions;
 }
 
-/* adds a shape character 
+/* adds a shape character
  * Add a shape character to a button for given states
  * possible states:
- * SWFBUTTON_HIT  
- * SWFBUTTON_DOWN  
+ * SWFBUTTON_HIT
+ * SWFBUTTON_DOWN
  * SWFBUTTON_OVER
  * SWFBUTTON_UP
- * states can be combined using the binary or operator    
+ * states can be combined using the binary or operator
  * deprecated! use SWFButton_addCharacter instead
  */
 void SWFButton_addShape(SWFButton button, SWFCharacter character, byte flags)
@@ -160,7 +160,7 @@ void SWFButton_addShape(SWFButton button, SWFCharacter character, byte flags)
 	SWFButton_addRecord(button, newSWFButtonRecord(flags, character, 0, m));
 }
 
-/* adds a character 
+/* adds a character
  * Add a character to a button for given states
  * possible states:
  * SWFBUTTON_HIT
@@ -171,15 +171,15 @@ void SWFButton_addShape(SWFButton button, SWFCharacter character, byte flags)
  * returns a SWFButtonRecord object which can be further modified.
  */
 SWFButtonRecord
-SWFButton_addCharacter(SWFButton button /* button object */, 
-                       SWFCharacter character /* character to be added */, 
+SWFButton_addCharacter(SWFButton button /* button object */,
+                       SWFCharacter character /* character to be added */,
                        byte state /* state description */)
 {
 	SWFMatrix m;
 	SWFButtonRecord record;
 	SWFCharacter **depsPtr = &CHARACTER(button)->dependencies;
 	int *depCount = &CHARACTER(button)->nDependencies;
-	
+
 	if ( SWFCharacter_isFinished((SWFCharacter)button) )
 	{
 		SWF_warn("Can't alter a button after it's been added to another character");
@@ -189,7 +189,7 @@ SWFButton_addCharacter(SWFButton button /* button object */,
 	SWFCharacter_getDependencies(character, depsPtr, depCount);
 	SWFCharacter_addDependency((SWFCharacter)button, character);
 	SWFCharacter_setFinished(character);
-	
+
 	m = newSWFMatrix(1.0, 0, 0, 1.0, 0, 0);
 	record = newSWFButtonRecord(state, character, 0, m);
 	SWFButton_addRecord(button, record);
@@ -204,22 +204,22 @@ SWFButtonRecord_setDepth(SWFButtonRecord b, int depth)
 
 /*
  * sets blend mode
- * Sets an alternative blend mode instead of default alpha blend. 
- * possible modes are: 
- * SWFBLEND_MODE_NORMAL 
- * SWFBLEND_MODE_LAYER 
- * SWFBLEND_MODE_MULT 
- * SWFBLEND_MODE_SCREEN 
- * SWFBLEND_MODE_DARKEN 
- * SWFBLEND_MODE_ADD 
- * SWFBLEND_MODE_SUB 
- * SWFBLEND_MODE_DIFF 
- * SWFBLEND_MODE_DIFF 
- * SWFBLEND_MODE_INV 
- * SWFBLDEN_MODE_ALPHA 
- * SWFBLEND_MDOE_ERASE 
- * SWFBLEND_MDOE_OVERLAY 
- * SWFBLEND_MODE_HARDLIGHT 
+ * Sets an alternative blend mode instead of default alpha blend.
+ * possible modes are:
+ * SWFBLEND_MODE_NORMAL
+ * SWFBLEND_MODE_LAYER
+ * SWFBLEND_MODE_MULT
+ * SWFBLEND_MODE_SCREEN
+ * SWFBLEND_MODE_DARKEN
+ * SWFBLEND_MODE_ADD
+ * SWFBLEND_MODE_SUB
+ * SWFBLEND_MODE_DIFF
+ * SWFBLEND_MODE_DIFF
+ * SWFBLEND_MODE_INV
+ * SWFBLDEN_MODE_ALPHA
+ * SWFBLEND_MDOE_ERASE
+ * SWFBLEND_MDOE_OVERLAY
+ * SWFBLEND_MODE_HARDLIGHT
  */
 void
 SWFButtonRecord_setBlendMode(SWFButtonRecord record, int mode)
@@ -228,12 +228,12 @@ SWFButtonRecord_setBlendMode(SWFButtonRecord record, int mode)
 	record->flags |= RECORD_HASBLEND;
 }
 
-/* 
+/*
  * adds a surface filter
- * Adds a bitmap filter to the display object.  
- * See SWFFilter for possible filter objects. 
+ * Adds a bitmap filter to the display object.
+ * See SWFFilter for possible filter objects.
  */
-void 
+void
 SWFButtonRecord_addFilter(SWFButtonRecord record, SWFFilter filter)
 {
 	if(record->filterList == NULL)
@@ -244,61 +244,61 @@ SWFButtonRecord_addFilter(SWFButtonRecord record, SWFFilter filter)
         SWFFilterList_add(record->filterList, filter);
 }
 
-void 
+void
 SWFButtonRecord_move(SWFButtonRecord record, double x, double y)
 {
 	SWFPosition_move(record->position, x, y);
 }
 
-void 
+void
 SWFButtonRecord_moveTo(SWFButtonRecord record, double x, double y)
 {
 	SWFPosition_moveTo(record->position, x, y);
 }
 
-void 
+void
 SWFButtonRecord_rotate(SWFButtonRecord record, double deg)
 {
 	SWFPosition_rotate(record->position, deg);
 }
 
-void 
+void
 SWFButtonRecord_rotateTo(SWFButtonRecord record, double deg)
 {
 	SWFPosition_rotateTo(record->position, deg);
 }
 
-void 
+void
 SWFButtonRecord_scale(SWFButtonRecord record, double scaleX, double scaleY)
 {
 	SWFPosition_scaleXY(record->position, scaleX, scaleY);
 }
 
-void 
+void
 SWFButtonRecord_scaleTo(SWFButtonRecord record, double scaleX, double scaleY)
 {
 	SWFPosition_scaleXYTo(record->position, scaleX, scaleY);
 }
 
-void 
+void
 SWFButtonRecord_skewX(SWFButtonRecord record, double skewX)
 {
 	SWFPosition_skewX(record->position, skewX);
 }
 
-void 
+void
 SWFButtonRecord_skewXTo(SWFButtonRecord record, double skewX)
 {
 	SWFPosition_skewXTo(record->position, skewX);
 }
 
-void 
+void
 SWFButtonRecord_skewY(SWFButtonRecord record, double skewY)
 {
 	SWFPosition_skewY(record->position, skewY);
 }
 
-void 
+void
 SWFButtonRecord_skewYTo(SWFButtonRecord record, double skewY)
 {
 	SWFPosition_skewYTo(record->position, skewY);
@@ -316,7 +316,7 @@ void SWFButton_setMenu(SWFButton button, int flag)
 	button->menuflag = flag;
 }
 
-void writeSWFButtonToMethod(SWFBlock block, 
+void writeSWFButtonToMethod(SWFBlock block,
 					SWFByteOutputMethod method, void *data)
 {
 	SWFButton button = (SWFButton)block;
@@ -376,7 +376,7 @@ int completeSWFButton(SWFBlock block)
 		SWFOutput_writeUInt16(out, button->actions[i].flags);
 		SWFOutput_writeAction(out, button->actions[i].action);
 	}
-		
+
 	button->out = out;
 	return SWFOutput_getLength(out);
 }
@@ -402,7 +402,7 @@ void destroySWFButton(SWFButton button)
 
 	for ( i=0; i<button->nActions; ++i )
 		destroySWFAction(button->actions[i].action);
-	
+
 	if ( button->actions != NULL )
 		free(button->actions);
 
@@ -432,7 +432,7 @@ static int onSWFButtonFrame(SWFDisplayItem item, SWFBlockList list)
 
 
 SWFButton
-newSWFButton()
+newSWFButton(void)
 {
 	SWFButton button = (SWFButton) malloc(sizeof(struct SWFButton_s));
 
@@ -443,7 +443,7 @@ newSWFButton()
 	BLOCK(button)->writeBlock = writeSWFButtonToMethod;
 	BLOCK(button)->complete = completeSWFButton;
 	BLOCK(button)->dtor = (destroySWFBlockMethod) destroySWFButton;
-	
+
 	((SWFCharacter)button)->onPlace = onSWFButtonPlace;
 	((SWFCharacter)button)->onFrame = onSWFButtonFrame;
 
@@ -486,7 +486,7 @@ destroySWFButtonSound(SWFButtonSound buttonSound)
 
 /* NOTE: at least F5 and F6 do not write an extra 0 style byte if there is
    no sound for a particular transition
-   the docs say otherwise 
+   the docs say otherwise
  */
 void
 writeSWFButtonSoundToMethod(SWFBlock block,
@@ -579,15 +579,15 @@ SWFButtonSound_setSound(SWFButtonSound sounds, SWFSound sound, byte flags)
  * This function sets a 9 slice scaling grid to buttons / sprites / movieclips
  *
  *      1 2 3
- *      4 5 6 
+ *      4 5 6
  *      7 8 9
  *
  * x, y, w and h define a rectangle, which is the dimension of the center slice (5)
  * all other slices are determined out of the characters bounds and the defined rect.
  * While slice 5 is scalde vertical and horizontal, slice 2 and 8 are only scale horizontal.
- * slice 4 and 6 only vertical. the 4 corner slices are not scaled (1, 3, 7, 9).  
+ * slice 4 and 6 only vertical. the 4 corner slices are not scaled (1, 3, 7, 9).
  */
-void 
+void
 SWFButton_setScalingGrid(SWFButton b, int x, int y, int w, int h)
 {
 	if(b->grid)
@@ -599,7 +599,7 @@ SWFButton_setScalingGrid(SWFButton b, int x, int y, int w, int h)
 /*
  * removes the scaling grid
  */
-void 
+void
 SWFButton_removeScalingGrid(SWFButton b)
 {
 	if(b->grid)

@@ -49,7 +49,7 @@ struct SWFGradient_s
 
 
 SWFGradient
-newSWFGradient()
+newSWFGradient(void)
 {
 	SWFGradient gradient = (SWFGradient) malloc(sizeof(struct SWFGradient_s));
 	gradient->spreadMode = 0;
@@ -59,8 +59,8 @@ newSWFGradient()
 	return gradient;
 }
 
-/* 
- * set gradient spread mode 
+/*
+ * set gradient spread mode
  * SWF8 allows to set different spread modes:
  * SWF_GRADIENT_PAD (default)
  * SWF_GRADIENT_REFLECT
@@ -85,7 +85,7 @@ void SWFGradient_setInterpolationMode(SWFGradient gradient, GradientInterpolatio
 /*
  * creates a radial gradient with focal point
  * valid focalPoint value range is -1.0 ... 1.0
- * where -1.0 means the focal point is close to the left border of 
+ * where -1.0 means the focal point is close to the left border of
  * the radial gradient circle; 0.0 is in the center and 1.0 is close
  * to the right border.
  */
@@ -110,15 +110,15 @@ destroySWFGradient(SWFGradient gradient)
 
 /*
  * add a gradient control point
- * The ratio defines the position of the control point 
- * and RGBA defines its color. 
- * SWF <= 7 allows up to 8 control points 
+ * The ratio defines the position of the control point
+ * and RGBA defines its color.
+ * SWF <= 7 allows up to 8 control points
  * SWF >= 8 allows up to 15 control points
  *
- * The ration parameter is a float and must be in a range 
+ * The ration parameter is a float and must be in a range
  * between [0.0 ... 1.0].
  *
- * In order to use SWF8 gradient features you need to set 
+ * In order to use SWF8 gradient features you need to set
  * SWFShapes version to SWF_SHAPE4. Use SWFShape_useVersion()
  * and friends.
  */
@@ -140,18 +140,18 @@ SWFGradient_addEntry(SWFGradient gradient,
 	++gradient->nGrads;
 }
 
-void 
+void
 SWFOutput_writeGradientAsFilter(SWFOutput out, SWFGradient gradient)
 {
 	int i;
 	int nGrads = gradient->nGrads;
-	
+
 	if(nGrads > 8)
 	{
 		SWF_warn("Can't write more than 8 control points for filter gradients\n");
 		nGrads = 8;
-	}	
-	
+	}
+
 	SWFOutput_writeUInt8(out, nGrads); /* only 1-8 allowed */
 
 	for ( i=0; i<nGrads; ++i )
@@ -169,7 +169,7 @@ SWFOutput_writeGradientAsFilter(SWFOutput out, SWFGradient gradient)
 
 #define GRADIENT_SIZE 32768.0f
 
-void 
+void
 SWFGradientMatrix_update(SWFMatrix matrix, SWFRect bounds)
 {
 	int w, h;
@@ -183,17 +183,17 @@ SWFGradientMatrix_update(SWFMatrix matrix, SWFRect bounds)
 	scaleX = w / GRADIENT_SIZE;
 	scaleY = h / GRADIENT_SIZE;
 
-	/* update matrix translation first, to be realtive to the gradient's 
+	/* update matrix translation first, to be realtive to the gradient's
 	 * coordinate system. */
-	SWFMatrix_moveTo(matrix, (int) (SWFMatrix_getTranslateX(matrix) / scaleX), 
+	SWFMatrix_moveTo(matrix, (int) (SWFMatrix_getTranslateX(matrix) / scaleX),
 		(int) (SWFMatrix_getTranslateY(matrix) / scaleY));
-	
+
 	tmp = newSWFMatrix(scaleX, 0, 0, scaleY, bounds->minX + w/2,  bounds->minY + h/2);
 	/* temporary matrix scales gradient to given bounds and centers it. */
 	/* all transformations done by the user are "applied" on the tmp matrix */
 	/* matrix = matrix * tmp -> "matrix is followed by tmp" */
 	SWFMatrix_multiply(matrix, tmp);
-	destroySWFMatrix(tmp);	
+	destroySWFMatrix(tmp);
 }
 
 
@@ -212,7 +212,7 @@ SWFOutput_writeGradient(SWFOutput out, SWFGradient gradient, SWFBlocktype shapeT
 		flags |= (0x3 & gradient->spreadMode) << 6;
 		SWFOutput_writeUInt8(out, flags); /* only 1-15 allowed */
 	}
-	else 
+	else
 	{
 		nGrads = min(nGrads, 8);
 		SWFOutput_writeUInt8(out, nGrads); /* only 1-8 allowed */

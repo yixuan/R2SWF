@@ -2,7 +2,7 @@
 #include <Rinternals.h>
 #include <R_ext/Rdynload.h>
 
-SEXP swfInit();
+SEXP swfInit(void);
 SEXP image2swf(SEXP fileNames, SEXP format, SEXP outName, SEXP bgColor, SEXP interval);
 SEXP svg2swf(SEXP filesData, SEXP outName, SEXP size, SEXP bgColor, SEXP interval);
 SEXP swfDevice(SEXP filename_r, SEXP width_r, SEXP height_r, SEXP bg_r, SEXP fg_r, SEXP frameRate_r);

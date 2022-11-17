@@ -168,14 +168,14 @@ newEmptySWFBlock(SWFBlocktype type)
 
 
 SWFBlock
-newSWFShowFrameBlock()
+newSWFShowFrameBlock(void)
 {
 	return newEmptySWFBlock(SWF_SHOWFRAME);
 }
 
 
 SWFBlock
-newSWFEndBlock()
+newSWFEndBlock(void)
 {
 	return newEmptySWFBlock(SWF_END);
 }

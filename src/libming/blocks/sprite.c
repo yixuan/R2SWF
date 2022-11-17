@@ -58,10 +58,10 @@ completeSWFSprite(SWFBlock block)
 	SWF_assert(block->swfVersion);
 	for ( i=0; i<sprite->nBlocks; ++i )
 	{
-		/* 
- 		set version information to sprite blocks 
+		/*
+ 		set version information to sprite blocks
 		so we can assure a valid movie version at completion time
-		*/   	
+		*/
 		sprite->blocks[i]->swfVersion = block->swfVersion;
 		length += completeSWFBlock(sprite->blocks[i]);
 	}
@@ -93,7 +93,7 @@ static int onPlace(SWFDisplayItem item, SWFBlockList list)
 {
 	int ret = 0;
 	SWFSprite sprite = (SWFSprite)SWFDisplayItem_getCharacter(item);
-	
+
 	if(sprite->grid)
 	{
 		SWFBlockList_addBlock(list, (SWFBlock)sprite->grid);
@@ -103,12 +103,12 @@ static int onPlace(SWFDisplayItem item, SWFBlockList list)
 	{
 		SWFBlockList_addBlock(list, (SWFBlock)sprite->initAction);
 		ret++;
-	}	
+	}
 	return ret;
 }
 
 SWFSprite
-newSWFSprite()
+newSWFSprite(void)
 {
 	SWFSprite sprite = (SWFSprite)malloc(sizeof(struct SWFSprite_s));
 
@@ -119,7 +119,7 @@ newSWFSprite()
 	BLOCK(sprite)->writeBlock = writeSWFSpriteToMethod;
 	BLOCK(sprite)->complete = completeSWFSprite;
 	BLOCK(sprite)->dtor = (destroySWFBlockMethod) destroySWFSprite;
-	
+
 	((SWFCharacter)sprite)->onPlace = onPlace;
 
 	sprite->nBlocks = 0;
@@ -148,7 +148,7 @@ SWFSprite_addBlock(SWFSprite sprite, SWFBlock block)
 	if ( block->type == SWF_SHOWFRAME ||
 			 block->type == SWF_PLACEOBJECT ||
 			 block->type == SWF_PLACEOBJECT2 ||
-			 block->type == SWF_PLACEOBJECT3 || 		
+			 block->type == SWF_PLACEOBJECT3 ||
 			 block->type == SWF_REMOVEOBJECT ||
 			 block->type == SWF_REMOVEOBJECT2 ||
 			 block->type == SWF_DOACTION ||

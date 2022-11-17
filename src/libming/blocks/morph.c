@@ -174,7 +174,7 @@ SWFMorph_getShape2(SWFMorph morph)
 
 
 SWFMorph
-newSWFMorphShape()
+newSWFMorphShape(void)
 {
 	SWFMorph morph = (SWFMorph) malloc(sizeof(struct SWFMorph_s));
 

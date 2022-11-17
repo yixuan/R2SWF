@@ -631,7 +631,7 @@ newSWFVideoStream_fromInput(SWFInput input) {
  * This function creates an empty videostream object. This object can be adressed via
  * ActionScript to connect and display a streamed video (progessive download / rtmp).
  */
-SWFVideoStream newSWFVideoStream() {
+SWFVideoStream newSWFVideoStream(void) {
 	SWFBlock block;
 	SWFVideoStream stream = (SWFVideoStream)malloc(sizeof(struct SWFVideoStream_s));
         if(!stream)

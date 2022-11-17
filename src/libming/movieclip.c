@@ -71,7 +71,7 @@ destroySWFMovieClip(SWFMovieClip movieClip)
  * returns a SWFMovieClip instance.
  */
 SWFMovieClip
-newSWFMovieClip()
+newSWFMovieClip(void)
 {
 	SWFMovieClip clip = (SWFMovieClip)newSWFSprite();
 	clip = (SWFMovieClip)realloc(clip, sizeof(struct SWFMovieClip_s));
@@ -110,7 +110,7 @@ SWFMovieClip_setNumberOfFrames(SWFMovieClip clip, int totalFrames)
  */
 void
 SWFMovieClip_setSoundStreamAt(SWFMovieClip clip,
-                              SWFSoundStream sound /* soundstream object */, 
+                              SWFSoundStream sound /* soundstream object */,
                               float rate /* framerate */,
                               float skip /* skip in seconds */)
 {
@@ -253,7 +253,7 @@ SWFMovieClip_nextFrame(SWFMovieClip clip)
  * x, y, w and h define a rectangle, which is the dimension of the center slice (5).
  * All other slices are determined out of the characters bounds and the defined rect.
  * While slice 5 is scaled vertical and horizontal, slice 2 and 8 are only scaled horizontal.
- * slice 4 and 6 only vertical. the 4 corner slices are not scaled (1, 3, 7, 9).  
+ * slice 4 and 6 only vertical. the 4 corner slices are not scaled (1, 3, 7, 9).
  */
 void
 SWFMovieClip_setScalingGrid(SWFMovieClip clip, int x, int y, int w, int h)

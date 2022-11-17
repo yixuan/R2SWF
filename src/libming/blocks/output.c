@@ -43,7 +43,7 @@ struct SWFOutput_s
 
 
 SWFOutput
-newSWFOutput()
+newSWFOutput(void)
 {
 	SWFOutput out = (SWFOutput) malloc(sizeof(struct SWFOutput_s));
 

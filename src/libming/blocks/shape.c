@@ -175,7 +175,7 @@ destroySWFShape(SWFShape shape)
 }
 
 SWFShape
-newSWFGlyphShape()
+newSWFGlyphShape(void)
 {
 	SWFShape shape = (SWFShape)malloc(sizeof(struct SWFShape_s));
 
@@ -219,7 +219,7 @@ newSWFGlyphShape()
 }
 
 SWFShape
-newSWFShape()
+newSWFShape(void)
 {
 	SWFShape shape = (SWFShape)malloc(sizeof(struct SWFShape_s));
 

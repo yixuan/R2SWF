@@ -86,7 +86,7 @@ destroySWFDisplayList(SWFDisplayList displayList)
 
 
 SWFDisplayList
-newSWFDisplayList()
+newSWFDisplayList(void)
 {
 	SWFDisplayList list = (SWFDisplayList)malloc(sizeof(struct SWFDisplayList_s));
 
@@ -105,7 +105,7 @@ newSWFDisplayList()
 
 
 SWFDisplayList
-newSWFSpriteDisplayList()
+newSWFSpriteDisplayList(void)
 {
 	SWFDisplayList list = (SWFDisplayList)malloc(sizeof(struct SWFDisplayList_s));
 
@@ -672,10 +672,10 @@ SWFDisplayList_writeBlocks(SWFDisplayList list, SWFBlockList blocklist)
 /*
  * This function writes the item object immediately to the blocklist.
  * Usually MING waits with writing a display item until a frame is closed
- * through a nextFrame() call, because a display items state could be altered 
- * for the current frame. By using SWFDisplayItem_flush() MING does not wait 
+ * through a nextFrame() call, because a display items state could be altered
+ * for the current frame. By using SWFDisplayItem_flush() MING does not wait
  * and writes the frame immediately. Therefore a user can influence the
- * swf tag oder. Changing a display items state after calling flush() takes 
+ * swf tag oder. Changing a display items state after calling flush() takes
  * effect in the next frame.
  */
 void

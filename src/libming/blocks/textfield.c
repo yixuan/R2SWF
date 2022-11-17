@@ -122,8 +122,8 @@ completeSWFTextField(SWFBlock block)
 
 	/* we're guessing how big the block's going to be.. */
 	SWFOutput out =
-		newSizedSWFOutput((int) (42 
-			+ ((field->varName)?strlen(field->varName):0) 
+		newSizedSWFOutput((int) (42
+			+ ((field->varName)?strlen(field->varName):0)
 			+ ((field->string)?strlen(field->string):0)));
 
 	field->out = out;
@@ -193,7 +193,7 @@ destroySWFTextField(SWFTextField field)
 
 
 SWFTextField
-newSWFTextField()
+newSWFTextField(void)
 {
 	SWFRect temp_rect;
 
@@ -264,7 +264,7 @@ static int checkSWFFontCharacter(SWFFontCharacter fc)
 	SWFFont font = SWFFontCharacter_getFont(fc);
 	font_flags = SWFFont_getFlags(font);
 	nGlyphs = SWFFontCharacter_getNGlyphs(fc);
-	
+
 	if((font_flags & SWF_FONT_HASLAYOUT) == 0 && nGlyphs == 0)
 		return -1;
 
@@ -289,11 +289,11 @@ SWFTextField_setFont(SWFTextField field, SWFBlock font)
 		SWFCharacter_addDependency((SWFCharacter)field, (SWFCharacter)font);
 		field->flags |= SWFTEXTFIELD_HASFONT;
 	}
-	else if ( BLOCK(font)->type == SWF_DEFINEFONT 
+	else if ( BLOCK(font)->type == SWF_DEFINEFONT
 		|| BLOCK(font)->type == SWF_DEFINEFONT2)
 	{
 		SWFFontCharacter fc = (SWFFontCharacter)font;
-		if(checkSWFFontCharacter(fc))	
+		if(checkSWFFontCharacter(fc))
 		{
 			SWF_warn("font is empty or has no layout information\n");
 			return;
@@ -321,7 +321,7 @@ SWFTextField_setFont(SWFTextField field, SWFBlock font)
 
 SWFFont
 SWFTextField_getUnresolvedFont(SWFTextField field)
-{	
+{
 	switch(field->fonttype)
 	{	case Font:
 			return field->font.font;
@@ -370,10 +370,10 @@ void SWFTextField_setFontCharacter(SWFTextField field, SWFFontCharacter fontchar
 	if((field->flags & SWFTEXTFIELD_NOEDIT) == 0)
 		SWFFontCharacter_addAllChars(fontchar);
 	else
-		SWFFontCharacter_addWideChars(fontchar, 
+		SWFFontCharacter_addWideChars(fontchar,
 				field->embeds, field->embedlen);
 }
-	
+
 void
 SWFTextField_setScaledBounds(SWFTextField field, int width, int height)
 {
@@ -386,7 +386,7 @@ SWFTextField_setScaledBounds(SWFTextField field, int width, int height)
 void
 SWFTextField_setFlags(SWFTextField field, int flags)
 {
-	field->flags |= flags; 
+	field->flags |= flags;
 }
 
 
@@ -438,7 +438,7 @@ SWFTextField_addString(SWFTextField field, const char *string)
 	l = (int) strlen(string);
 
 	SWFTextField_addStringOnly(field, string);
-	if(field->fonttype == FontChar || field->fonttype == Font) 
+	if(field->fonttype == FontChar || field->fonttype == Font)
 	{	field->embeds = (unsigned short *)realloc(
 			field->embeds, (field->embedlen + l) * 2);
 		for(n = 0 ; n < l  ; n++)

@@ -229,7 +229,7 @@ newSWFMovieWithVersion(int version /* Flash version */)
  * This function creates a new SWFMovie with the default version.
  */
 SWFMovie
-newSWFMovie()
+newSWFMovie(void)
 {
 	return newSWFMovieWithVersion(SWF_versionNum);
 }

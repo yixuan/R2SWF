@@ -272,7 +272,7 @@ destroySWFFontCharacter(SWFFontCharacter font)
 
 
 SWFFont
-newSWFFont()
+newSWFFont(void)
 {
 	SWFFont font = (SWFFont) malloc(sizeof(struct SWFFont_s));
 
@@ -455,7 +455,7 @@ newSWFFontCharacter(SWFFont font)
 }
 
 SWFFontCharacter
-newSWFDummyFontCharacter()
+newSWFDummyFontCharacter(void)
 {	SWFFontCharacter ret = (SWFFontCharacter) malloc(sizeof (struct SWFFontCharacter_s));
 	SWFCharacterInit((SWFCharacter) ret);
 	BLOCK(ret)->type = SWF_DEFINEFONT;
@@ -905,7 +905,7 @@ void destroySWFFontCollection(SWFFontCollection collection)
 	free(collection);
 }
 
-SWFFontCollection newSWFFontCollection()
+SWFFontCollection newSWFFontCollection(void)
 {
 	SWFFontCollection collection;
 

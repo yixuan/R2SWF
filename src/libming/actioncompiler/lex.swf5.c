@@ -3544,7 +3544,7 @@ static int getinput(void) {
 #endif
 }
 
-int swf5wrap()
+int swf5wrap(void)
 {
   return 1;
 }

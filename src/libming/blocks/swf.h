@@ -534,7 +534,7 @@ typedef struct SWFButton_s *SWFButton;
 #define SWFBUTTON_MOUSEOVER       SWFBUTTON_IDLETOOVERUP
 
 
-SWFButton newSWFButton();
+SWFButton newSWFButton(void);
 void destroySWFButton(SWFBlock block);
 
 void SWFButton_addShape(SWFButton button, SWFCharacter character, byte flags);
