@@ -40,7 +40,7 @@ int Ming_cubicThreshold = 10000;
  * returns non-zero if error.
  */
 
-int Ming_init()
+int Ming_init(void)
 {
 	SWF_gNumCharacters = 0;
 	SWF_versionNum = 5;
@@ -53,7 +53,7 @@ int Ming_init()
 
 
 void
-Ming_cleanup()
+Ming_cleanup(void)
 {
 	Ming_cleanupFonts();
 }
@@ -64,7 +64,7 @@ Ming_cleanup()
  * generating output. The level should be a value between 1 and 9 inclusive
  * and corresponds to compression levels used by libz.
  * Returns previous value.
- */ 
+ */
 int
 Ming_setSWFCompression(int level /* new compression level */)
 {
@@ -85,7 +85,7 @@ void Ming_setScale(float scale /* New scaling factor */)
  * Get the global scaling factor
  * returns the current global scaling factor
  */
-float Ming_getScale()
+float Ming_getScale(void)
 {
 	return Ming_scale;
 }
