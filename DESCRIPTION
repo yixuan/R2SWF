@@ -1,7 +1,7 @@
 Package: R2SWF
-Version: 0.9-8
+Version: 0.9-9
 Title: Convert R Graphics to Flash Animations
-Date: 2022-11-16
+Date: 2024-03-02
 Author: Yixuan Qiu, Yihui Xie, Cameron Bracken and authors of included
     software. See file AUTHORS for details.
 Maintainer: Yixuan Qiu <yixuan.qiu@cos.name>
@@ -22,4 +22,5 @@ License: GPL-2
 SystemRequirements: zlib, libpng, FreeType
 URL: https://github.com/yixuan/R2SWF
 BugReports: https://github.com/yixuan/R2SWF/issues
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.1
+Encoding: UTF-8

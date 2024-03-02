@@ -1,6 +1,15 @@
 \name{NEWS}
 \title{News for Package "R2SWF"}
 
+\section{Changes in R2SWF version 0.9-9}{
+  \subsection{BUG FIXES}{
+    \itemize{
+      \item Updated the linking on Windows for upcoming version of Rtools,
+            thanks to Tomas Kalibera.
+    }
+  }
+}
+
 \section{Changes in R2SWF version 0.9-8}{
   \subsection{BUG FIXES}{
     \itemize{
